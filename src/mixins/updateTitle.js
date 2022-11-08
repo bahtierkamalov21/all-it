@@ -1,14 +1,6 @@
 export default {
-  methods: {
-    isEmpty(obj) {
-      for (let key in obj) {
-        return false;
-      }
-      return true;
-    },
-  },
   created() {
-    if (!this.isEmpty(this.$route.params)) {
+    if (this.$route.params.id) {
       const newString =
         this.$route.params.id[0].toUpperCase() + this.$route.params.id.slice(1);
       document.title = `ALL IT - ${newString}`;

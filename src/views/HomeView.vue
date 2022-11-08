@@ -1,6 +1,7 @@
 <template lang="pug">
 div
-  button(@click="$router.push('/projects')")
+  button(@click="$router.push('/projects')")  
+  div {{ $t("hello") }}
 </template>
 
 <script>
