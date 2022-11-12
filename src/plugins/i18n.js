@@ -5,10 +5,21 @@ import enLanguage from "../languages/en.json";
 
 Vue.use(VueI18n);
 
+var language;
+
+function setLanguageDefault() {
+  const systemLanguage = window.navigator.language.split("-")[0];
+  if (systemLanguage === "ru" || systemLanguage === "en") {
+    language = systemLanguage;
+  } else language = "en";
+}
+
+setLanguageDefault();
+
 export default new VueI18n({
-  locale: "en",
+  locale: language,
   messages: {
-    ruLanguage,
-    enLanguage,
+    ru: ruLanguage,
+    en: enLanguage,
   },
 });

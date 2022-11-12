@@ -1,6 +1,23 @@
 <template lang="pug">
-div(id="app")
+v-app
+  main-navigation
   router-view
 </template>
 
-<style lang="scss"></style>
+<script>
+import MainNavigation from "./components/MainNavigation";
+
+export default {
+  name: "App",
+  components: {
+    MainNavigation,
+  },
+  data: () => ({}),
+};
+</script>
+
+<style>
+.v-application {
+  font-family: "Poppins", "Roboto", sans-serif;
+}
+</style>
