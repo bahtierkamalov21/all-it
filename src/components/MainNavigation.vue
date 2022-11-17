@@ -39,12 +39,40 @@ export default {
           href: "#",
         },
         {
+          name: "Проекты",
+          href: "/projects",
+        },
+        {
           name: this.$t("services"),
           href: "#",
           list: [
             {
               name: "Сайты",
-              href: "sites",
+              href: "projects/category/sites",
+            },
+            {
+              name: "Telegram Боты",
+              href: "projects/category/telegram-bots",
+            },
+            {
+              name: "PWA",
+              href: "projects/category/pwa",
+            },
+            {
+              name: "Моб приложения",
+              href: "projects/category/mobile-apps",
+            },
+            {
+              name: "Автоматизации",
+              href: "projects/category/automation",
+            },
+            {
+              name: "DevOps",
+              href: "projects/category/devops",
+            },
+            {
+              name: "Серверное администрирование",
+              href: "projects/category/server-administration",
             },
           ],
         },
@@ -197,6 +225,7 @@ li {
   & > * {
     text-decoration: none;
     color: #999 !important;
+    display: block;
     transition: all 0.2s ease-in;
 
     &:hover {
