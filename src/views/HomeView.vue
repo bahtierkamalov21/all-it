@@ -1,13 +1,7 @@
 <template lang="pug">
 div
   div(class="header")
-    left-drawer-view
     v-container
-      v-card(class="header-wrapper")
-        h1 IT Разработка
-        h2 Соверменных
-          br
-          | Проектов
 </template>
 
 <script>
@@ -32,11 +26,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(90deg, #effaff 0%, #d9e7ff 100%);
+  background-color: var(--v-background-base);
+  min-height: calc(100vh - 56px);
 
   &-wrapper {
     border-radius: 16px !important;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 15%) !important;
     background-color: #fff;
     min-height: calc(75vh);
     padding: 25px;

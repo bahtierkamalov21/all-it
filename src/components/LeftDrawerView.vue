@@ -1,6 +1,8 @@
 <template lang="pug">
 div
   div(class="drawer" :style="heightDrawer")
+    div(class="drawer-content")
+      | aasdas
 </template>
 
 <script>
@@ -11,7 +13,7 @@ export default {
       drawer: true,
       arrayHeightDrawer: [
         {
-          height: "calc(100vh - 60px)",
+          height: "calc(100vh - 56px)",
         },
         {
           height: "calc(100vh - 106px)",
@@ -35,9 +37,18 @@ export default {
 
 <style scoped lang="scss">
 .drawer {
-  width: 56px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
-  background-color: #fff;
+  width: 68px;
   backdrop-filter: 16px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+  &-content {
+    background-color: #fff;
+    width: 56px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+    height: 80%;
+  }
 }
 </style>

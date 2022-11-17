@@ -4,9 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    hideWarning: true,
-  },
+  state: {},
   getters: {},
   mutations: {},
   actions: {},

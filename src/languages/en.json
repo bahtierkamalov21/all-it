@@ -1,4 +1,6 @@
 {
   "main": "Main",
-  "hello": "hello"
+  "hello": "hello",
+  "login": "Login",
+  "services": "Services"
 }

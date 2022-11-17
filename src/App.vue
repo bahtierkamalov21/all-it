@@ -17,6 +17,11 @@ export default {
 </script>
 
 <style>
+html {
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
 .v-application {
   font-family: "Poppins", "Roboto", sans-serif;
 }
