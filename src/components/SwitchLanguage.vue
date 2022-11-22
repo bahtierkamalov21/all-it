@@ -64,11 +64,12 @@ ul {
 .list-languages {
   position: absolute;
   background-color: #fff;
-  top: 40px;
+  top: 56px;
   padding: 20px;
   min-width: 200px;
   left: -16px;
-  box-shadow: 0 5px 12px rgb(0 0 0 / 15%);
+  border-radius: 10px;
+  box-shadow: var(--base-shadow);
 
   & > * {
     text-decoration: none;

@@ -17,6 +17,10 @@ export default {
 </script>
 
 <style>
+:root {
+  --base-shadow: 0 0 10px -8px var(--v-color_shadow-base);
+}
+
 html {
   scroll-behavior: smooth;
   overflow: hidden;

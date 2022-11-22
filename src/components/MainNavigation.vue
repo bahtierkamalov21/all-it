@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   nav(class="nav")
-    v-container(fluid)
+    v-container(class="container")
       v-col
         v-row(class="align-center")
           div(class="title")
@@ -12,25 +12,26 @@ div
             font-awesome-icon(v-if="!$vuetify.theme.dark" icon="fa-solid fa-earth-asia")
             div(v-if="$vuetify.theme.dark" class="icon-light-theme")
           switch-language(class="ml-6")
-          v-spacer 
-          div(class="logo")
-            v-img(src="@/assets/logo.svg")
+          v-spacer
+          logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
               router-link(:to="item.href" :class="item.list ? 'category-link pr-2' : null") {{ item.name }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
-                router-link(v-for="list in item.list" :to="list.href" :key="list.id")
-                  | {{ list.name }}
+                div
+                  router-link(v-for="list in item.list" :to="list.href" :key="list.id")
+                    | {{ list.name }}
 </template>
 
 <script>
 import SwitchLanguage from "./SwitchLanguage.vue";
+import LogoItem from "./LogoItem.vue";
 
 export default {
   name: "MainNavigation",
-  components: { SwitchLanguage },
+  components: { SwitchLanguage, LogoItem },
   data() {
     return {
       links: [
@@ -101,19 +102,23 @@ export default {
 
 <style scoped lang="scss">
 .nav {
-  background-color: #fff;
-
-  & > *:first-child {
-    display: flex;
-    align-items: center;
-    height: 56px;
-    padding: 0 32px !important;
-  }
+  background-color: var(--v-background-base);
+  padding: 12px;
 
   &-warning {
     overflow: hidden;
   }
 }
+
+.container {
+  padding: 0 24px;
+  padding-left: 16px;
+  background-color: #fff;
+  box-shadow: var(--base-shadow);
+  max-width: 1366px;
+  border-radius: 10px;
+}
+
 .title {
   display: flex;
   align-items: center;
@@ -153,6 +158,10 @@ export default {
 ul {
   list-style: none;
   display: flex;
+
+  & > *:last-child > a {
+    padding: 0;
+  }
 }
 
 li {
@@ -161,11 +170,12 @@ li {
   & > * {
     text-decoration: none;
     transition: all 0.2s ease-in;
-    font-weight: 500;
+    font-weight: 600;
     display: flex;
     align-items: center;
     color: #999 !important;
-    padding: 16px;
+    padding: 0 16px;
+    height: 68px;
     padding-left: 0;
   }
 
@@ -197,10 +207,10 @@ li {
 }
 
 .logo {
-  height: 24px;
-  width: 24px;
-  border-radius: 10px;
-  box-shadow: 0 5px 12px rgb(0 0 0 / 10%);
+  height: 38px;
+  width: 38px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
 }
 
 .category-links {
@@ -216,21 +226,27 @@ li {
   display: none;
   position: absolute;
   left: -16px;
-  top: 56px;
-  background-color: #fff;
+  top: 68px;
   min-width: 200px;
-  padding: 20px;
-  box-shadow: 0 5px 12px rgb(0 0 0 / 15%);
+  padding-top: 10px;
 
-  & > * {
-    text-decoration: none;
-    color: #999 !important;
-    display: block;
-    transition: all 0.2s ease-in;
+  & > div {
+    position: relative;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: var(--base-shadow);
 
-    &:hover {
+    & > * {
+      text-decoration: none;
+      color: #999 !important;
+      display: block;
       transition: all 0.2s ease-in;
-      color: #666 !important;
+
+      &:hover {
+        transition: all 0.2s ease-in;
+        color: #666 !important;
+      }
     }
   }
 }
@@ -267,10 +283,11 @@ li {
 }
 
 @keyframes hover-list-link {
-  0% {
+  from {
     opacity: 0.2;
   }
-  100% {
+
+  to {
     opacity: 1;
   }
 }

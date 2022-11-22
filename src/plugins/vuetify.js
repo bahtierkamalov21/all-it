@@ -15,11 +15,13 @@ export default new Vuetify({
         error: "#b71c1c",
         content: "#ffffff",
         custom_title: "#666666",
+        color_shadow: "#000000",
       },
       dark: {
         background: "#1c1c1c",
         content: "#000000",
         custom_title: "#ffffff",
+        color_shadow: "#ffffff",
       },
     },
   },
