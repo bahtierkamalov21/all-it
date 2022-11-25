@@ -14,7 +14,7 @@ export default {
   name: "LogoItem",
   data() {
     return {
-      colors: ["#2196F3", "black", "pink", "lime"],
+      colors: ["#2196F3", "blue", "black"],
       element: null,
     };
   },
@@ -22,7 +22,7 @@ export default {
     this.element = document.getElementById("logo-circle");
     setInterval(() => {
       this.changeColors();
-    }, 4000);
+    }, 2000);
   },
   methods: {
     changeColors() {
@@ -43,7 +43,7 @@ export default {
 }
 
 #logo-circle {
-  transition: all 2s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 @keyframes logo-text {

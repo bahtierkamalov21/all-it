@@ -2,5 +2,10 @@
   "main": "Main",
   "hello": "hello",
   "login": "Login",
-  "services": "Services"
+  "services": "Services",
+  "header__h1": "IT Development",
+  "modern": "Modern",
+  "projects": "Projects",
+  "discuss": "Discuss",
+  "project": "project"
 }

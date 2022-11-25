@@ -8,9 +8,17 @@ div
             a(href="/") All IT.agency
               div(class="lang-prefix") {{ $i18n.locale }}
               div(class="tm") TM
-          div(class="theme-button ml-8" icon @click="changeTheme")
-            font-awesome-icon(v-if="!$vuetify.theme.dark" icon="fa-solid fa-earth-asia")
-            div(v-if="$vuetify.theme.dark" class="icon-light-theme")
+          v-tooltip(bottom)
+            template(v-slot:activator="{ on, attrs }")
+              div(
+                class="theme-button ml-8" 
+                icon 
+                @click="changeTheme"
+                v-on="on"
+              )
+                font-awesome-icon(v-if="!$vuetify.theme.dark" icon="fa-solid fa-earth-asia")
+                div(v-if="$vuetify.theme.dark" class="icon-light-theme")
+            span Сменить тему
           switch-language(class="ml-6")
           v-spacer
           logo-item
@@ -23,6 +31,10 @@ div
                 div
                   router-link(v-for="list in item.list" :to="list.href" :key="list.id")
                     | {{ list.name }}
+          div(class="login-signup ml-4")
+            div
+              router-link(to="/login") {{ $t("login") }} 
+              v-icon mdi-account-circle
 </template>
 
 <script>
@@ -85,16 +97,13 @@ export default {
           name: "Отзывы",
           href: "#",
         },
-        {
-          name: this.$t("login"),
-          href: "#",
-        },
       ],
     };
   },
   methods: {
     changeTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      this.$store.commit("changeTheme", this.$vuetify.theme.dark);
     },
   },
 };
@@ -104,6 +113,10 @@ export default {
 .nav {
   background-color: var(--v-background-base);
   padding: 12px;
+  padding-bottom: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 
   &-warning {
     overflow: hidden;
@@ -112,7 +125,6 @@ export default {
 
 .container {
   padding: 0 24px;
-  padding-left: 16px;
   background-color: #fff;
   box-shadow: var(--base-shadow);
   max-width: 1366px;
@@ -195,6 +207,40 @@ li {
     & > * {
       transition: all 0.2s ease-in;
       color: #666 !important;
+    }
+  }
+}
+
+.login-signup {
+  background-color: var(--v-background-base);
+  border-radius: 20px;
+  height: 42px;
+  min-width: 108px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 5%);
+  overflow: hidden;
+
+  & > div {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: 16px;
+    background-color: rgba(255, 255, 255, 10%);
+
+    &:hover > *:first-child {
+      transition: all 0.2s ease-in;
+      color: var(--v-nav_link_hover-base) !important;
+    }
+
+    & > *:first-child {
+      transition: all 0.2s ease-in;
+      font-weight: 600;
+      color: #999 !important;
+      text-decoration: none;
     }
   }
 }

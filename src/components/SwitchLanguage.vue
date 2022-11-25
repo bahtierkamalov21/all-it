@@ -1,14 +1,18 @@
 <template lang="pug">
 div
-  div(class="switch" @click="openList")
-    font-awesome-icon(icon="fa-solid fa-earth-asia" class="icon")
-    div(class="ml-2") {{ $i18n.locale }}
-    v-icon(class="chevron") {{ open ? "mdi-chevron-up" : "mdi-chevron-down" }}
-    div(class="list-languages" v-if="open")
-      ul
-        li(v-for="item in listLanguages" :key="item.id" @click="changeLanguage(item)")
-          | {{ item === "ru" ? (`Русский (${item.toUpperCase()})`) : null }}
-          | {{ item === "en" ? (`Английский (${item.toUpperCase()})`) : null }}
+  v-tooltip(bottom)
+    template(v-slot:activator="{ on, attrs }")
+      div(class="switch" @click="openList")
+        div(v-bind="attrs" v-on="on")
+          font-awesome-icon(icon="fa-solid fa-earth-asia" class="icon")
+          div(class="ml-2") {{ $i18n.locale }}
+          v-icon(class="chevron") {{ open ? "mdi-chevron-up" : "mdi-chevron-down" }}
+        div(class="list-languages" v-if="open")
+          ul
+            li(v-for="item in listLanguages" :key="item.id" @click="changeLanguage(item)")
+              | {{ item === "ru" ? (`Русский (${item.toUpperCase()})`) : null }}
+              | {{ item === "en" ? (`Английский (${item.toUpperCase()})`) : null }}
+    span Сменить язык
 </template>
 
 <script>
@@ -17,8 +21,18 @@ export default {
   data() {
     return {
       open: false,
+      element: null,
       listLanguages: Object.getOwnPropertyNames(this.$i18n.messages),
     };
+  },
+  mounted() {
+    this.element = document.querySelector(".switch");
+    document.addEventListener("click", (event) => {
+      const withinBoundaries = event.composedPath().includes(this.element);
+      if (!withinBoundaries) {
+        this.open = false;
+      } else null;
+    });
   },
   methods: {
     openList() {
@@ -35,20 +49,24 @@ export default {
 .switch {
   border: 1px solid #999;
   border-radius: 20px;
-  display: flex;
-  align-items: center;
   cursor: pointer;
   user-select: none;
   padding: 0 2px 0 6px;
   font-weight: 500;
   color: #999;
   position: relative;
-  & > *:nth-child(2) {
-    text-transform: uppercase;
-  }
 
-  & > .icon {
-    font-size: 14px !important;
+  & > div {
+    display: flex;
+    align-items: center;
+
+    & > *:nth-child(2) {
+      text-transform: uppercase;
+    }
+
+    & > .icon {
+      font-size: 14px !important;
+    }
   }
 }
 

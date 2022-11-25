@@ -23,10 +23,10 @@ export default {
 
 html {
   scroll-behavior: smooth;
-  overflow: hidden;
 }
 
 .v-application {
   font-family: "Poppins", "Roboto", sans-serif;
+  background-color: var(--v-background-base) !important;
 }
 </style>
