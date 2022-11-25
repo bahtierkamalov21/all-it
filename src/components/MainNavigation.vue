@@ -256,7 +256,7 @@ li {
   height: 38px;
   width: 38px;
   border-radius: 8px;
-  box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
+  box-shadow: 0 0 5px 0 rgb(0 0 0 / 10%);
 }
 
 .category-links {

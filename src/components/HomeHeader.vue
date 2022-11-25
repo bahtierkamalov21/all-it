@@ -6,23 +6,25 @@ div
       div
         shapes-home-header
     v-container(class="header-container")
-      v-col 
-        v-row(class="align-center") 
-          div(class="left")
-            v-chip(color="primary")
-              v-icon(class="status mr-2") mdi-star-check
-              | Frontend Backend | Web Developers
-            h1(class="title mt-6 mb-10") {{ $t("header__h1") }}
-            h2(class="subtitle pa-0") 
-              | {{ $t("modern") }}
-              br
-              | {{ $t("projects") }}
-              span WCAG 3.0
-            v-btn(class="left-button mt-6" color="primary" width="320" min-width="62" min-height="62")
-              span(class="text-capitalize") {{ $t("discuss") }}
-                span(class="text-lowercase")  {{ $t("project") }}
-            marquee-item
-          div(class="right")
+      div(class="top")
+        v-col 
+          v-row(class="align-center") 
+            div(class="left")
+              v-chip(color="primary")
+                v-icon(class="status mr-2") mdi-star-check
+                | Frontend Backend | Web Developers
+              h1(class="title mt-6 mb-10") {{ $t("header__h1") }}
+              h2(class="subtitle pa-0") 
+                | {{ $t("modern") }}
+                br
+                | {{ $t("projects") }}
+                span WCAG 3.0
+              v-btn(class="left-button mt-6" color="primary" width="320" min-width="62" min-height="62")
+                span(class="text-capitalize") {{ $t("discuss") }}
+                  span(class="text-lowercase")  {{ $t("project") }}
+            div(class="right")
+      div(class="bottom mt-6")
+        marquee-item
 </template>
 
 <script>
@@ -70,14 +72,14 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  height: calc(100vh - 80px);
-  margin-top: 80px;
+  min-height: calc(100vh - 80px);
   overflow: hidden;
 
   &-wrapper {
     width: 100%;
     display: flex;
     align-items: center;
+    min-height: 670px;
 
     & > *:first-child {
       width: 50%;
@@ -85,7 +87,7 @@ export default {
 
     & > *:last-child {
       width: 50%;
-      height: calc(100vh - 80px);
+      min-height: calc(100vh - 80px);
       position: relative;
     }
   }
@@ -99,7 +101,12 @@ export default {
     border-radius: 12px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
     padding: 32px;
-    min-height: calc(100% - 92px);
+    padding-bottom: 26px;
+    min-height: 496px;
+    top: 122px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 }
 
@@ -115,6 +122,10 @@ export default {
 .title {
   font-size: 5rem !important;
   font-weight: 800;
+}
+
+.bottom {
+  padding-top: auto;
 }
 
 .subtitle {

@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  marquee(class="marquee" behavior="alternate", direction="right") 
+  marquee(class="marquee" behavior="scroll", direction="right" loop="-1") 
     ul
       li(v-for="item in images" :key="item.id")
         v-img(:src="item.image")
@@ -23,9 +23,9 @@ export default {
 
 <style scoped lang="scss">
 .marquee {
-  position: absolute;
-  bottom: 32px;
-  left: 32px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  height: 100%;
 
   & > ul {
     display: flex;
