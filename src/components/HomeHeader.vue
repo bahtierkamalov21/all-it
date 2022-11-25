@@ -9,8 +9,9 @@ div
       v-col 
         v-row(class="align-center") 
           div(class="left")
-            v-chip(color="primary pl-7") Frontend Backend | Web Developers
-              span(class="status")
+            v-chip(color="primary")
+              v-icon(class="status mr-2") mdi-star-check
+              | Frontend Backend | Web Developers
             h1(class="title mt-6 mb-10") {{ $t("header__h1") }}
             h2(class="subtitle pa-0") 
               | {{ $t("modern") }}
@@ -20,25 +21,21 @@ div
             v-btn(class="left-button mt-6" color="primary" width="320" min-width="62" min-height="62")
               span(class="text-capitalize") {{ $t("discuss") }}
                 span(class="text-lowercase")  {{ $t("project") }}
-            marquee(class="marquee" behavior="alternate", direction="right")
-              ul
-                li sacascasc 
-                li cascacascas 
+            marquee-item
           div(class="right")
 </template>
 
 <script>
 import ShapesHomeHeader from "./ShapesHomeHeader.vue";
+import MarqueeItem from "./MarqueeItem";
 import { mapState } from "vuex";
 
 export default {
   name: "HomeHeader",
-  components: { ShapesHomeHeader },
+  components: { ShapesHomeHeader, MarqueeItem },
   data() {
     return {
       container: null,
-      colorsStatus: ["red", "blue"],
-      elementStatusCircle: null,
     };
   },
   computed: {
@@ -57,14 +54,12 @@ export default {
         this.container.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
       }
     },
-    changeColorsStatus() {
-      const index = Math.floor(Math.random() * this.colors.length);
-      this.elementStatusCircle.setAttribute("fill", this.colors[index]);
+    changeStopIntervalShapes(data) {
+      this.stopIntervalShapes = data;
     },
   },
   mounted() {
     this.container = document.querySelector(".header-container");
-    this.elementStatusCircle = document.querySelector(".status");
   },
 };
 </script>
@@ -108,24 +103,8 @@ export default {
   }
 }
 
-.status {
-  display: block;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  position: absolute;
-  left: 12px;
-  border-radius: 20px;
-}
-
-.marquee {
-  position: absolute;
-  bottom: 32px;
-  left: 32px;
-}
-
 .left {
-  width: 50%;
+  width: 60%;
 
   &-button {
     font-size: 18px !important;

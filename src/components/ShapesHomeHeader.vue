@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div(class="shapes")
   div(v-if="!this.$vuetify.theme.dark")
     img(v-for="images in images.light" :class="{'hover' : images.active}" class="image" :src="images.image" alt="shapes")
 </template>
@@ -27,17 +27,28 @@ export default {
       },
       index: 0,
       show: true,
+      elementShapes: null,
     };
   },
   mounted() {
     this.element = document.querySelector(".image");
-    window.interval = setInterval(() => {
-      if (this.$vuetify.theme.dark) {
-        this.changeImages(this.images.dark);
-      } else {
-        this.changeImages(this.images.light);
-      }
-    }, 4000);
+    this.elementShapes = document.querySelector(".shapes");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((item) => {
+        if (item.isIntersecting) {
+          window.interval = setInterval(() => {
+            if (this.$vuetify.theme.dark) {
+              this.changeImages(this.images.dark);
+            } else {
+              this.changeImages(this.images.light);
+            }
+          }, 2000);
+        } else clearInterval(window.interval);
+      });
+    });
+
+    observer.observe(this.elementShapes);
   },
   methods: {
     changeImages(data) {
