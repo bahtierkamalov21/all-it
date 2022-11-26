@@ -19,7 +19,7 @@ div
                 br
                 | {{ $t("projects") }}
                 span WCAG 3.0
-              v-btn(class="left-button mt-6" color="primary" width="320" min-width="62" min-height="62")
+              v-btn(class="left-button mt-4" width="320" min-width="62" min-height="62")
                 span(class="text-capitalize") {{ $t("discuss") }}
                   span(class="text-lowercase")  {{ $t("project") }}
             div(class="right")
@@ -116,6 +116,8 @@ export default {
   &-button {
     font-size: 18px !important;
     font-weight: 600;
+    border-radius: 10px;
+    background-color: #fff !important;
   }
 }
 

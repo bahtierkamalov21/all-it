@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  marquee(class="marquee" behavior="scroll", direction="right" loop="-1") 
+  div(class="marquee") 
     ul
       li(v-for="item in images" :key="item.id")
         v-img(:src="item.image")
@@ -14,6 +14,15 @@ export default {
       images: [
         {
           image: require("@/assets/marquee/nodejs-marquee.svg"),
+        },
+        {
+          image: require("@/assets/marquee/python-marquee.svg"),
+        },
+        {
+          image: require("@/assets/marquee/git-scm-marquee.svg"),
+        },
+        {
+          image: require("@/assets/marquee/linux-marquee.svg"),
         },
       ],
     };
@@ -34,6 +43,16 @@ export default {
 
     & > li {
       list-style: none;
+
+      & > * {
+        filter: grayscale(100%);
+        transition: 2s;
+
+        &:hover {
+          filter: grayscale(0);
+          transition: 2s;
+        }
+      }
     }
   }
 }
