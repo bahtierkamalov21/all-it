@@ -13,7 +13,7 @@ div
               v-chip(color="primary")
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
-              h1(class="title mt-6 mb-10") {{ $t("header__h1") }}
+              h1(class="title mt-8 mb-10") {{ $t("header__h1") }}
               h2(class="subtitle pa-0") 
                 | {{ $t("modern") }}
                 br
@@ -117,7 +117,7 @@ export default {
     font-size: 18px !important;
     font-weight: 600;
     border-radius: 10px;
-    background-color: #fff !important;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   }
 }
 

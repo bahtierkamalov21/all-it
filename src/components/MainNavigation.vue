@@ -219,6 +219,40 @@ li {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 5%);
   overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: var(--v-background-base);
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-image: linear-gradient(
+        var(--v-background-base),
+        var(--v-background-base)
+      ),
+      linear-gradient(#337ab7, #337ab7),
+      linear-gradient(var(--v-background-base), var(--v-background-base)),
+      linear-gradient(#337ab7, #337ab7);
+    animation: login-border 4s linear infinite;
+  }
+
+  &::after {
+    content: "";
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    background-color: var(--v-background-base);
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 20px;
+    z-index: 2;
+  }
 
   & > div {
     gap: 10px;
@@ -227,6 +261,8 @@ li {
     justify-content: space-between;
     padding: 0 12px;
     width: 100%;
+    position: relative;
+    z-index: 4;
     height: 100%;
     backdrop-filter: 16px;
     background-color: rgba(255, 255, 255, 10%);
@@ -325,6 +361,12 @@ li {
 
   & > *:first-child {
     color: #b2b2b2;
+  }
+}
+
+@keyframes login-border {
+  100% {
+    transform: rotate(1turn);
   }
 }
 
