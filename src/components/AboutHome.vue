@@ -67,7 +67,6 @@ export default {
 
       & > *:first-child {
         height: 100%;
-        padding-top: 6vh;
         padding-bottom: 6vh;
 
         & > *:nth-child(1) {

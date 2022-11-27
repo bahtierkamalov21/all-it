@@ -100,7 +100,7 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 12px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     padding: 32px;
     padding-bottom: 26px;
     min-height: 496px;
@@ -115,7 +115,7 @@ export default {
   width: 60%;
 
   &-button {
-    font-size: 18px !important;
+    font-size: 1.25rem !important;
     font-weight: 600;
     border-radius: 10px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);

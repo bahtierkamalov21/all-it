@@ -11,10 +11,21 @@ import {
   faLaptopCode,
   faCloud,
   faGlobe,
+  faArrowUp,
+  faCircleCheck,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faEarthAsia, faLaptopCode, faCloud, faGlobe);
+library.add(
+  faEarthAsia,
+  faLaptopCode,
+  faCloud,
+  faGlobe,
+  faArrowUp,
+  faCircleCheck,
+  faPlus
+);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
