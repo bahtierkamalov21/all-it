@@ -6,10 +6,15 @@ import i18n from "./plugins/i18n";
 import vuetify from "./plugins/vuetify";
 // FontAwesomeIcons
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faEarthAsia } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEarthAsia,
+  faLaptopCode,
+  faCloud,
+  faGlobe,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faEarthAsia);
+library.add(faEarthAsia, faLaptopCode, faCloud, faGlobe);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

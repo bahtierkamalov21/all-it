@@ -20,7 +20,7 @@ div
                 | {{ $t("projects") }}
                 span WCAG 3.0
               v-btn(class="left-button mt-4" width="320" min-width="62" min-height="62")
-                span(class="text-capitalize") {{ $t("discuss") }}
+                span(class="left-button-span text-capitalize") {{ $t("discuss") }}
                   span(class="text-lowercase")  {{ $t("project") }}
             div(class="right")
       div(class="bottom mt-6")
@@ -79,7 +79,8 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
-    min-height: 670px;
+    min-height: 640px;
+    height: 100vh;
 
     & > *:first-child {
       width: 50%;
@@ -87,7 +88,7 @@ export default {
 
     & > *:last-child {
       width: 50%;
-      min-height: calc(100vh - 80px);
+      height: inherit;
       position: relative;
     }
   }
@@ -103,7 +104,7 @@ export default {
     padding: 32px;
     padding-bottom: 26px;
     min-height: 496px;
-    top: 122px;
+    top: 112px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -118,6 +119,37 @@ export default {
     font-weight: 600;
     border-radius: 10px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+
+    &-span {
+      z-index: 10;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      background: linear-gradient(#c84ba8, #5336fc) !important;
+      width: calc(100% * 2);
+      height: calc(100% * 5.5);
+      left: -50%;
+      animation: buttonBg 4s linear infinite;
+      z-index: 4;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      background-color: inherit;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      border-radius: inherit;
+      left: 2px;
+      top: 2px;
+      opacity: 1 !important;
+      z-index: 6;
+    }
   }
 }
 
@@ -148,6 +180,16 @@ export default {
     left: 10px;
     position: relative;
     background-color: #1976d2;
+  }
+}
+
+@keyframes buttonBg {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 
