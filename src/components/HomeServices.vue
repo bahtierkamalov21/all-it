@@ -10,6 +10,7 @@ div
               br
               | специализируемся?
             font-awesome-icon(icon="fa-solid fa-circle-check" class="subtitle")
+        home-services-swiper(class="mt-16 mb-6")
     // Services View
     div(class="services__views d-flex align-center")
       h3
@@ -35,6 +36,8 @@ div
 </template>
 
 <script>
+import HomeServicesSwiper from "@/components/HomeServicesSwiper";
+
 export default {
   name: "HomeServices",
   data() {
@@ -43,6 +46,7 @@ export default {
       services: null,
     };
   },
+  components: { HomeServicesSwiper },
   watch: {
     show_transition_numbers() {
       const services_one = document.getElementById("services-one");
@@ -130,7 +134,8 @@ export default {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     color: #ffffff;
-    justify-content: space-around;
+    gap: 136px;
+    justify-content: center;
     border-radius: 5px;
     text-align: center;
     z-index: 20;
@@ -157,6 +162,26 @@ export default {
     }
 
     & > *:nth-child(2) {
+      &:before {
+        content: "";
+        background-color: #ffffff;
+        height: 100%;
+        width: 2px;
+        position: absolute;
+        right: -130%;
+        top: -10px;
+      }
+
+      &:after {
+        content: "";
+        background-color: #ffffff;
+        height: 100%;
+        width: 2px;
+        position: absolute;
+        left: -95%;
+        top: -10px;
+      }
+
       & > *:last-child {
         position: absolute;
         font-size: 22px;
@@ -166,6 +191,16 @@ export default {
     }
 
     & > *:nth-child(3) {
+      &:before {
+        content: "";
+        background-color: #ffffff;
+        height: 100%;
+        width: 2px;
+        position: absolute;
+        right: -70%;
+        top: -10px;
+      }
+
       & > *:last-child {
         position: absolute;
         font-size: 22px;
@@ -188,8 +223,46 @@ export default {
 @media screen and (max-width: 960px) {
   .services {
     &__views {
+      gap: 0;
+      justify-content: space-around;
       width: 90%;
       padding-right: 24px;
+
+      & > h3 {
+        &:nth-child(3) {
+          &:before {
+            right: -35%;
+          }
+        }
+
+        &:nth-child(2) {
+          &:before {
+            right: -100%;
+          }
+
+          &:after {
+            left: -75%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .services {
+    &__views {
+      & > h3 {
+        &:nth-child(2) {
+          &:before {
+            right: -70%;
+          }
+
+          &:after {
+            left: -40%;
+          }
+        }
+      }
     }
   }
 }
@@ -232,12 +305,25 @@ export default {
 
       & > *:nth-child(2) {
         margin-bottom: 40px;
+
+        &:after {
+          display: none;
+        }
+
+        &:before {
+          display: none;
+        }
+
         & > *:last-child {
           right: 30px !important;
         }
       }
 
       & > *:nth-child(3) {
+        &:before {
+          display: none;
+        }
+
         & > *:last-child {
           right: 35px !important;
         }

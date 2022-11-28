@@ -4,7 +4,6 @@ div
     home-header
   main
     about-home
-    about-services-home
     home-services
   footer
 </template>
@@ -12,7 +11,6 @@ div
 <script>
 import updateTitle from "@/mixins/updateTitle";
 import HomeHeader from "@/components/HomeHeader";
-import AboutServicesHome from "@/components/AboutServicesHome";
 import AboutHome from "@/components/AboutHome";
 import HomeServices from "@/components/HomeServices";
 
@@ -21,7 +19,7 @@ export default {
   data() {
     return {};
   },
-  components: { HomeHeader, AboutServicesHome, AboutHome, HomeServices },
+  components: { HomeHeader, AboutHome, HomeServices },
   mixins: [updateTitle],
   created() {
     this.updateTitle(this.$t("main"));

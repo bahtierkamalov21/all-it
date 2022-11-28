@@ -72,7 +72,6 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  min-height: calc(100vh - 80px);
   overflow: hidden;
 
   &-wrapper {
@@ -80,7 +79,6 @@ export default {
     display: flex;
     align-items: center;
     min-height: 640px;
-    height: 100vh;
 
     & > *:first-child {
       width: 50%;
@@ -88,7 +86,7 @@ export default {
 
     & > *:last-child {
       width: 50%;
-      height: inherit;
+      min-height: inherit;
       position: relative;
     }
   }
