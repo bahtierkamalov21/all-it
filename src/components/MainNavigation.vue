@@ -1,18 +1,21 @@
 <template lang="pug">
 div
   nav(class="nav")
+    top-sheet-menu(:open="sheetOpen" @setOpen="getOpen")
     v-container(class="container")
       v-col
-        v-row(class="align-center")
+        v-row(class="nav-row align-center")
           div(class="title")
-            a(href="/") All IT.agency
+            router-link(to="/") All IT.agency
               div(class="lang-prefix") {{ $i18n.locale }}
               div(class="tm") TM
+          div(class="bar")
+            v-btn(icon @click="sheetOpen =! sheetOpen")
+             font-awesome-icon(icon="fa-solid fa-bars")
           v-tooltip(bottom)
             template(v-slot:activator="{ on, attrs }")
               div(
-                class="theme-button ml-8" 
-                icon 
+                class="theme-button ml-8"
                 @click="changeTheme"
                 v-on="on"
               )
@@ -40,12 +43,14 @@ div
 <script>
 import SwitchLanguage from "./SwitchLanguage.vue";
 import LogoItem from "./LogoItem.vue";
+import TopSheetMenu from "@/components/TopSheetMenu";
 
 export default {
   name: "MainNavigation",
-  components: { SwitchLanguage, LogoItem },
+  components: { SwitchLanguage, LogoItem, TopSheetMenu },
   data() {
     return {
+      sheetOpen: false,
       links: [
         {
           name: "Поддержка",
@@ -104,6 +109,9 @@ export default {
     changeTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       this.$store.commit("changeTheme", this.$vuetify.theme.dark);
+    },
+    getOpen(callback) {
+      this.sheetOpen = callback;
     },
   },
 };
@@ -187,9 +195,8 @@ li {
     display: flex;
     align-items: center;
     color: #999 !important;
-    padding: 0 16px;
     height: 68px;
-    padding-left: 0;
+    padding: 0 16px 0 0;
   }
 
   & > .category-link > *:first-child {
@@ -265,7 +272,7 @@ li {
     position: relative;
     z-index: 4;
     height: 100%;
-    backdrop-filter: 16px;
+    backdrop-filter: blur(16px);
     background-color: rgba(255, 255, 255, 10%);
 
     &:hover > *:first-child {
@@ -365,6 +372,16 @@ li {
   }
 }
 
+.bar {
+  display: none;
+
+  & > *:first-child {
+    color: #212121 !important;
+    font-size: 1.8rem !important;
+    padding: 24px !important;
+  }
+}
+
 @keyframes login-border {
   100% {
     transform: rotate(1turn);
@@ -378,6 +395,25 @@ li {
 
   to {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .nav-row {
+    height: 62px;
+    justify-content: space-between;
+
+    & > * {
+      display: none;
+    }
+
+    & > *:first-child {
+      display: block;
+    }
+
+    & > .bar {
+      display: block;
+    }
   }
 }
 </style>

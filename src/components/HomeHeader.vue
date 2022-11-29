@@ -210,6 +210,15 @@ export default {
         width: 100%;
       }
     }
+
+    &-container {
+      padding: 18px;
+      backdrop-filter: none;
+    }
+  }
+
+  .left {
+    width: 100%;
   }
 }
 </style>

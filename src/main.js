@@ -14,6 +14,7 @@ import {
   faArrowUp,
   faCircleCheck,
   faPlus,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -24,7 +25,8 @@ library.add(
   faGlobe,
   faArrowUp,
   faCircleCheck,
-  faPlus
+  faPlus,
+  faBars
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

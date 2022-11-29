@@ -10,9 +10,9 @@ div
               br
               | специализируемся?
             font-awesome-icon(icon="fa-solid fa-circle-check" class="subtitle")
-        home-services-swiper(class="mt-16 mb-6")
+        home-services-swiper(class="mt-16 mb-12")
     // Services View
-    div(class="services__views d-flex align-center")
+    div(class="services__views")
       h3
         span(id="services-one")
         br
@@ -121,6 +121,8 @@ export default {
   padding-bottom: 24px;
 
   &__views {
+    display: flex;
+    align-content: center;
     position: absolute;
     width: 1182px;
     max-width: 100%;
@@ -128,8 +130,7 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     padding-top: 60px;
-    padding-bottom: 40px;
-    bottom: -200px;
+    padding-bottom: 28px;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -280,7 +281,6 @@ export default {
       padding-top: 45px;
       display: grid !important;
       grid-template-columns: repeat(auto-fit, 50%);
-      bottom: -280px !important;
 
       & > h3 {
         & > span:first-child {
@@ -335,6 +335,10 @@ export default {
         }
       }
     }
+  }
+
+  .container {
+    padding-bottom: 0 !important;
   }
 }
 </style>
