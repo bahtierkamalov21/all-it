@@ -12,7 +12,7 @@ div
             font-awesome-icon(icon="fa-solid fa-circle-check" class="subtitle")
         home-services-swiper(class="mt-16 mb-12")
     // Services View
-    div(class="services__views")
+    v-container(class="services__views")
       h3
         span(id="services-one")
         br
@@ -125,7 +125,6 @@ export default {
     align-content: center;
     position: absolute;
     width: 1182px;
-    max-width: 100%;
     background-image: url("../assets/images/services-views.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -238,11 +237,11 @@ export default {
 
         &:nth-child(2) {
           &:before {
-            right: -100%;
+            right: -76%;
           }
 
           &:after {
-            left: -75%;
+            left: -50%;
           }
         }
       }
@@ -278,6 +277,7 @@ export default {
     &__views {
       padding-bottom: 25px !important;
       padding-left: 24px;
+      padding-right: 12px;
       padding-top: 45px;
       display: grid !important;
       grid-template-columns: repeat(auto-fit, 50%);
