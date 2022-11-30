@@ -128,7 +128,7 @@ export default {
     background-image: url("../assets/images/services-views.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 60px;
+    padding-top: 52px;
     padding-bottom: 28px;
     left: 50%;
     margin-right: -50%;
@@ -138,7 +138,7 @@ export default {
     justify-content: center;
     border-radius: 5px;
     text-align: center;
-    z-index: 20;
+    z-index: 10;
 
     & > h3 {
       position: relative;
