@@ -85,4 +85,10 @@ export default {
   opacity: 1;
   transition: all 0.5s ease-in-out;
 }
+
+@media screen and (max-width: 560px) {
+  .image {
+    width: 100vw;
+  }
+}
 </style>

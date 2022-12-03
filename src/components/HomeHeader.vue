@@ -9,19 +9,25 @@ div
       div(class="top")
         v-col 
           v-row(class="align-center") 
-            div(class="left")
-              v-chip(color="primary")
+            div(class="left d-flex flex-column")
+              v-chip(color="primary" style="width: fit-content;")
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
-              h1(class="title mt-8 mb-10") {{ $t("header__h1") }}
-              h2(class="subtitle pa-0") 
+              h1(class="the-title font-weight-bold") {{ $t("header__h1") }}
+              h2(class="subtitle font-weight-medium pa-0") 
                 | {{ $t("modern") }}
                 br
                 | {{ $t("projects") }}
-                span WCAG 3.0
-              v-btn(class="left-button mt-4" width="320" min-width="62" min-height="62")
-                span(class="left-button-span text-capitalize") {{ $t("discuss") }}
-                  span(class="text-lowercase")  {{ $t("project") }}
+                v-chip(color="costum_blue" class="ml-4 rounded-xl")
+                  | WCAG 3.0
+              v-btn(
+                class="left-button font-weight-bold mt-8" 
+                color="costum_blue" 
+                depressed
+                x-large
+                width="280"
+              )
+                | {{ $t("discuss") }} {{ $t("project") }}
             div(class="right")
       div(class="bottom mt-6")
         marquee-item
@@ -38,6 +44,7 @@ export default {
   data() {
     return {
       container: null,
+      headerWrapper: null,
     };
   },
   computed: {
@@ -59,9 +66,16 @@ export default {
     changeStopIntervalShapes(data) {
       this.stopIntervalShapes = data;
     },
+    changeStyleElementsForMedia() {
+      this.headerWrapper.style.height = `${
+        this.container.offsetHeight + 198
+      }px`;
+    },
   },
   mounted() {
     this.container = document.querySelector(".header-container");
+    this.headerWrapper = document.querySelector(".header-wrapper");
+    this.changeStyleElementsForMedia();
   },
 };
 </script>
@@ -78,7 +92,6 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
-    min-height: 640px;
 
     & > *:first-child {
       width: 50%;
@@ -101,7 +114,6 @@ export default {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     padding: 32px;
     padding-bottom: 26px;
-    min-height: 496px;
     top: 112px;
     display: flex;
     justify-content: space-between;
@@ -110,50 +122,15 @@ export default {
 }
 
 .left {
-  width: 60%;
+  width: 65%;
 
   &-button {
-    font-size: 1.25rem !important;
-    font-weight: 600;
-    border-radius: 10px;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-    z-index: 2;
-
-    &-span {
-      z-index: 10;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      background: linear-gradient(#c84ba8, #5336fc) !important;
-      width: calc(100% * 2);
-      height: calc(100% * 5.5);
-      left: -50%;
-      animation: buttonBg 4s linear infinite;
-      z-index: 4;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      background-color: inherit;
-      width: calc(100% - 4px);
-      height: calc(100% - 4px);
-      border-radius: inherit;
-      left: 2px;
-      top: 2px;
-      opacity: 1 !important;
-      z-index: 6;
-    }
+    color: #ffffff !important;
   }
 }
 
-.title {
-  font-size: 5rem !important;
-  font-weight: 800;
+.the-title {
+  font-size: var(--size-title);
 }
 
 .bottom {
@@ -161,23 +138,16 @@ export default {
 }
 
 .subtitle {
-  font-size: 4rem;
-  font-weight: 600;
-  line-height: 4rem;
+  font-size: calc(var(--index) * 2.8);
   padding: 10px;
   padding-right: 20px;
+  line-height: 3.75rem;
   display: inline-block;
 
-  & > span {
-    font-size: 1.5rem;
-    color: #fff;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 120px;
-    bottom: 10px;
-    left: 10px;
-    position: relative;
-    background-color: #1976d2;
+  & > *:last-child {
+    font-size: calc(var(--index) * 1.2);
+    padding: calc(var(--index) * 1.2);
+    color: #ffffff;
   }
 }
 
@@ -196,6 +166,10 @@ export default {
     &-container {
       width: 92.2%;
     }
+  }
+
+  .subtitle {
+    line-height: 3.2rem;
   }
 }
 
@@ -217,8 +191,23 @@ export default {
     }
   }
 
+  .subtitle {
+    font-size: calc(var(--index) * 2.8);
+    line-height: 2.4rem;
+
+    & > *:last-child {
+      font-size: calc(var(--index) * 1.4);
+      padding: calc(var(--index) * 1.2);
+    }
+  }
+
   .left {
     width: 100%;
+
+    &-button {
+      width: 232px !important;
+      font-size: 14px;
+    }
   }
 }
 </style>

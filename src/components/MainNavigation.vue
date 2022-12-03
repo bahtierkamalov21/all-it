@@ -6,11 +6,11 @@ div
       v-col
         v-row(class="nav-row align-center")
           div(class="title")
-            router-link(to="/") All IT.agency
+            router-link(class="text-decoration-none" to="/") All IT.agency
               div(class="lang-prefix") {{ $i18n.locale }}
               div(class="tm") TM
           div(class="bar")
-            v-btn(icon @click="sheetOpen =! sheetOpen")
+            v-btn(icon @click="openSheet()")
              font-awesome-icon(icon="fa-solid fa-bars")
           v-tooltip(bottom)
             template(v-slot:activator="{ on, attrs }")
@@ -27,16 +27,16 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              router-link(:to="item.href" :class="item.list ? 'category-link pr-2' : null") {{ item.name }}
+              router-link(class="text-decoration-none" :to="item.href" :class="item.list ? 'category-link pr-2' : null") {{ item.name }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
                 div
-                  router-link(v-for="list in item.list" :to="list.href" :key="list.id")
+                  router-link(class="text-decoration-none" v-for="list in item.list" :to="list.href" :key="list.id")
                     | {{ list.name }}
           div(class="login-signup ml-4")
             div
-              router-link(to="/login") {{ $t("login") }} 
+              router-link(class="text-decoration-none" to="/login") {{ $t("login") }} 
               v-icon mdi-account-circle
 </template>
 
@@ -105,7 +105,19 @@ export default {
       ],
     };
   },
+  watch: {
+    sheetOpen() {
+      if (this.sheetOpen) {
+        document.getElementsByTagName("html")[0].style.overflow = "hidden";
+      } else {
+        document.getElementsByTagName("html")[0].style.overflow = "auto";
+      }
+    },
+  },
   methods: {
+    openSheet() {
+      this.sheetOpen = !this.sheetOpen;
+    },
     changeTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       this.$store.commit("changeTheme", this.$vuetify.theme.dark);
@@ -119,7 +131,7 @@ export default {
 
 <style scoped lang="scss">
 .nav {
-  background-color: rgba(50, 50, 50, 0.2);
+  background-color: #e5e5e533;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   padding: 12px;
@@ -150,7 +162,6 @@ export default {
 
   & > *:first-child {
     position: relative;
-    text-decoration: none;
     color: #666;
   }
 }
@@ -189,7 +200,6 @@ li {
   position: relative;
 
   & > * {
-    text-decoration: none;
     transition: all 0.2s ease-in;
     font-weight: 600;
     display: flex;
@@ -284,7 +294,6 @@ li {
       transition: all 0.2s ease-in;
       font-weight: 600;
       color: #999 !important;
-      text-decoration: none;
     }
   }
 }
@@ -293,7 +302,6 @@ li {
   display: none;
   color: rgba(0, 0, 0, 0.54);
   position: relative;
-  top: -2px;
 }
 
 .logo {
@@ -328,7 +336,6 @@ li {
     box-shadow: var(--base-shadow);
 
     & > * {
-      text-decoration: none;
       color: #999 !important;
       display: block;
       transition: all 0.2s ease-in;

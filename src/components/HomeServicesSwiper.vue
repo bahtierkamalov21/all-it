@@ -50,7 +50,7 @@ export default {
         },
         {
           icon: "monitor-cellphone-star",
-          icon_color: "#c84ba8",
+          icon_color: "#ffffff",
           title: "Frontend & Backend",
           text:
             "Опыт наших коллег, партнеров и специалистов" +

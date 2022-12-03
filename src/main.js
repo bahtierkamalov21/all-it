@@ -4,8 +4,10 @@ import router from "./router";
 import store from "./store";
 import i18n from "./plugins/i18n";
 import vuetify from "./plugins/vuetify";
+
 // FontAwesomeIcons
 import { library } from "@fortawesome/fontawesome-svg-core";
+
 import {
   faEarthAsia,
   faLaptopCode,
@@ -16,6 +18,7 @@ import {
   faPlus,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(

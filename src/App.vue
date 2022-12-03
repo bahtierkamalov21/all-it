@@ -19,6 +19,8 @@ export default {
 <style>
 :root {
   --base-shadow: 0 0 10px -8px var(--v-color_shadow-base);
+  --index: (1vw + 1vh);
+  --size-title: calc((1vw + 1vh) * 3.6);
 }
 
 html {
@@ -26,7 +28,6 @@ html {
 }
 
 .v-application {
-  font-family: "Poppins", "Roboto", sans-serif;
   background-color: var(--v-background-base) !important;
 }
 </style>

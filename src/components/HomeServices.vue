@@ -169,7 +169,7 @@ export default {
         width: 2px;
         position: absolute;
         right: -130%;
-        top: -10px;
+        top: -8px;
       }
 
       &:after {
@@ -179,7 +179,7 @@ export default {
         width: 2px;
         position: absolute;
         left: -95%;
-        top: -10px;
+        top: -8px;
       }
 
       & > *:last-child {
@@ -198,7 +198,7 @@ export default {
         width: 2px;
         position: absolute;
         right: -70%;
-        top: -10px;
+        top: -8px;
       }
 
       & > *:last-child {
@@ -274,6 +274,11 @@ export default {
   }
   .services {
     padding-bottom: 124px !important;
+
+    & > *:first-child {
+      padding-bottom: 0 !important;
+    }
+
     &__views {
       padding-bottom: 25px !important;
       padding-left: 24px;
@@ -335,10 +340,6 @@ export default {
         }
       }
     }
-  }
-
-  .container {
-    padding-bottom: 0 !important;
   }
 }
 </style>

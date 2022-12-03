@@ -35,6 +35,7 @@ export default {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   height: 100%;
+  overflow: hidden;
 
   & > ul {
     display: flex;

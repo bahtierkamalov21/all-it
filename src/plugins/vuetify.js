@@ -17,6 +17,7 @@ export default new Vuetify({
         custom_title: "#666666",
         color_shadow: "#000000",
         nav_link_hover: "#666",
+        costum_blue: "#1867c0",
       },
       dark: {
         background: "#1c1c1c",
@@ -24,6 +25,7 @@ export default new Vuetify({
         custom_title: "#ffffff",
         color_shadow: "#ffffff",
         nav_link_hover: "#f5f5f5",
+        costum_blue: "#1867c0",
       },
     },
   },

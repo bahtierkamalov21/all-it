@@ -7,7 +7,7 @@ div
           v-card(class="text-center about__card" min-width="25%")
             font-awesome-icon(icon="fa-solid fa-laptop-code" class="fa-3x mb-4")
             h3(class="mb-4") Разработка и продвижение IT-продуктов
-            p(class="mb-8")
+            p
               | Наша команда с 2017 года профессионально занимается разработкой
               | IT-решен
             router-link(to="/about-us") Узнать больше
@@ -101,7 +101,11 @@ export default {
     width: 30%;
     min-height: 460px;
     margin: 15px;
-    padding: 84px 45px 77px !important;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 52px;
+    justify-content: center;
     box-shadow: 6px 5px 30px 0 rgb(0 0 0 / 12%) !important;
     border-radius: 5px !important;
     transition: all 0.5s ease;
@@ -145,11 +149,13 @@ export default {
 
     &:before {
       top: -92%;
-      left: -45%;
+      left: -25%;
       background-position: left;
     }
+
     &__card {
       width: 80%;
+      padding: 32px;
     }
   }
 }

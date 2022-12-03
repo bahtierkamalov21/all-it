@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  v-bottom-sheet(v-model="open")
+  div(class="bottom-sheet" :class="{'active' : open}")
     v-card(class="card pa-4")
       v-col
         v-row(class="justify-spase-between")
@@ -20,6 +20,13 @@ export default {
   props: {
     open: Boolean,
   },
+  mounted() {
+    window.addEventListener("click", (event) => {
+      if (event.target === document.querySelector(".bottom-sheet")) {
+        this.$emit("setOpen", !this.open);
+      } else null;
+    });
+  },
   methods: {
     setOpen() {
       this.$emit("setOpen", this.open);
@@ -29,9 +36,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.bottom-sheet {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 120;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  display: none;
+
+  & .active > .card {
+    transition: 2s ease-in-out;
+    transform: translateY(0);
+  }
+}
+
+.active {
+  display: block;
+}
+
 .card {
   border-radius: 0 0 10px 10px;
-  position: fixed;
-  top: 0;
+  transform: translateY(-100%);
+  transition: 2s ease-in-out;
 }
 </style>
