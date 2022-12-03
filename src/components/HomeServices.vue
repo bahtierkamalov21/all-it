@@ -11,23 +11,25 @@ div
               | специализируемся?
             font-awesome-icon(icon="fa-solid fa-circle-check" class="subtitle")
         home-services-swiper(class="mt-16 mb-12")
-    // Services View
-    v-container(class="services__views")
+    v-container(class="services__views text-center rounded-lg")
       h3
         span(id="services-one")
         br
         span Строк кода написано
         font-awesome-icon(icon="fa-solid fa-plus")
+      div(class="line")
       h3(id="two")
         span(id="services-two")
         br
         span Отзывов
         font-awesome-icon(icon="fa-solid fa-plus")
+      div(class="line")
       h3(id="tree")
         span(id="services-tree")
         br
         span Подрядчиков
         font-awesome-icon(icon="fa-solid fa-plus")
+      div(class="line")
       h3(id="four")
         span(id="services-four")
         br
@@ -54,9 +56,9 @@ export default {
       const services_tree = document.getElementById("services-tree");
       const services_four = document.getElementById("services-four");
       if (this.show_transition_numbers) {
-        this.animation_numbers(services_one, 99000, 1000, 1500);
-        this.animation_numbers(services_two, 95, 5, 5);
-        this.animation_numbers(services_tree, 15, 2, 3);
+        this.animation_numbers(services_one, 99000, 1000, 1000);
+        this.animation_numbers(services_two, 95, 1, 1);
+        this.animation_numbers(services_tree, 15, 1, 1);
         this.animation_numbers(services_four, 143, 1, 1);
       }
     },
@@ -109,6 +111,14 @@ export default {
   font-size: 3.5rem !important;
 }
 
+.line {
+  height: 68px;
+  position: relative;
+  top: -6px;
+  width: 2px;
+  background-color: #ffffff;
+}
+
 .services {
   height: 100%;
   position: relative;
@@ -128,16 +138,13 @@ export default {
     background-image: url("../assets/images/services-views.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 52px;
-    padding-bottom: 28px;
+    padding: 52px 0 28px 0;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     color: #ffffff;
-    gap: 136px;
+    gap: 52px;
     justify-content: center;
-    border-radius: 5px;
-    text-align: center;
     z-index: 10;
 
     & > h3 {
@@ -162,26 +169,6 @@ export default {
     }
 
     & > *:nth-child(2) {
-      &:before {
-        content: "";
-        background-color: #ffffff;
-        height: 100%;
-        width: 2px;
-        position: absolute;
-        right: -130%;
-        top: -8px;
-      }
-
-      &:after {
-        content: "";
-        background-color: #ffffff;
-        height: 100%;
-        width: 2px;
-        position: absolute;
-        left: -95%;
-        top: -8px;
-      }
-
       & > *:last-child {
         position: absolute;
         font-size: 22px;
@@ -191,21 +178,11 @@ export default {
     }
 
     & > *:nth-child(3) {
-      &:before {
-        content: "";
-        background-color: #ffffff;
-        height: 100%;
-        width: 2px;
-        position: absolute;
-        right: -70%;
-        top: -8px;
-      }
-
       & > *:last-child {
         position: absolute;
         font-size: 22px;
         top: -15px;
-        right: 0;
+        right: -26px;
       }
     }
 
@@ -227,43 +204,11 @@ export default {
       justify-content: space-around;
       width: 90%;
       padding-right: 24px;
-
-      & > h3 {
-        &:nth-child(3) {
-          &:before {
-            right: -35%;
-          }
-        }
-
-        &:nth-child(2) {
-          &:before {
-            right: -76%;
-          }
-
-          &:after {
-            left: -50%;
-          }
-        }
-      }
     }
   }
-}
 
-@media screen and (max-width: 780px) {
-  .services {
-    &__views {
-      & > h3 {
-        &:nth-child(2) {
-          &:before {
-            right: -70%;
-          }
-
-          &:after {
-            left: -40%;
-          }
-        }
-      }
-    }
+  .line {
+    display: none;
   }
 }
 
@@ -311,24 +256,12 @@ export default {
       & > *:nth-child(2) {
         margin-bottom: 40px;
 
-        &:after {
-          display: none;
-        }
-
-        &:before {
-          display: none;
-        }
-
         & > *:last-child {
           right: 30px !important;
         }
       }
 
       & > *:nth-child(3) {
-        &:before {
-          display: none;
-        }
-
         & > *:last-child {
           right: 35px !important;
         }

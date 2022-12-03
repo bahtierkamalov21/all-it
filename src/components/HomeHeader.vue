@@ -67,7 +67,7 @@ export default {
       this.stopIntervalShapes = data;
     },
     changeStyleElementsForMedia() {
-      this.headerWrapper.style.height = `${
+      this.headerWrapper.style.minHeight = `${
         this.container.offsetHeight + 198
       }px`;
     },
