@@ -147,7 +147,7 @@ export default {
 .container {
   padding: 0 24px;
   background-color: #fff;
-  box-shadow: var(--base-shadow);
+  box-shadow: var(--shadow-2xl);
   max-width: 1366px;
   border-radius: 10px;
 }

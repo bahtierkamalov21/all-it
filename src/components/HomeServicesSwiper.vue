@@ -9,7 +9,7 @@ div
               v-for="service in services"
               :key="service.id"
               class="card pa-8"
-              color="transparent"
+              color="transparent rounded-lg"
               min-height="320"
               max-width="240"
             )
@@ -74,7 +74,9 @@ export default {
 <style scoped lang="scss">
 .card {
   border: 1px solid #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.012) !important;
   color: #ffffff;
+  box-shadow: var(--shadow-2xl) !important;
 
   & > .v-icon {
     font-size: 6rem;

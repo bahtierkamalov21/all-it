@@ -111,7 +111,7 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 12px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-lg);
     padding: 32px;
     padding-bottom: 26px;
     top: 112px;
@@ -122,7 +122,7 @@ export default {
 }
 
 .left {
-  width: 65%;
+  width: 70%;
 
   &-button {
     color: #ffffff !important;

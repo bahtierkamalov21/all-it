@@ -5,7 +5,7 @@ div
       v-container(class="pt-16 pb-16")
         v-col 
           v-row(class="justify-space-between align-center")
-            h2(class="title")
+            h2(class="the-title font-weight-bold")
               | На чем мы
               br
               | специализируемся?
@@ -99,16 +99,15 @@ export default {
   position: relative;
 }
 
-.title {
-  font-size: 2.5rem !important;
+.the-title {
   color: #ffffff;
-  font-weight: 600;
-  line-height: 2.5rem;
+  line-height: calc(var(--index) * 2.15);
+  font-size: calc(var(--index) * 2.15);
 }
 
 .subtitle {
   color: #ffffff;
-  font-size: 3.5rem !important;
+  font-size: 3.5rem;
 }
 
 .line {
@@ -213,12 +212,8 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  .title {
-    font-size: 1.5rem !important;
-    line-height: inherit !important;
-  }
   .services {
-    padding-bottom: 124px !important;
+    padding-bottom: 124px;
 
     & > *:first-child {
       padding-bottom: 0 !important;
@@ -234,10 +229,15 @@ export default {
 
       & > h3 {
         & > span:first-child {
-          font-size: 32px !important;
+          font-size: 32px;
         }
+
         & > span {
-          font-size: 14px !important;
+          font-size: 14px;
+        }
+
+        & > *:last-child {
+          right: 30px;
         }
       }
 
@@ -249,7 +249,7 @@ export default {
         }
 
         & > *:last-child {
-          right: 0 !important;
+          right: 0;
         }
       }
 
@@ -257,19 +257,25 @@ export default {
         margin-bottom: 40px;
 
         & > *:last-child {
-          right: 30px !important;
+          right: 30px;
         }
       }
 
       & > *:nth-child(3) {
         & > *:last-child {
-          right: 35px !important;
+          right: 28px;
         }
       }
 
       & > *:nth-child(4) {
         & > *:last-child {
-          right: 30px !important;
+          right: 30px;
+        }
+      }
+
+      & > *:last-child {
+        & > *:last-child {
+          right: 24px;
         }
       }
     }
