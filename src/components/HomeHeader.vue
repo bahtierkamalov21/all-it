@@ -106,7 +106,7 @@ export default {
 
   &-container {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(12px);
     background-repeat: no-repeat;
     background-size: cover;

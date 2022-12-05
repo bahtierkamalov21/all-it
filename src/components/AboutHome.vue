@@ -4,25 +4,25 @@ div
     v-container(class="pa-0 about__container")
       v-col
         v-row(class="justify-center align-center")
-          v-card(class="text-center about__card" min-width="25%")
+          v-card(class="text-center about__card")
             font-awesome-icon(icon="fa-solid fa-laptop-code" class="fa-3x mb-4")
-            h3(class="mb-4") Разработка и продвижение IT-продуктов
-            p
+            div(class="mb-4") Разработка и продвижение IT-продуктов
+            div(class="mb-4")
               | Наша команда с 2017 года профессионально занимается разработкой
               | IT-решен
             router-link(to="/about-us") Узнать больше
-          v-card(class="text-center about__card" min-width="25%")
+          v-card(class="text-center about__card")
             font-awesome-icon(icon="fa-solid fa-cloud" class="fa-3x mb-4")
-            h3 Digital-решения
-            p
+            div(class="mb-4") Digital-решения
+            div(class="mb-4")
               | Создаем и поддерживаем IT-решения различного уровня сложности,
               | включая Highload проекты. Поддерживаем проекты по формату Time &
               | Material.
             router-link(to="/about-us") Узнать больше
-          v-card(class="text-center about__card" min-width="25%")
+          v-card(class="text-center about__card")
             font-awesome-icon(icon="fa-solid fa-globe" class="fa-3x mb-4")
-            h3 IT-консалтинг
-            p
+            div(class="mb-4") IT-консалтинг
+            div(class="mb-4")
               | Оказываем комплексный IT-консалтинг для наших клиентов (от стадии
               | прототипирования до полноценного выпуска продукта на рынок).
               | Поддерживаем проект после его сдачи.
@@ -98,8 +98,8 @@ export default {
 
   &__card {
     position: relative;
-    width: 30%;
     min-height: 460px;
+    max-width: 326px;
     margin: 15px;
     display: flex;
     align-items: center;
@@ -136,10 +136,6 @@ export default {
 @media screen and (max-width: 900px) {
   .about {
     padding-bottom: 42px;
-
-    &__card {
-      min-width: 40% !important;
-    }
   }
 }
 
@@ -154,7 +150,6 @@ export default {
     }
 
     &__card {
-      width: 80%;
       padding: 32px;
     }
   }
