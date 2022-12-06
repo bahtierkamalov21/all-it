@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   div(class="faq")
-    v-container(class="pt-16 pb-12 container")
+    v-container(class="pt-16 pb-12 px-6 container")
       div(class="mb-2 header")
         h2(class="font-weight-bold") {{ escaped }}
       v-col

@@ -6,7 +6,7 @@ div
         v-row(class="justify-center align-center")
           v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-laptop-code" class="fa-3x mb-4")
-            div(class="mb-4") Разработка и продвижение
+            div(class="mb-4 font-weight-bold") Разработка и продвижение
               br
               | IT-продуктов
             div(class="mb-4")
@@ -15,7 +15,7 @@ div
             router-link(to="/about-us") Узнать больше
           v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-cloud" class="fa-3x mb-4")
-            div(class="mb-4") Digital-решения
+            div(class="mb-4 font-weight-bold") Digital-решения
             div(class="mb-4")
               | Создаем и поддерживаем IT-решения различного уровня сложности,
               | включая Highload проекты. Поддерживаем проекты по формату Time &
@@ -23,7 +23,7 @@ div
             router-link(to="/about-us") Узнать больше
           v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-globe" class="fa-3x mb-4")
-            div(class="mb-4") IT-консалтинг
+            div(class="mb-4 font-weight-bold") IT-консалтинг
             div(class="mb-4")
               | Оказываем комплексный IT-консалтинг для наших клиентов (от стадии
               | прототипирования до полноценного выпуска продукта на рынок).
