@@ -13,7 +13,7 @@ div
               | {{ item === "ru" ? (`Русский (${item.toUpperCase()})`) : null }}
               | {{ item === "en" ? (`Английский (${item.toUpperCase()})`) : null }}
     span Сменить язык
-</template>
+  </template>
 
 <script>
 export default {
@@ -24,15 +24,6 @@ export default {
       element: null,
       listLanguages: Object.getOwnPropertyNames(this.$i18n.messages),
     };
-  },
-  mounted() {
-    this.element = document.querySelector(".switch");
-    document.addEventListener("click", (event) => {
-      const withinBoundaries = event.composedPath().includes(this.element);
-      if (!withinBoundaries) {
-        this.open = false;
-      } else null;
-    });
   },
   methods: {
     openList() {

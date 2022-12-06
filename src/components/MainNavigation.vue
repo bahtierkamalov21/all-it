@@ -12,17 +12,8 @@ div
           div(class="bar")
             v-btn(icon @click="openSheet()")
              font-awesome-icon(icon="fa-solid fa-bars")
-          v-tooltip(bottom)
-            template(v-slot:activator="{ on, attrs }")
-              div(
-                class="theme-button ml-8"
-                @click="changeTheme"
-                v-on="on"
-              )
-                font-awesome-icon(v-if="!$vuetify.theme.dark" icon="fa-solid fa-earth-asia")
-                div(v-if="$vuetify.theme.dark" class="icon-light-theme")
-            span Сменить тему
-          switch-language(class="ml-6")
+          switch-theme(class="ml-8")
+          switch-language(class="mx-6")
           v-spacer
           logo-item
           ul
@@ -41,13 +32,14 @@ div
 </template>
 
 <script>
-import SwitchLanguage from "./SwitchLanguage.vue";
-import LogoItem from "./LogoItem.vue";
+import SwitchLanguage from "@/components/SwitchLanguage.vue";
+import LogoItem from "@/components/LogoItem.vue";
 import TopSheetMenu from "@/components/TopSheetMenu";
+import SwitchTheme from "@/components/SwitchTheme";
 
 export default {
   name: "MainNavigation",
-  components: { SwitchLanguage, LogoItem, TopSheetMenu },
+  components: { SwitchLanguage, SwitchTheme, LogoItem, TopSheetMenu },
   data() {
     return {
       sheetOpen: false,
@@ -57,11 +49,7 @@ export default {
           href: "#",
         },
         {
-          name: "Проекты",
-          href: "/projects",
-        },
-        {
-          name: this.$t("services"),
+          name: this.$t("projects-md"),
           href: "#",
           list: [
             {
@@ -117,10 +105,6 @@ export default {
   methods: {
     openSheet() {
       this.sheetOpen = !this.sheetOpen;
-    },
-    changeTheme() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      this.$store.commit("changeTheme", this.$vuetify.theme.dark);
     },
     getOpen(callback) {
       this.sheetOpen = callback;
@@ -352,33 +336,6 @@ li {
   display: block;
 }
 
-.icon-light-theme {
-  background-color: yellow;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  box-shadow: 0 0 12px 0 rgb(255 255 0 / 50%);
-}
-
-.theme-button {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 10%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  &:active {
-    animation: 0.2s hover-list-link forwards;
-  }
-
-  & > *:first-child {
-    color: #b2b2b2;
-  }
-}
-
 .bar {
   display: none;
 
@@ -392,16 +349,6 @@ li {
 @keyframes login-border {
   100% {
     transform: rotate(1turn);
-  }
-}
-
-@keyframes hover-list-link {
-  from {
-    opacity: 0.2;
-  }
-
-  to {
-    opacity: 1;
   }
 }
 

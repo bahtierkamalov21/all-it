@@ -1,29 +1,32 @@
 <template lang="pug">
 div
-  div(class="services-view pt-8 pb-6 text-center d-flex justify-center align-center rounded-lg")
-    div(class="view")
-      div(class="d-inline-block")
-        div(id="services-one") 0
-        font-awesome-icon(icon="fa-solid fa-plus")
-      div Строк кода написано
-    div(class="line")
-    div(class="view")
-      div(class="d-inline-block")
-        div(id="services-two") 0
-        font-awesome-icon(icon="fa-solid fa-plus")
-      div Отзывов
-    div(class="line")
-    div(class="view")
-      div(class="d-inline-block")
-        div(id="services-tree") 0
-        font-awesome-icon(icon="fa-solid fa-plus")
-      div Партнеров
-    div(class="line")
-    div(class="view")
-      div(class="d-inline-block")
-        div(id="services-four") 0
-        font-awesome-icon(icon="fa-solid fa-plus")
-      div Проектов
+  div(class="services-view text-center rounded-lg")
+    v-container(class="pt-8 pb-6")
+      v-col
+        v-row(class="v-row justify-space-between align-center")
+          div(class="view")
+            div(class="d-inline-block")
+              div(id="services-one" class="font-weight-medium") 0
+              font-awesome-icon(icon="fa-solid fa-plus")
+            div(class="font-weight-bold") Строк кода написано
+          div(class="line")
+          div(class="view")
+            div(class="d-inline-block")
+              div(id="services-two" class="font-weight-medium") 0
+              font-awesome-icon(icon="fa-solid fa-plus")
+            div(class="font-weight-bold") Отзывов
+          div(class="line")
+          div(class="view")
+            div(class="d-inline-block")
+              div(id="services-tree" class="font-weight-medium") 0
+              font-awesome-icon(icon="fa-solid fa-plus")
+            div(class="font-weight-bold") Подрядчиков
+          div(class="line")
+          div(class="view")
+            div(class="d-inline-block")
+              div(id="services-four" class="font-weight-medium") 0
+              font-awesome-icon(icon="fa-solid fa-plus")
+            div(class="font-weight-bold") Проектов
 </template>
 
 <script>
@@ -81,16 +84,19 @@ export default {
 <style scoped lang="scss">
 .services-view {
   position: absolute;
-  flex-wrap: wrap;
   background-image: url("../assets/images/services-views.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   left: 50%;
+  max-width: 1156px;
   width: 90%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  gap: 46px;
   z-index: 10;
+
+  & > div {
+    max-width: 680px;
+  }
 }
 
 .line {
@@ -116,13 +122,36 @@ export default {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .v-row {
+    justify-content: space-around !important;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .view {
-    font-size: calc(var(--index) * 1.05);
-    width: 20%;
+    font-size: calc(var(--index) * 1.25);
+    width: 35%;
 
     & > *:first-child {
-      font-size: calc(var(--index) * 2);
+      font-size: calc(var(--index) * 2.2);
+    }
+  }
+
+  .v-row {
+    gap: 24px;
+    position: relative;
+
+    &::before {
+      content: "";
+      height: 100%;
+      background-color: #ffffff;
+      width: 2px;
+      position: absolute;
+      top: 0;
+      left: 52%;
+      margin-right: -50%;
+      transform: translateX(-40%);
     }
   }
 

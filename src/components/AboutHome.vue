@@ -1,17 +1,19 @@
 <template lang="pug">
 div 
   section(class="about" id="#about-us")
-    v-container(class="pa-0 about__container")
+    v-container(class="pa-0 about-container")
       v-col
         v-row(class="justify-center align-center")
-          v-card(class="text-center about__card")
+          v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-laptop-code" class="fa-3x mb-4")
-            div(class="mb-4") Разработка и продвижение IT-продуктов
+            div(class="mb-4") Разработка и продвижение
+              br
+              | IT-продуктов
             div(class="mb-4")
               | Наша команда с 2017 года профессионально занимается разработкой
               | IT-решен
             router-link(to="/about-us") Узнать больше
-          v-card(class="text-center about__card")
+          v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-cloud" class="fa-3x mb-4")
             div(class="mb-4") Digital-решения
             div(class="mb-4")
@@ -19,7 +21,7 @@ div
               | включая Highload проекты. Поддерживаем проекты по формату Time &
               | Material.
             router-link(to="/about-us") Узнать больше
-          v-card(class="text-center about__card")
+          v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-globe" class="fa-3x mb-4")
             div(class="mb-4") IT-консалтинг
             div(class="mb-4")
@@ -61,7 +63,7 @@ export default {
     position: absolute;
   }
 
-  &__container {
+  &-container {
     & > *:first-child {
       height: 100%;
 
@@ -96,18 +98,17 @@ export default {
     }
   }
 
-  &__card {
+  &-card {
     position: relative;
     min-height: 460px;
-    max-width: 326px;
+    max-width: 346px;
     margin: 15px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 52px;
+    padding: 52px 32px;
     justify-content: center;
     box-shadow: 6px 5px 30px 0 rgb(0 0 0 / 12%) !important;
-    border-radius: 5px !important;
     transition: all 0.5s ease;
 
     &:hover {
@@ -142,6 +143,7 @@ export default {
 @media screen and (max-width: 600px) {
   .about {
     background-position: bottom !important;
+    padding-bottom: 0;
 
     &:before {
       top: -92%;
@@ -149,8 +151,9 @@ export default {
       background-position: left;
     }
 
-    &__card {
+    &-card {
       padding: 32px;
+      min-height: 376px;
     }
   }
 }

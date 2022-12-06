@@ -19,6 +19,8 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { faTelegram } from "@fortawesome/free-brands-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
@@ -29,7 +31,8 @@ library.add(
   faArrowUp,
   faCircleCheck,
   faPlus,
-  faBars
+  faBars,
+  faTelegram
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

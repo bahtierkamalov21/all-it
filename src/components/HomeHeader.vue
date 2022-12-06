@@ -14,15 +14,15 @@ div
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
               h1(class="the-title font-weight-bold") {{ $t("header__h1") }}
-              h2(class="subtitle font-weight-medium pa-0") 
+              h2(class="font-weight-medium pa-0") 
                 | {{ $t("modern") }}
                 br
                 | {{ $t("projects") }}
-                v-chip(color="costum_blue" class="ml-4 rounded-xl")
+                v-chip(color="costumBlue" class="ml-4 rounded-xl")
                   | WCAG 3.0
               v-btn(
                 class="left-button font-weight-bold mt-8" 
-                color="costum_blue" 
+                color="costumBlue" 
                 depressed
                 x-large
                 width="280"
@@ -118,11 +118,12 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    transition: all 0.2s ease-in-out;
   }
 }
 
 .left {
-  width: 70%;
+  width: 100%;
 
   &-button {
     color: #ffffff !important;
@@ -137,11 +138,11 @@ export default {
   padding-top: auto;
 }
 
-.subtitle {
+h2 {
   font-size: calc(var(--index) * 2.8);
   padding: 10px;
   padding-right: 20px;
-  line-height: 3.75rem;
+  line-height: calc(var(--index) * 2.8);
   display: inline-block;
 
   & > *:last-child {
@@ -167,10 +168,6 @@ export default {
       width: 92.2%;
     }
   }
-
-  .subtitle {
-    line-height: 3.2rem;
-  }
 }
 
 @media screen and (max-width: 560px) {
@@ -191,7 +188,7 @@ export default {
     }
   }
 
-  .subtitle {
+  .h2 {
     font-size: calc(var(--index) * 2.8);
     line-height: 2.4rem;
 
