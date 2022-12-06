@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  dialog(class="bottom-sheet" :open="open")
+  dialog(class="bottom-sheet" ref="modal" :open="open")
     v-card(class="card pa-4 pr-2" color="menuBackground" elevation="0" :class="{ 'active' : active }")
       v-col(class="top d-flex justify-space-between align-center")
         v-row(class="align-center")
@@ -35,7 +35,7 @@ export default {
   },
   mounted() {
     window.addEventListener("click", (event) => {
-      if (event.target === document.querySelector(".bottom-sheet")) {
+      if (event.target === this.$refs.modal) {
         this.setAndCloseOpen();
       } else null;
     });

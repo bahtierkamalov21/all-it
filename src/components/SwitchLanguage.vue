@@ -2,7 +2,7 @@
 div
   v-tooltip(bottom)
     template(v-slot:activator="{ on, attrs }")
-      div(class="switch" @click="openList")
+      div(class="switch" ref="switch" @click="openList")
         div(v-bind="attrs" v-on="on")
           font-awesome-icon(icon="fa-solid fa-earth-asia" class="icon")
           div(class="ml-2") {{ $i18n.locale }}
@@ -21,9 +21,16 @@ export default {
   data() {
     return {
       open: false,
-      element: null,
       listLanguages: Object.getOwnPropertyNames(this.$i18n.messages),
     };
+  },
+  mounted() {
+    document.addEventListener("click", (event) => {
+      const withinBoundaries = event.composedPath().includes(this.$refs.switch);
+      if (!withinBoundaries) {
+        this.open = false;
+      } else null;
+    });
   },
   methods: {
     openList() {

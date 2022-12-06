@@ -1,11 +1,11 @@
 <template lang="pug">
 div
   div(class="header")
-    div(class="header-wrapper")
+    div(class="header-wrapper" ref="headerWrapper")
       div
       div
         shapes-home-header
-    v-container(class="header-container")
+    v-container(class="header-container" ref="headerContainer")
       div(class="top")
         v-col 
           v-row(class="align-center") 
@@ -41,12 +41,6 @@ import { mapState } from "vuex";
 export default {
   name: "HomeHeader",
   components: { ShapesHomeHeader, MarqueeItem },
-  data() {
-    return {
-      container: null,
-      headerWrapper: null,
-    };
-  },
   computed: {
     ...mapState(["theme"]),
   },
@@ -58,23 +52,22 @@ export default {
   methods: {
     changeBackgroundContainer() {
       if (this.theme) {
-        this.container.style.backgroundColor = "#262626D9";
+        this.$refs.headerContainer.style.backgroundColor = "#262626D9";
       } else {
-        this.container.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
+        this.$refs.headerContainer.style.backgroundColor =
+          "rgba(255, 255, 255, 0.6)";
       }
     },
     changeStopIntervalShapes(data) {
       this.stopIntervalShapes = data;
     },
     changeStyleElementsForMedia() {
-      this.headerWrapper.style.minHeight = `${
-        this.container.offsetHeight + 198
+      this.$refs.headerWrapper.style.minHeight = `${
+        this.$refs.headerContainer.offsetHeight + 198
       }px`;
     },
   },
   mounted() {
-    this.container = document.querySelector(".header-container");
-    this.headerWrapper = document.querySelector(".header-wrapper");
     this.changeStyleElementsForMedia();
   },
 };
