@@ -17,6 +17,7 @@ import {
   faCircleCheck,
   faPlus,
   faBars,
+  faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faTelegram } from "@fortawesome/free-brands-svg-icons";
@@ -32,7 +33,8 @@ library.add(
   faCircleCheck,
   faPlus,
   faBars,
-  faTelegram
+  faTelegram,
+  faHouse
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

@@ -137,6 +137,14 @@ export default {
 @media screen and (max-width: 900px) {
   .about {
     padding-bottom: 42px;
+
+    &-container {
+      & > *:first-child {
+        & > *:first-child {
+          padding-bottom: 0;
+        }
+      }
+    }
   }
 }
 

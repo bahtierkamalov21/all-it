@@ -12,9 +12,21 @@ div
               div(class="d-flex align-center justify-space-between px-4")
                 div(class="font-weight-bold") Популярные отзывы
                 div(class="card-buttons")
-                  v-btn(elevation="0" class="pa-0 mr-2" min-width="48" @click="swiperReviews.slidePrev()" :disabled="disabledPrevSlide")
+                  v-btn(
+                    elevation="0" 
+                    class="pa-0 mr-2" 
+                    min-width="48" 
+                    @click="swiperReviews.slidePrev()" 
+                    :disabled="disabledPrevSlide"
+                  )
                     v-icon mdi-arrow-left
-                  v-btn(elevation="0" class="pa-0" min-width="48" @click="swiperReviews.slideNext()" :disabled="disabledNextSlide")
+                  v-btn(
+                    elevation="0" 
+                    class="pa-0" 
+                    min-width="48" 
+                    @click="swiperReviews.slideNext()" 
+                    :disabled="disabledNextSlide"
+                  )
                     v-icon mdi-arrow-right
               div(class="swiper-reviews")
                 div(class="swiper-wrapper")
@@ -61,6 +73,8 @@ export default {
 
 <style scoped lang="scss">
 .reviews {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+
   & > div {
     background-color: transparent !important;
   }

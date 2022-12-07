@@ -6,13 +6,13 @@ div
         h2(class="font-weight-bold") {{ escaped }}
       v-col
         v-row(class="align-start justify-space-between")
-          div(class="left")
+          div(class="left mb-2")
             v-list
               v-list-group(
                 v-for="item in listFaq"
                 :key="item.id"
                 style="background-color: var(--v-background-base);"
-                class="d-inline-block mr-4 mb-4 group"
+                class="d-inline-block mr-4 mb-4 group rounded-lg"
                 :value="false"
               )
                 template(v-slot:activator)
@@ -165,6 +165,10 @@ ul {
     &-title {
       font-size: 1.5rem;
     }
+  }
+
+  .faq {
+    padding-bottom: 36px;
   }
 }
 

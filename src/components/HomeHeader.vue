@@ -68,7 +68,12 @@ export default {
     },
   },
   mounted() {
+    // First initilization media styles
     this.changeStyleElementsForMedia();
+    // Resize window
+    window.addEventListener("resize", () => {
+      this.changeStyleElementsForMedia();
+    });
   },
 };
 </script>
@@ -163,7 +168,7 @@ h2 {
   }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 600px) {
   .header {
     &-wrapper {
       & > *:first-child {
@@ -196,6 +201,7 @@ h2 {
 
     &-button {
       width: 232px !important;
+      margin-top: 24px !important;
       font-size: 14px;
     }
   }

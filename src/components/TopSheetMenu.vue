@@ -4,12 +4,11 @@ div
     v-card(class="card pa-4 pr-2" color="menuBackground" elevation="0" :class="{ 'active' : active }")
       v-col(class="top d-flex justify-space-between align-center")
         v-row(class="align-center")
-          v-chip(color="costumBlue" class="text-h6") Меню
+          v-chip(color="costumBlue" class="px-6") Меню
           switch-language(class="ml-4")
           switch-theme(class="ml-4")
-        v-chip(class="pa-0")
-          v-btn(icon @click="setAndCloseOpen()")
-            v-icon mdi-close
+        v-btn(icon @click="setAndCloseOpen()")
+          v-icon mdi-close
       div(class="mt-2") ascasc
 </template>
 

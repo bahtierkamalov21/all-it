@@ -2,17 +2,24 @@
 v-app
   main-navigation
   router-view
+  the-bottom-navigation
 </template>
 
 <script>
-import MainNavigation from "./components/MainNavigation";
+import MainNavigation from "@/components/MainNavigation";
+import TheBottomNavigation from "@/components/TheBottomNavigation";
 
 export default {
   name: "App",
   components: {
     MainNavigation,
+    TheBottomNavigation,
   },
   data: () => ({}),
+  created() {
+    // Determine whether the user is authorized
+    this.$store.commit("setUser", localStorage.getItem("user"));
+  },
 };
 </script>
 
