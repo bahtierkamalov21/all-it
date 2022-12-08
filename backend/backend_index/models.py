@@ -1,5 +1,8 @@
 from django.db import models
 
+def projectImagePath(instance, filename):
+    return "project_{title}/images/{file}".format(title=instance.fk_project.link_path, file=filename)
+
 # Create your models here.
 class Category(models.Model):
     title = models.CharField(max_length=56)
@@ -29,8 +32,8 @@ class Project(models.Model):
 
 class ProjectImage(models.Model):
     title = models.CharField(max_length=256)
-    size = models.IntegerField(default=0, blank=True)
-    image = models.ImageField(upload_to="images/%Y-%m-%d/")
+    fk_project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=projectImagePath)
 
     def __str__(self):
         return f"Изображение - {self.title}"

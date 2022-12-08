@@ -5,7 +5,6 @@ div
     shift
     class="navigation"
     v-model="value"
-    :background-color="color"
     grow
   )
     v-btn(v-for="item in buttons" :key="item.id" @click="pushLocation(item.link)")
@@ -82,14 +81,6 @@ export default {
   },
   computed: {
     ...mapState(["user"]),
-    color() {
-      switch (this.value) {
-        case 0:
-          return "#ffffff";
-        default:
-          return "#ffffff";
-      }
-    },
   },
 };
 </script>
