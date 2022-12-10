@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     theme: null,
     user: null,
+    api_url: "http://localhost:8000/api/v1/",
   },
   getters: {},
   mutations: {

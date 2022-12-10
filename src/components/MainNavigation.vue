@@ -27,7 +27,7 @@ div
                     | {{ list.name }}
           div(class="login-signup ml-4")
             div
-              router-link(class="text-decoration-none" to="/login") {{ $t("login") }} 
+              router-link(class="text-decoration-none" to="/signup") {{ $t("login") }} 
               v-icon mdi-account-circle
 </template>
 

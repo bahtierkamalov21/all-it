@@ -4,6 +4,8 @@ import HomeView from "../views/HomeView.vue";
 import ProjectsView from "../views/ProjectsView.vue";
 import ProjectsItemView from "../views/ProjectsItemView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import SigninView from "../views/SigninView.vue";
+import SignupView from "../views/SignupView.vue";
 
 Vue.use(VueRouter);
 
@@ -12,6 +14,16 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/signin",
+    name: "signin",
+    component: SigninView,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignupView,
   },
   {
     path: "/profile",
