@@ -9,7 +9,12 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
         validators = [
             UniqueTogetherValidator(
                 queryset=CustomUser.objects.all(),
-                message="Этот telegram username занят, пожалуйста введите уникальный username",
+                message="telegram_username",
                 fields=['telegram_username']
+            ),
+            UniqueTogetherValidator(
+                queryset=CustomUser.objects.all(),
+                message="password",
+                fields=['password']
             )
         ]
