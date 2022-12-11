@@ -1,20 +1,23 @@
 from rest_framework import serializers
-from .models import CustomUser
-from rest_framework.validators import UniqueTogetherValidator
+from .models import CustomUser, RequestUser, RequestUserImage
+from rest_framework.validators import UniqueValidator
 
 class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
+    telegram_username = serializers.CharField(max_length=56, validators=[UniqueValidator(
+        queryset = CustomUser.objects.all(),
+        message = "Пользователь с таким username уже существует."
+    )])
+
     class Meta:
         model = CustomUser
-        fields = ("id", "username", "password", "is_superuser", "telegram_username", "requests", "is_staff")
-        validators = [
-            UniqueTogetherValidator(
-                queryset=CustomUser.objects.all(),
-                message="telegram_username",
-                fields=['telegram_username']
-            ),
-            UniqueTogetherValidator(
-                queryset=CustomUser.objects.all(),
-                message="password",
-                fields=['password']
-            )
-        ]
+        fields = ("id", "first_name", "last_name", "username", "password", "is_superuser", "telegram_username", "is_staff")
+
+class RequestUserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = RequestUser
+        fields = ("fk_user", "title", "name", "stack", "images")
+
+class RequestUserImageSerializers(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = RequestUserImage
+        fields = ("fk_request_user", "title", "image")
