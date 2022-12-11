@@ -16,6 +16,7 @@ export default {
       username: null,
       password: null,
       telegramUsername: null,
+      error: null,
     };
   },
   methods: {
@@ -32,7 +33,7 @@ export default {
         .catch((errors) => {
           console.log(errors);
           if (errors.response.data.username) {
-            alert("Пользователь с таким именем уже существует");
+            this.error = errors.response.data.username;
           }
         });
     },

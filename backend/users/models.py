@@ -9,8 +9,7 @@ def requestImagePath(instance, filename):
 class CustomUser(AbstractUser):
 	requests = models.ManyToManyField(
 	    "RequestUser", blank=True, verbose_name="Запросы")
-	telegram_username = models.CharField(
-	    blank=True, max_length=32, verbose_name="Телеграм username")
+	telegram_username = models.CharField(max_length=32, verbose_name="Телеграм username")
 
 	def __str__(self):
 		return self.username
