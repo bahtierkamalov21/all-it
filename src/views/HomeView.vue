@@ -2,13 +2,11 @@
 div
   header
     home-header
-  main
+  v-main
     about-home
     home-services
     home-reviews
     home-projects
-    the-faq
-  footer
 </template>
 
 <script>
@@ -18,7 +16,6 @@ import AboutHome from "@/components/AboutHome";
 import HomeServices from "@/components/HomeServices";
 import HomeReviews from "@/components/HomeReviews";
 import HomeProjects from "@/components/HomeProjects";
-import TheFaq from "@/components/TheFaq";
 
 export default {
   name: "HomeView",
@@ -31,7 +28,6 @@ export default {
     AboutHome,
     HomeServices,
     HomeReviews,
-    TheFaq,
   },
   mixins: [updateTitle],
   created() {

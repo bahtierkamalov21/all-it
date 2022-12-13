@@ -114,6 +114,7 @@ export default {
 .faq {
   overflow: hidden;
   background-color: #ffffff;
+  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -148,7 +149,7 @@ ul {
 
 .right {
   &-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
     color: #000000;
   }
 

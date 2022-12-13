@@ -1,9 +1,11 @@
 <template lang="pug">
 div(class="pt-16")
-  v-text-field(v-model="username")
-  v-text-field(v-model="password")
-  v-text-field(v-model="telegramUsername")
-  v-btn(@click="registration") Зарегистрироваться
+  v-main
+    v-container
+      v-text-field(v-model="username")
+      v-text-field(v-model="password")
+      v-text-field(v-model="telegramUsername")
+      v-btn(@click="registration") Зарегистрироваться
 </template>
 
 <script>

@@ -27,7 +27,7 @@ div
                     | {{ list.name }}
           v-btn(class="login-button text-capitalize px-6 ml-4" elevation="0" rounded color="costumBlue")
             router-link(class="login-button-link font-weight-bold text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
-          v-btn(icon class="ml-2 pa-0")
+          v-btn(icon class="ml-2")
             v-icon(class="account-icon") mdi-account-circle
 </template>
 
@@ -138,6 +138,8 @@ export default {
 
 .account-icon {
   font-size: 2.2rem !important;
+  position: relative;
+  top: 1px;
 }
 
 .title {

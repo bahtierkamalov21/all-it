@@ -3,17 +3,21 @@ v-app
   main-navigation
   router-view
   the-bottom-navigation
+  footer
+    the-faq
 </template>
 
 <script>
 import MainNavigation from "@/components/MainNavigation";
 import TheBottomNavigation from "@/components/TheBottomNavigation";
+import TheFaq from "@/components/TheFaq";
 
 export default {
   name: "App",
   components: {
     MainNavigation,
     TheBottomNavigation,
+    TheFaq,
   },
   data: () => ({}),
   created() {
@@ -41,6 +45,7 @@ html {
 
 .v-application {
   background-color: var(--v-background-base) !important;
+  font-family: "Montserrat", "Roboto", sans-serif;
 }
 
 .v-list {
