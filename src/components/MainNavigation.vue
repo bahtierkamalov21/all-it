@@ -25,9 +25,10 @@ div
                 div
                   router-link(class="text-decoration-none" v-for="list in item.list" :to="list.href" :key="list.id")
                     | {{ list.name }}
-          v-btn(class="login-button text-capitalize ml-4" elevation="0" outlined rounded color="costumBlue" depressed)
-            router-link(class="login-button-link font-weight-bold text-decoration-none" to="/signup") {{ $t("login") }} 
-            v-icon(right) mdi-account-circle
+          v-btn(class="login-button text-capitalize px-6 ml-4" elevation="0" rounded color="costumBlue")
+            router-link(class="login-button-link font-weight-bold text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
+          v-btn(icon class="ml-2 pa-0")
+            v-icon(class="account-icon") mdi-account-circle
 </template>
 
 <script>
@@ -135,6 +136,10 @@ export default {
   border-radius: 10px;
 }
 
+.account-icon {
+  font-size: 2.2rem !important;
+}
+
 .title {
   display: flex;
   align-items: center;
@@ -187,7 +192,7 @@ li {
     font-weight: 600;
     display: flex;
     align-items: center;
-    color: #999 !important;
+    color: #000000de !important;
     height: 68px;
     padding: 0 16px 0 0;
   }
@@ -207,7 +212,7 @@ li {
 
     & > * {
       transition: all 0.2s ease-in;
-      color: #666 !important;
+      color: #999 !important;
     }
   }
 }
@@ -216,6 +221,7 @@ li {
   display: none;
   color: rgba(0, 0, 0, 0.54);
   position: relative;
+  top: -1.5px;
 }
 
 .logo {
@@ -264,11 +270,7 @@ li {
 
 .login-button {
   &-link {
-    color: #333 !important;
-  }
-
-  &:hover > span > .login-button-link {
-    color: #666 !important;
+    color: #fff !important;
   }
 }
 
@@ -292,7 +294,7 @@ li {
   }
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1086px) {
   .nav-row {
     height: 62px;
     justify-content: space-between;

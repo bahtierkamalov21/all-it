@@ -161,7 +161,7 @@ ul {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1086px) {
   .right {
     &-title {
       font-size: 1.5rem;
