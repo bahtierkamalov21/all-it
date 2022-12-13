@@ -21,9 +21,11 @@ div
                 v-chip(color="costumBlue" class="ml-4 rounded-xl")
                   | WCAG 3.0
               v-btn(
-                class="left-button font-weight-bold mt-8" 
+                class="left-button text-capitalize font-weight-bold mt-8"
+                rounded 
                 color="costumBlue" 
                 depressed
+                elevation="0"
                 x-large
                 width="280"
               )

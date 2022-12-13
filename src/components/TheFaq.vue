@@ -28,6 +28,7 @@ div
               class="text-capitalize font-weight-bold right-button"
               x-large
               depressed
+              rounded
               color="costumBlue" 
               elevation="0"
             )
