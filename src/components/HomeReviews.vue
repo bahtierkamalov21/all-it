@@ -6,7 +6,7 @@ div
       v-col
         v-row(class="align-center justify-space-between")
           div(class="left")
-            h2 Отзывы
+            div Frontend Backend | Web Developers
           div(class="right")
             v-card(class="card py-4 rounded-lg" elevation="0")
               div(class="d-flex align-center justify-space-between px-4")

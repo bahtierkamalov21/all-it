@@ -5,30 +5,30 @@ div
       v-col
         v-row(class="justify-center align-center")
           v-card(class="about-card text-center rounded-lg")
-            font-awesome-icon(icon="fa-solid fa-laptop-code" class="fa-3x mb-4")
-            div(class="mb-4 font-weight-bold") Разработка и продвижение
+            font-awesome-icon(icon="fa-solid fa-laptop-code" class="fa-3x white--text mb-4")
+            h3(class="mb-4 white--text") Разработка
               br
               | IT-продуктов
-            div(class="mb-4")
+            div(class="mb-6 white--text")
               | Наша команда с 2017 года профессионально занимается разработкой
               | IT-решен
-            router-link(to="/about-us") Узнать больше
+            router-link(to="/about-us" class="text-decoration-none font-weight-medium white--text") Узнать больше
           v-card(class="about-card text-center rounded-lg")
-            font-awesome-icon(icon="fa-solid fa-cloud" class="fa-3x mb-4")
-            div(class="mb-4 font-weight-bold") Digital-решения
-            div(class="mb-4")
+            font-awesome-icon(icon="fa-solid fa-cloud" class="fa-3x white--text mb-4")
+            h3(class="mb-4 white--text") Digital-решения
+            div(class="mb-6 white--text")
               | Создаем и поддерживаем IT-решения различного уровня сложности,
               | включая Highload проекты. Поддерживаем проекты по формату Time &
               | Material.
-            router-link(to="/about-us") Узнать больше
+            router-link(to="/about-us" class="text-decoration-none font-weight-medium white--text") Узнать больше
           v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-globe" class="fa-3x mb-4")
-            div(class="mb-4 font-weight-bold") IT-консалтинг
-            div(class="mb-4")
+            h3(class="mb-4 font-weight-bold") IT-консалтинг
+            div(class="mb-6")
               | Оказываем комплексный IT-консалтинг для наших клиентов (от стадии
               | прототипирования до полноценного выпуска продукта на рынок).
               | Поддерживаем проект после его сдачи.
-            router-link(to="/about-us") Узнать больше
+            router-link(to="/about-us" class="text-decoration-none font-weight-medium black--text") Узнать больше
 </template>
 
 <script>
@@ -71,27 +71,16 @@ export default {
         height: 100%;
         padding-bottom: 6vh;
 
-        & > *:nth-child(1) {
-          background-image: url("../assets/images/card-one-background.jpg");
+        & > * {
           background-size: cover;
           background-repeat: no-repeat;
-          color: #ffffff;
 
-          & > *:last-child {
-            color: #ffffff;
-            text-decoration: none;
+          &:first-child {
+            background-image: url("../assets/images/card-one-background.jpg");
           }
-        }
 
-        & > *:nth-child(2) {
-          background-image: url("../assets/images/card-two-background.jpg");
-          background-size: cover;
-          background-repeat: no-repeat;
-          color: #ffffff;
-
-          & > *:last-child {
-            color: #ffffff;
-            text-decoration: none;
+          &:nth-child(2) {
+            background-image: url("../assets/images/card-two-background.jpg");
           }
         }
       }
@@ -106,7 +95,7 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 52px 32px;
+    padding: 46px 32px;
     justify-content: center;
     box-shadow: 6px 5px 30px 0 rgb(0 0 0 / 12%) !important;
     transition: all 0.5s ease;
@@ -117,16 +106,6 @@ export default {
       transition: all 0.5s ease;
     }
 
-    & > h3 {
-      font-size: 18px;
-      margin-bottom: 14px;
-    }
-
-    & > p {
-      font-size: 14px;
-      line-height: 26px;
-    }
-
     & > *:last-child {
       color: var(--v-color_shadow-base);
       text-decoration: none;
@@ -134,7 +113,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1086px) {
   .about {
     padding-bottom: 42px;
 

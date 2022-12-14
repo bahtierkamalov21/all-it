@@ -1,10 +1,14 @@
 <template lang="pug">
-div(class="shapes")
-  div(v-if="!this.$vuetify.theme.dark")
-    img(v-for="images in images.light" :class="{'hover' : images.active}" class="image" :src="images.image" alt="shapes")
+div(class="shapes" ref="shapes")
+  div(v-if="!theme")
+    img(v-for="images in images.light" :class="{'hover' : images.active}" class="image" :src="images.image" alt="shapes" :key="images.id")
+  div(v-else)
+    img(v-for="item in images.dark" :class="{'hover' : item.active}" class="image" :src="item.image" alt="shapes" :key="item.id")
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "ShapesHomeHeader",
   data() {
@@ -24,21 +28,37 @@ export default {
             active: false,
           },
         ],
+        dark: [
+          {
+            image: require("@/assets/shapes/shapes-dark.svg"),
+            active: true,
+          },
+          {
+            image: require("@/assets/shapes/shapes-dark-two.svg"),
+            active: false,
+          },
+          {
+            image: require("@/assets/shapes/shapes-dark-tree.svg"),
+            active: false,
+          },
+          {
+            image: require("@/assets/shapes/shapes-dark-four.svg"),
+            active: false,
+          },
+        ],
       },
       index: 0,
-      show: true,
-      elementShapes: null,
     };
   },
+  computed: {
+    ...mapState(["theme"]),
+  },
   mounted() {
-    this.element = document.querySelector(".image");
-    this.elementShapes = document.querySelector(".shapes");
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((item) => {
         if (item.isIntersecting) {
           window.interval = setInterval(() => {
-            if (this.$vuetify.theme.dark) {
+            if (this.theme) {
               this.changeImages(this.images.dark);
             } else {
               this.changeImages(this.images.light);
@@ -48,7 +68,7 @@ export default {
       });
     });
 
-    observer.observe(this.elementShapes);
+    observer.observe(this.$refs.shapes);
   },
   methods: {
     changeImages(data) {

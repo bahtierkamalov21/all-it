@@ -4,29 +4,29 @@ div
     v-container(class="pt-8 pb-6")
       v-col
         v-row(class="v-row justify-space-between align-center")
-          div(class="view")
+          div(class="view white--text")
             div(class="d-inline-block")
               div(id="services-one" class="font-weight-medium") 0
               font-awesome-icon(icon="fa-solid fa-plus")
-            div(class="font-weight-bold") Строк кода написано
-          div(class="line")
-          div(class="view")
+            div(class="font-weight-medium") Строк кода написано
+          div(class="line white")
+          div(class="view white--text")
             div(class="d-inline-block")
               div(id="services-two" class="font-weight-medium") 0
               font-awesome-icon(icon="fa-solid fa-plus")
-            div(class="font-weight-bold") Отзывов
-          div(class="line")
-          div(class="view")
+            div(class="font-weight-medium") Отзывов
+          div(class="line white")
+          div(class="view white--text")
             div(class="d-inline-block")
               div(id="services-tree" class="font-weight-medium") 0
               font-awesome-icon(icon="fa-solid fa-plus")
-            div(class="font-weight-bold") Подрядчиков
-          div(class="line")
-          div(class="view")
+            div(class="font-weight-medium") Подрядчиков
+          div(class="line white")
+          div(class="view white--text")
             div(class="d-inline-block")
               div(id="services-four" class="font-weight-medium") 0
               font-awesome-icon(icon="fa-solid fa-plus")
-            div(class="font-weight-bold") Проектов
+            div(class="font-weight-medium") Проектов
 </template>
 
 <script>
@@ -102,12 +102,9 @@ export default {
 .line {
   width: 2px;
   height: 58px;
-  background-color: #ffffff;
 }
 
 .view {
-  color: #ffffff;
-
   & > *:first-child {
     position: relative;
     font-size: 1.875rem;
@@ -145,7 +142,6 @@ export default {
     &::before {
       content: "";
       height: 100%;
-      background-color: #ffffff;
       width: 2px;
       position: absolute;
       top: 0;

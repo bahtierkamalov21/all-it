@@ -8,14 +8,14 @@ div
             v-card(
               v-for="service in services"
               :key="service.id"
-              class="card pa-8"
+              class="card white--text pa-8"
               color="transparent rounded-lg"
               min-height="320"
               max-width="240"
             )
               v-icon(:color="service.icon_color") {{ "mdi-" + service.icon }}
               h3(class="mt-2") {{ service.title }}
-              p(class="mt-2") {{ service.text }}
+              div(class="mt-2") {{ service.text }}
     div(class="swiper-pagination")
 </template>
 
@@ -75,14 +75,13 @@ export default {
 .card {
   border: 1px solid #ffffff !important;
   background-color: rgba(255, 255, 255, 0.012) !important;
-  color: #ffffff;
   box-shadow: var(--shadow-2xl) !important;
 
   & > .v-icon {
     font-size: 6rem;
   }
 
-  & > p {
+  & > div {
     opacity: 0.8;
   }
 }

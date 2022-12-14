@@ -25,10 +25,8 @@ div
                 div
                   router-link(class="text-decoration-none" v-for="list in item.list" :to="list.href" :key="list.id")
                     | {{ list.name }}
-          v-btn(class="login-button text-capitalize px-6 ml-4" elevation="0" rounded color="costumBlue")
-            router-link(class="login-button-link font-weight-bold text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
-          v-btn(icon class="ml-2")
-            v-icon(class="account-icon") mdi-account-circle
+          v-btn(class="text-capitalize ml-4" elevation="0" rounded color="costumBlue")
+            router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
 </template>
 
 <script>
@@ -221,9 +219,9 @@ li {
 
 .icon-list {
   display: none;
-  color: rgba(0, 0, 0, 0.54);
+  color: #000000de;
   position: relative;
-  top: -1.5px;
+  top: -1px;
 }
 
 .logo {

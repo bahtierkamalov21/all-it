@@ -3,7 +3,7 @@ div
   div(class="faq")
     v-container(class="pt-16 pb-12 px-6 container")
       div(class="mb-2 header")
-        h2(class="font-weight-bold") {{ escaped }}
+        h2 {{ escaped }}
       v-col
         v-row(class="align-start justify-space-between")
           div(class="left mb-2")
@@ -25,16 +25,15 @@ div
           div(class="right")
             div(class="right-title font-weight-bold mb-2") Нет ответа на ваш вопрос?
             v-btn(
-              class="text-capitalize font-weight-bold right-button"
+              class="text-capitalize white--text"
               x-large
-              depressed
               rounded
               color="costumBlue" 
               elevation="0"
             )
               font-awesome-icon(
                 icon="fa-brands fa-telegram"
-                class="mr-2 right-button-icon"
+                class="mr-2 right-icon"
               )
               div(class="ma-0")
                 | Задайте 
@@ -153,12 +152,8 @@ ul {
     color: #000000;
   }
 
-  &-button {
-    color: #ffffff;
-
-    &-icon {
-      font-size: 20px !important;
-    }
+  &-icon {
+    font-size: 20px !important;
   }
 }
 

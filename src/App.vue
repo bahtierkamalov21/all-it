@@ -23,6 +23,8 @@ export default {
   created() {
     // Determine whether the user is authorized
     this.$store.commit("setUser", localStorage.getItem("user"));
+    // Commit theme in store
+    this.$store.commit("changeTheme", this.$vuetify.theme.dark);
   },
 };
 </script>
@@ -36,7 +38,6 @@ export default {
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --text-4xl: 2.25rem;
 }
 
 html {

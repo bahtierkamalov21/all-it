@@ -13,23 +13,24 @@ div
               v-chip(color="primary" style="width: fit-content;")
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
-              h1(class="the-title font-weight-bold") {{ $t("header__h1") }}
-              h2(class="font-weight-medium pa-0") 
+              h1(class="the-title") {{ $t("header__h1") }}
+              h2(class="pa-0 font-weight-medium")
                 | {{ $t("modern") }}
                 br
                 | {{ $t("projects") }}
                 v-chip(color="costumBlue" class="ml-4 rounded-xl")
                   | WCAG 3.0
               v-btn(
-                class="left-button text-capitalize font-weight-bold mt-8"
+                class="text-capitalize white--text mt-8"
                 rounded 
-                color="costumBlue" 
-                depressed
+                color="costumBlue"
                 elevation="0"
                 x-large
-                width="280"
+                width="250"
               )
-                | {{ $t("discuss") }} {{ $t("project") }}
+                font-awesome-icon(icon="fa-solid fa-layer-group" class="mr-2")
+                | {{ $t("discuss") }}
+                span(class="ml-1 text-lowercase") {{ $t("project") }}
             div(class="right")
       div(class="bottom mt-6")
         marquee-item
@@ -70,6 +71,8 @@ export default {
     },
   },
   mounted() {
+    // If default dark theme
+    this.changeBackgroundContainer();
     // First initilization media styles
     this.changeStyleElementsForMedia();
     // Resize window
@@ -106,7 +109,6 @@ export default {
 
   &-container {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(12px);
     background-repeat: no-repeat;
     background-size: cover;
@@ -124,10 +126,6 @@ export default {
 
 .left {
   width: 100%;
-
-  &-button {
-    color: #ffffff !important;
-  }
 }
 
 .the-title {
@@ -149,16 +147,6 @@ h2 {
     font-size: calc(var(--index) * 1.2);
     padding: calc(var(--index) * 1.2);
     color: #ffffff;
-  }
-}
-
-@keyframes buttonBg {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
   }
 }
 
