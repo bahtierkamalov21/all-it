@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, RequestUser, RequestUserImage, UserReview
+from .models import CustomUser, RequestUser, RequestUserImage, UserReview, Review
 from rest_framework.validators import UniqueValidator
 
 class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
@@ -28,3 +28,8 @@ class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserReview
         fields = ("fk_user", "date", "message", "rating")
+        
+class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Review
+        fields = ("fk_user_review")

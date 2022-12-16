@@ -6,7 +6,8 @@ router = routers.DefaultRouter()
 router.register(r'users', views.CustomUserViewSet)
 router.register(r'requests', views.RequestUserViewSet)
 router.register(r'requests/images', views.RequestUserImageViewSet)
-router.register(r'reviews', views.UserReviewViewSet)
+router.register(r'users/reviews', views.UserReviewViewSet)
+router.register(r'reviews', views.ReviewViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

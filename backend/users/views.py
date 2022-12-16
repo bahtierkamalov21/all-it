@@ -1,7 +1,8 @@
 from urllib import response
 from rest_framework import viewsets, permissions
-from .models import CustomUser, RequestUser, RequestUserImage, UserReview
-from .serializers import CustomUserSerializer, RequestUserSerializer, RequestUserImageSerializer, UserReviewSerializer
+from .models import CustomUser, RequestUser, RequestUserImage, UserReview, Review
+from .serializers import CustomUserSerializer, RequestUserSerializer, RequestUserImageSerializer, UserReviewSerializer, ReviewSerializer
+from .permissions import IsAdminUserOrReadOnly
 
 # Create your views here.
 class CustomUserViewSet(viewsets.ModelViewSet):
@@ -35,3 +36,11 @@ class UserReviewViewSet(viewsets.ModelViewSet):
     queryset = UserReview.objects.all()
     serializer_class = UserReviewSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAdminUserOrReadOnly]

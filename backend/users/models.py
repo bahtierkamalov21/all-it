@@ -12,6 +12,7 @@ class CustomUser(AbstractUser):
     telegram_username = models.CharField(
         max_length=32, blank=True, null=True, verbose_name="Телеграм username")
     requests = models.ManyToManyField("RequestUser", blank=True, verbose_name="Заявки пользователя")
+    reviews = models.ForeignKey("UserReview", blank=True, on_delete=models.CASCADE, verbose_name="Отзыв пользователя")
 
     def __str__(self):
         return self.username
@@ -49,6 +50,7 @@ class RequestUserImage(models.Model):
         verbose_name = "Изображение запроса пользователя"
         verbose_name_plural = "Изображения запросов пользователей"
 
+# Пользовательские отзывы
 
 class UserReview(models.Model):
     fk_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -62,3 +64,16 @@ class UserReview(models.Model):
     class Meta:
         verbose_name = "Отзыв пользователя"
         verbose_name_plural = "Отзывы пользователей"
+
+# Отзывы/популярные отзывы
+
+class Review(models.Model):
+    fk_user_review = models.ForeignKey(UserReview, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Отзыв пользователя - {self.fk_user_review.fk_user.username}"
+
+    class Meta:
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
+    
