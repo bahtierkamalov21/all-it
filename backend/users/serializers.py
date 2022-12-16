@@ -13,19 +13,19 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CustomUser
         fields = ("id", "first_name", "last_name", "username", "telegram_username", "password", "requests")
-        permission_classes = (IsAuthenticatedOrAdminOrReadOnly)
+        permission_classes = (IsAuthenticatedOrAdminOrReadOnly, )
 
 class RequestUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = RequestUser
         fields = ("fk_user", "title", "name", "stack", "images")
-        permission_classes = (IsAuthenticated)
+        permission_classes = (IsAuthenticated, )
 
 class RequestUserImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = RequestUserImage
         fields = ("fk_request_user", "title", "image")
-        permission_classes = (IsAuthenticated)
+        permission_classes = (IsAuthenticated, )
 
 class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
     fk_user = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -33,4 +33,4 @@ class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserReview
         fields = ("fk_user", "date", "message", "rating")
-        permission_classes = (IsAuthenticatedOrReadOnly)
+        permission_classes = (IsAuthenticatedOrReadOnly, )
