@@ -106,9 +106,9 @@ export default {
   transition: all 0.5s ease-in-out;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1086px) {
   .image {
-    width: 80vw;
+    width: 70vw;
   }
 }
 </style>

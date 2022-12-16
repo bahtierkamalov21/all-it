@@ -11,7 +11,7 @@ div
               | IT-продуктов
             div(class="mb-6 white--text")
               | Наша команда с 2017 года профессионально занимается разработкой
-              | IT-решен
+              | IT-решений
             router-link(to="/about-us" class="text-decoration-none font-weight-medium white--text") Узнать больше
           v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-cloud" class="fa-3x white--text mb-4")
@@ -28,7 +28,7 @@ div
               | Оказываем комплексный IT-консалтинг для наших клиентов (от стадии
               | прототипирования до полноценного выпуска продукта на рынок).
               | Поддерживаем проект после его сдачи.
-            router-link(to="/about-us" class="text-decoration-none font-weight-medium black--text") Узнать больше
+            router-link(to="/about-us" class="text-decoration-none font-weight-medium") Узнать больше
 </template>
 
 <script>

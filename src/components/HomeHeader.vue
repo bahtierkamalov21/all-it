@@ -150,7 +150,7 @@ h2 {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1086px) {
   .header {
     &-container {
       width: 92.2%;
