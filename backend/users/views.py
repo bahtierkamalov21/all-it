@@ -10,7 +10,7 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class RequestUserViewSet(viewsets.ModelViewSet):
     """
@@ -18,7 +18,7 @@ class RequestUserViewSet(viewsets.ModelViewSet):
     """
     queryset = RequestUser.objects.all()
     serializer_class = RequestUserSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
 class RequestUserImageViewSet(viewsets.ModelViewSet):
     """
@@ -26,7 +26,7 @@ class RequestUserImageViewSet(viewsets.ModelViewSet):
     """
     queryset = RequestUserImage.objects.all()
     serializer_class = RequestUserImageSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
 class UserReviewViewSet(viewsets.ModelViewSet):
     """
@@ -34,4 +34,4 @@ class UserReviewViewSet(viewsets.ModelViewSet):
     """
     queryset = UserReview.objects.all()
     serializer_class = UserReviewSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
