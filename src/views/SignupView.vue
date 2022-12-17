@@ -25,9 +25,13 @@ export default {
     registration() {
       axios
         .post(this.$store.state.api_url + "users/", {
+          firts_name: "",
+          last_name: "",
+          requests: [],
           username: this.username,
           password: this.password,
           telegram_username: this.telegramUsername,
+          reviews: [],
         })
         .then((response) => {
           console.log(response);

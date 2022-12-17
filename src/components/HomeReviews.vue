@@ -30,14 +30,12 @@ div
                     v-icon mdi-arrow-right
               div(class="swiper-reviews")
                 div(class="swiper-wrapper")
-                  div(class="swiper-slide")
-                    div(class="px-4") dcdcs
-                  div(class="swiper-slide")
-                    div(class="px-4")
-                      | cascasca
+                  div(class="swiper-slide" v-for="item in reviews" :key="item.id")
+                    div(class="px-4") {{ item.message }}
 </template>
 
 <script>
+import axios from "axios";
 import Swiper from "swiper";
 
 export default {
@@ -45,6 +43,7 @@ export default {
   data() {
     return {
       swiperReviews: null,
+      reviews: [],
     };
   },
   computed: {
@@ -64,9 +63,25 @@ export default {
       } else return null;
     },
   },
+  created() {
+    this.getReviews();
+  },
   mounted() {
     this.swiperReviews = new Swiper(".swiper-reviews");
     console.log(this.swiperReviews);
+  },
+  methods: {
+    getReviews() {
+      axios
+        .get(this.$store.state.api_url + "reviews/")
+        .then((response) => {
+          const reviews = response.data;
+          console.log(reviews);
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+    },
   },
 };
 </script>
