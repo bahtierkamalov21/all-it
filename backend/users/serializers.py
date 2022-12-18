@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, RequestUser, RequestUserImage, UserReview, Review
+from .models import CustomUser, RequestUser, RequestUserImage, UserReview, PopularReview
 from rest_framework.validators import UniqueValidator
 
 class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
@@ -10,7 +10,7 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ("id", "first_name", "last_name", "username", "telegram_username", "password", "requests")
+        fields = ("id", "first_name", "last_name", "username", "telegram_username", "password", "avatar", "requests")
 
 class RequestUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -23,13 +23,11 @@ class RequestUserImageSerializer(serializers.HyperlinkedModelSerializer):
         fields = ("fk_request_user", "title", "image")
 
 class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
-    fk_user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = UserReview
-        fields = ("fk_user", "date", "message", "rating")
+        fields = '__all__'
         
-class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+class PopularReviewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Review
-        fields = ("fk_user_review")
+        model = PopularReview
+        fields = '__all__'
