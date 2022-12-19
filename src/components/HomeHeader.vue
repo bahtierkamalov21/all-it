@@ -14,7 +14,7 @@ div
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
               h1(class="the-title") {{ $t("header__h1") }}
-              h2(class="pa-0 font-weight-medium")
+              h2(class="pa-0")
                 | {{ $t("modern") }}
                 br
                 | {{ $t("projects") }}
@@ -26,11 +26,11 @@ div
                 color="costumBlue"
                 elevation="0"
                 x-large
-                width="250"
+                width="320"
               )
                 font-awesome-icon(icon="fa-solid fa-layer-group" class="mr-2")
-                | {{ $t("discuss") }}
-                span(class="ml-1 text-lowercase") {{ $t("project") }}
+                | Получить
+                span(class="ml-1 text-lowercase") консультацию
             div(class="right")
       div(class="bottom mt-6")
         marquee-item
@@ -109,7 +109,7 @@ export default {
 
   &-container {
     position: absolute;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(6px);
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 12px;

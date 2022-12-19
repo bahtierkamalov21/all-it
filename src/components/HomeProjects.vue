@@ -28,7 +28,6 @@ export default {
 
 .container {
   height: 80vh;
-  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
   border-radius: 20px;
   box-shadow: var(--shadow-2xl);

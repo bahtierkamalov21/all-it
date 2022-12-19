@@ -113,9 +113,8 @@ export default {
 
 <style scoped lang="scss">
 .nav {
-  background-color: #e5e5e533;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   padding: 12px;
   position: fixed;
   width: 100%;
