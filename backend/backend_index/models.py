@@ -13,6 +13,7 @@ class Category(models.Model):
     title = models.CharField(max_length=56, verbose_name="Категория")
     projects = models.ManyToManyField(
         "Project", blank=True, verbose_name="Проекты")
+    prefix = models.SlugField(max_length=42, verbose_name="Префикс")
 
     def __str__(self):
         return f"Категория - {self.title}"

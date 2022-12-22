@@ -2,12 +2,24 @@
 div
   section(class="reviews py-16")
     v-container(class="pt-10 px-6")
-      h2(class="mb-4") Отзывы
+      v-col(class="mb-4")
+        v-row(class="align-center justify-space-between")
+          h2(class="align-center") Отзывы 
+          v-chip(class="title-chip white--text font-weight-bold pa-2 px-4") Спасибо за вашу поддержку!
       v-col
         v-row(class="justify-space-between")
-          div(class="left")
-            h3 Справа мы оставляем популярные и недавние отзывы
-            h4 Больше 5 лет мы успешно работаем с крупными брендами со всего мира
+          div(class="left mb-6")
+            v-card(class="card rounded-lg pa-4 mb-4")
+              p(class="font-weight-bold") Мы ценим мнение наших клиентов и рады
+                br
+                | услышать обратную связь. 
+              p(class="font-weight-medium") В этой секции вы можете прочитать отзывы наших клиентов, 
+                | которые оставили свои впечатления о наших услугах. 
+              p(class="mb-0 font-weight-medium")
+                | Мы стремимся улучшать качество наших 
+                br
+                | услуг и ваши отзывы помогут нам стать лучше. 
+            home-reviews-warning
           div(class="right")
             v-card(class="card py-4 rounded-lg" elevation="0")
               div(class="d-flex align-center justify-space-between px-4")
@@ -33,7 +45,7 @@ div
                 div(class="swiper-wrapper")
                   div(class="swiper-slide" v-for="item in reviews" :key="item.id")
                     v-col 
-                      v-row(class="align-center justify-space-between")
+                      v-row(class="reviews-top align-center justify-space-between")
                         v-list
                           v-list-item
                             v-list-item-avatar
@@ -45,11 +57,12 @@ div
                         div(class="d-flex align-center pr-12")
                           v-icon(color="yellow" v-for="rating in item.rating") mdi-star-shooting 
                           //- | {{ for(let i = 0; i < item.rating; i++) { return v-icon(color="yellow") mdi-star-shooting } }}
-                          v-chip(color="primary" class="ml-2") Рейтинг
+                          v-chip(color="primary" class="font-weight-bold px-4 ml-2") Рейтинг
                     div(class="swiper-slide-message px-4") {{ item.message }}
 </template>
 
 <script>
+import HomeReviewsWarning from "@/components/HomeReviewsWarning";
 import axios from "axios";
 import Swiper from "swiper";
 
@@ -61,6 +74,7 @@ export default {
       reviews: [],
     };
   },
+  components: { HomeReviewsWarning },
   computed: {
     disabledPrevSlide() {
       if (this.swiperReviews) {
@@ -137,12 +151,16 @@ h2 {
   font-size: var(--section-title);
 }
 
+.title-chip {
+  background-color: var(--custom-blue) !important;
+}
+
 .right {
-  width: 50%;
+  width: 48%;
 }
 
 .left {
-  width: 50%;
+  width: 52%;
   padding-right: 12px;
 }
 
@@ -161,7 +179,22 @@ h2 {
 @media screen and (max-width: 600px) {
   .reviews {
     padding-top: 112px !important;
+
+    &-top {
+      display: block;
+
+      & > *:last-child {
+        justify-content: end;
+        padding-right: 38px !important;
+        margin-bottom: 12px;
+      }
+    }
   }
+
+  .left {
+    width: 100%;
+  }
+
   .right {
     width: 100%;
   }

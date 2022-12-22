@@ -15,7 +15,7 @@ div
             )
               v-icon(:color="service.icon_color") {{ "mdi-" + service.icon }}
               h3(class="mt-2") {{ service.title }}
-              div(class="mt-2") {{ service.text }}
+              p(class="mt-2") {{ service.text }}
     div(class="swiper-pagination")
 </template>
 

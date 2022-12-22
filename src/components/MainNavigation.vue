@@ -23,9 +23,9 @@ div
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
                 div
-                  router-link(class="text-decoration-none" v-for="list in item.list" :to="list.href" :key="list.id")
+                  router-link(class="text-decoration-none px-4" v-for="list in item.list" :to="list.href" :key="list.id")
                     | {{ list.name }}
-          v-btn(class="text-capitalize ml-4" elevation="0" rounded color="costumBlue")
+          v-btn(class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
             router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
 </template>
 
@@ -191,7 +191,7 @@ li {
     font-weight: 600;
     display: flex;
     align-items: center;
-    color: #000000de !important;
+    color: #666 !important;
     height: 68px;
     padding: 0 16px 0 0;
   }
@@ -218,7 +218,7 @@ li {
 
 .icon-list {
   display: none;
-  color: #000000de;
+  color: #666;
   position: relative;
   top: -1px;
 }
@@ -251,17 +251,27 @@ li {
     position: relative;
     background-color: #fff;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: var(--base-shadow);
+    padding: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
     & > * {
       color: #999 !important;
+      border-radius: 8px;
       display: block;
+      padding: 6px 0;
+      margin-bottom: 8px;
       transition: all 0.2s ease-in;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+
+      &:last-child {
+        margin: 0;
+      }
 
       &:hover {
         transition: all 0.2s ease-in;
         color: #666 !important;
+        box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+        border: solid 1px #999;
       }
     }
   }

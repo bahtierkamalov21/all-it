@@ -25,7 +25,7 @@ div
           div(class="right")
             div(class="right-title font-weight-bold mb-2") Нет ответа на ваш вопрос?
             v-btn(
-              class="text-capitalize white--text"
+              class="text-capitalize font-weight-bold white--text"
               x-large
               rounded
               color="costumBlue" 
@@ -164,15 +164,16 @@ ul {
     }
   }
 
+  .left {
+    width: 100% !important;
+  }
+
   .faq {
     padding-bottom: 36px;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .left {
-    width: 100% !important;
-  }
   .group {
     width: 100% !important;
   }

@@ -5,12 +5,12 @@ div
       div
       div
         shapes-home-header
-    v-container(class="header-container" ref="headerContainer")
+    v-container(class="header-container rounded-xl" ref="headerContainer")
       div(class="top")
         v-col 
           v-row(class="align-center") 
             div(class="left d-flex flex-column")
-              v-chip(color="primary" style="width: fit-content;")
+              v-chip(color="primary" class="pr-4" style="width: fit-content;")
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
               h1(class="the-title") {{ $t("header__h1") }}
@@ -18,15 +18,15 @@ div
                 | {{ $t("modern") }}
                 br
                 | {{ $t("projects") }}
-                v-chip(color="costumBlue" class="ml-4 rounded-xl")
+                v-chip(color="costumBlue" class="ml-2 rounded-xl")
                   | WCAG 3.0
               v-btn(
-                class="text-capitalize white--text mt-8"
+                class="text-capitalize font-weight-bold white--text mt-8"
                 rounded 
                 color="costumBlue"
                 elevation="0"
                 x-large
-                width="320"
+                width="312"
               )
                 font-awesome-icon(icon="fa-solid fa-layer-group" class="mr-2")
                 | Получить
@@ -39,31 +39,11 @@ div
 <script>
 import ShapesHomeHeader from "./ShapesHomeHeader.vue";
 import MarqueeItem from "./MarqueeItem";
-import { mapState } from "vuex";
 
 export default {
   name: "HomeHeader",
   components: { ShapesHomeHeader, MarqueeItem },
-  computed: {
-    ...mapState(["theme"]),
-  },
-  watch: {
-    theme() {
-      this.changeBackgroundContainer();
-    },
-  },
   methods: {
-    changeBackgroundContainer() {
-      if (this.theme) {
-        this.$refs.headerContainer.style.backgroundColor = "#262626D9";
-      } else {
-        this.$refs.headerContainer.style.backgroundColor =
-          "rgba(255, 255, 255, 0.6)";
-      }
-    },
-    changeStopIntervalShapes(data) {
-      this.stopIntervalShapes = data;
-    },
     changeStyleElementsForMedia() {
       this.$refs.headerWrapper.style.minHeight = `${
         this.$refs.headerContainer.offsetHeight + 198
@@ -71,8 +51,6 @@ export default {
     },
   },
   mounted() {
-    // If default dark theme
-    this.changeBackgroundContainer();
     // First initilization media styles
     this.changeStyleElementsForMedia();
     // Resize window
@@ -109,11 +87,8 @@ export default {
 
   &-container {
     position: absolute;
-    backdrop-filter: blur(6px);
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 12px;
-    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-2xl);
     padding: 32px;
     padding-bottom: 26px;
     top: 112px;
