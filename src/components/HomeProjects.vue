@@ -10,8 +10,8 @@ div
       h2(class="white--text mb-4") Наши работы и кейсы
       home-projects-navigation(@sendProjects="getProjects")
       v-card(elevateion="0" class="rounded-xl pa-4 mt-6" ref="card")
-        div(class="d-flex justify-space-between mb-4")
-          h3(class="card-title") # Здесь представлены наши лучшие проекты или собственные разработки
+        div(class="d-flex justify-space-between mb-2")
+          h3(class="card-title") // Здесь представлены наши лучшие проекты и собственные разработки
           div(class="card-buttons")
             v-btn(
               elevation="0"

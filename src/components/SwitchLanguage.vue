@@ -9,7 +9,9 @@ div
           v-icon(class="chevron") {{ open ? "mdi-chevron-up" : "mdi-chevron-down" }}
         div(class="list-languages" v-if="open")
           ul
-            li(v-for="item in listLanguages" :key="item.id" class="px-4" @click="changeLanguage(item)")
+            li(v-for="item in listLanguages" :key="item.id" class="align-center px-4" @click="changeLanguage(item)")
+              flag(:iso="item" class="mr-2 rounded-xl" v-if="item != 'en'")
+              flag(iso="us" class="mr-1 rounded-xl" v-else)
               | {{ item === "ru" ? (`Русский (${item.toUpperCase()})`) : null }}
               | {{ item === "en" ? (`Английский (${item.toUpperCase()})`) : null }}
     span Сменить язык

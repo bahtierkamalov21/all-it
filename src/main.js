@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import i18n from "./plugins/i18n";
 import vuetify from "./plugins/vuetify";
+import flag from "./plugins/flag";
 
 // FontAwesomeIcons
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -48,5 +49,6 @@ new Vue({
   store,
   i18n,
   vuetify,
+  flag,
   render: (h) => h(App),
 }).$mount("#app");

@@ -55,7 +55,7 @@ div
                               v-list-item-title {{ item.fk_user.first_name ? item.fk_user.first_name : item.fk_user.username }}
                               v-list-item-subtitle {{ item.fk_user.last_name }}
                         div(class="d-flex align-center pr-12")
-                          v-icon(color="yellow" v-for="rating in item.rating") mdi-star-shooting 
+                          v-icon(color="yellow" v-for="rating in item.rating" :key="rating.id") mdi-star-shooting 
                           //- | {{ for(let i = 0; i < item.rating; i++) { return v-icon(color="yellow") mdi-star-shooting } }}
                           v-chip(color="primary" class="font-weight-bold px-4 ml-2") Рейтинг
                     div(class="swiper-slide-message px-4") {{ item.message }}
@@ -176,10 +176,8 @@ h2 {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 960px) {
   .reviews {
-    padding-top: 112px !important;
-
     &-top {
       display: block;
 
@@ -189,6 +187,12 @@ h2 {
         margin-bottom: 12px;
       }
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .reviews {
+    padding-top: 112px !important;
   }
 
   .left {
