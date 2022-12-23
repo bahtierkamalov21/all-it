@@ -1,9 +1,9 @@
 <template lang="pug">
 div
   v-card(link elevation="0" class="card rounded-xl pa-6" min-height="200")
-    h4(class="white--text font-weight-bold") {{ project.title }}
+    h3(class="white--text font-weight-bold") {{ project.title }}
     div(class="category")
-    div(class="last rounded-xl px-4 py-2") {{ project.stack  }}
+    div(class="last rounded-xl px-6 py-2") {{ project.stack  }}
 </template>
 
 <script>
@@ -42,7 +42,7 @@ export default {
   color: #fff;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 600px) {
   .card {
     padding: 16px !important;
   }

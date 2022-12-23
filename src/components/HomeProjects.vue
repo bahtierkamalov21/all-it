@@ -10,9 +10,28 @@ div
       h2(class="white--text mb-4") Наши работы и кейсы
       home-projects-navigation(@sendProjects="getProjects")
       v-card(elevateion="0" class="rounded-xl pa-4 mt-6" ref="card")
-        div(class="swiper-projects")
+        div(class="d-flex justify-space-between mb-4")
+          h3(class="card-title") # Здесь представлены наши лучшие проекты или собственные разработки
+          div(class="card-buttons")
+            v-btn(
+              elevation="0"
+              class="pa-0 mr-2"
+              min-width="48"
+              @click="swiperProjects.slidePrev()"
+              :disabled="disabledPrevSlide"
+            )
+              v-icon mdi-arrow-left
+            v-btn(
+              elevation="0" 
+              class="pa-0" 
+              min-width="48" 
+              @click="swiperProjects.slideNext()"
+              :disabled="disabledNextSlide"
+            )
+              v-icon mdi-arrow-right
+        div(class="swiper-projects rounded-xl")
           div(class="swiper-wrapper")
-            div(class="swiper-slide" v-for="project in projects" :key="project.url")
+            div(class="swiper-slide mr-2" v-for="project in projects" :key="project.url")
               home-projects-card(:project="project")
 </template>
 
@@ -20,14 +39,13 @@ div
 import ShapesHomeHeader from "./ShapesHomeHeader";
 import HomeProjectsNavigation from "./HomeProjectsNavigation";
 import HomeProjectsCard from "./HomeProjectsCard";
-import Swiper from "swiper";
+import { Swiper } from "swiper";
 
 export default {
   name: "HomeProjects",
   components: { ShapesHomeHeader, HomeProjectsNavigation, HomeProjectsCard },
   data() {
     return {
-      allProjects: [],
       projects: [], // Проекты активной категории
       swiperProjects: null,
     };
@@ -55,8 +73,24 @@ export default {
       this.changeStyleElementsForMedia();
     });
   },
+  computed: {
+    disabledPrevSlide() {
+      if (this.swiperProjects) {
+        return this.swiperProjects.activeIndex === 0;
+      } else return null;
+    },
+    disabledNextSlide() {
+      if (this.swiperProjects) {
+        if (
+          this.swiperProjects.activeIndex ===
+          this.swiperProjects.slides.length - 1
+        ) {
+          return true;
+        } else return false;
+      } else return null;
+    },
+  },
   methods: {
-    getAllProjects() {},
     getProjects(data) {
       // Только завершенные проекты
       this.projects = data.filter((item) => item.complete);
@@ -121,13 +155,49 @@ h2 {
   }
 }
 
+.card {
+  &-title {
+    width: 80%;
+  }
+}
+
+.swiper-slide {
+  width: 33%;
+}
+
 @media screen and (max-width: 1086px) {
   .container {
     width: 92.2%;
   }
+
+  .swiper-slide {
+    width: 50%;
+  }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
+  .projects {
+    &-wrapper {
+      & > *:first-child {
+        width: 100%;
+      }
+
+      & > *:last-child {
+        width: 0%;
+      }
+    }
+  }
+
+  .card {
+    &-title {
+      display: none;
+    }
+  }
+
+  .swiper-slide {
+    width: 100%;
+  }
+
   .container {
     padding: 18px;
     backdrop-filter: none;

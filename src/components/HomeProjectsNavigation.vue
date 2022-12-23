@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   v-card(class="rounded-xl" elevation="0")
-    ul(class="d-flex flex-wrap align-center px-2 pb-2")
+    ul(class="d-flex align-center px-2 pb-2")
       li(class="mt-2")
         v-chip(@click="setActiveCategory(126, allProjects)" class="mr-2" :class="{'active' : activeIndexCategory === 126}") Все проекты
       li(class="mt-2" v-for="link, index in links" :key="link.prefix")
@@ -77,6 +77,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+ul {
+  overflow: auto;
+  position: relative;
+}
+
+ul::-webkit-scrollbar {
+  display: none;
+}
+
 li {
   list-style: none;
 }
@@ -84,5 +93,16 @@ li {
 .active {
   background-color: var(--custom-blue) !important;
   color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  ul::before {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    top: 0;
+    right: 0;
+  }
 }
 </style>
