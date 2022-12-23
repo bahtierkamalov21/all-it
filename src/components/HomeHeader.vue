@@ -95,7 +95,6 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    transition: all 0.2s ease-in-out;
   }
 }
 

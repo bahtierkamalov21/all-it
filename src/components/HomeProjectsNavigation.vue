@@ -1,9 +1,10 @@
 <template lang="pug">
 div
-  v-card(class="rounded-lg" elevation="0")
-    ul(class="d-flex align-center pa-2")
-      li(v-for="link, index in links" :key="link.prefix")
-        v-chip(@click="setActiveCategory(126)" class="mr-2" :class="{'active' : activeIndexCategory === 126}") Все проекты
+  v-card(class="rounded-xl" elevation="0")
+    ul(class="d-flex flex-wrap align-center px-2 pb-2")
+      li(class="mt-2")
+        v-chip(@click="setActiveCategory(126, allProjects)" class="mr-2" :class="{'active' : activeIndexCategory === 126}") Все проекты
+      li(class="mt-2" v-for="link, index in links" :key="link.prefix")
         v-chip(@click="setActiveCategory(index, link.projects)" class="mr-2" :class="{'active' : activeIndexCategory === index}") {{ link.title }}
 </template>
 
@@ -24,24 +25,16 @@ export default {
     this.getCategoriesWithProjectsArray();
     this.getAllProjects();
   },
-  watch: {
-    activeIndexCategory() {
-      if (this.activeIndexCategory === 126) {
-        this.projectsWithActiveIndexCategory = this.allProjects;
-        this.sendProjects();
-      } else null;
-    },
-  },
   methods: {
     sendProjects() {
       this.$emit("sendProjects", this.projectsWithActiveIndexCategory);
     },
     setActiveCategory(index, array) {
-      this.activeIndexCategory = index;
-      if (array) {
+      if (array.length) {
+        this.activeIndexCategory = index;
         this.projectsWithActiveIndexCategory = array;
-      } else null;
-      this.sendProjects();
+        this.sendProjects();
+      }
     },
     getAllProjects() {
       axios

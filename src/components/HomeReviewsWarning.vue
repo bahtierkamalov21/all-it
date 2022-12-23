@@ -4,8 +4,7 @@ div
     div(class="card-bottom")
     div(class="text-right")
       div(class="card-top")
-      v-icon mdi-cloud-alert
-    p(class="font-weight-bold mb-2" v-if="!this.$store.state.user")
+    p(class="font-weight-bold mb-2 mt-6" v-if="!this.$store.state.user")
       | Чтобы оставить отзыв вам требуется 
       router-link(to="/signin") войти
     div(class="warning-bottom white--text font-weight-bold pa-2 px-4")
@@ -50,8 +49,10 @@ export default {
 }
 
 .warning-bottom {
-  background-color: #fbbf24;
   border-radius: 5px !important;
+  background-image: url("../assets/images/services-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 @keyframes background {
