@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --base-shadow: 0 0 10px -8px var(--v-color_shadow-base);
   --index: (1vw + 1vh);
@@ -52,6 +52,10 @@ html {
 
 .v-list {
   background-color: transparent !important;
+
+  &-group {
+    overflow: hidden;
+  }
 }
 
 @keyframes hover-list-link {

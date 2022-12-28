@@ -84,8 +84,7 @@ export default {
     disabledNextSlide() {
       if (this.swiperReviews) {
         if (
-          this.swiperReviews.activeIndex ===
-          this.swiperReviews.slides.length - 1
+          this.swiperReviews.activeIndex === this.swiperReviews.slides.length
         ) {
           return true;
         } else return false;
@@ -100,8 +99,8 @@ export default {
     console.log(this.swiperReviews);
   },
   methods: {
-    getReviews() {
-      axios
+    async getReviews() {
+      await axios
         .get(this.$store.state.api_url + "populars_reviews/")
         .then((response) => {
           const reviews = response.data;
