@@ -84,7 +84,8 @@ export default {
     disabledNextSlide() {
       if (this.swiperReviews) {
         if (
-          this.swiperReviews.activeIndex === this.swiperReviews.slides.length
+          this.swiperReviews.activeIndex ===
+          this.swiperReviews.slides.length - 1
         ) {
           return true;
         } else return false;

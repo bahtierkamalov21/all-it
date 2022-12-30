@@ -10,7 +10,7 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ("first_name", "last_name", "username", "telegram_username", "password", "avatar", "requests")
+        fields = ("is_active", "first_name", "last_name", "username", "telegram_username", "password", "avatar", "requests")
 
 class RequestUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
