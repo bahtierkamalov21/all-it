@@ -18,7 +18,7 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              router-link(class="text-decoration-none" :to="item.href" :class="item.list ? 'category-link pr-2' : null") {{ item.name }}
+              a(class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ item.name }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
@@ -86,7 +86,7 @@ export default {
         },
         {
           name: "Отзывы",
-          href: "#",
+          href: "#reviews",
         },
       ],
     };

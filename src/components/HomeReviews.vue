@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  section(class="reviews py-16")
+  section(class="reviews py-16" id="reviews")
     v-container(class="pt-10 px-6")
       v-col(class="mb-4")
         v-row(class="align-center justify-space-between")
