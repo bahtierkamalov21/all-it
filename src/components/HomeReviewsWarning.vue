@@ -6,7 +6,7 @@ div
       div(class="card-top")
     p(class="font-weight-bold mb-2 mt-6" v-if="!this.$store.state.user")
       | Чтобы оставить отзыв вам требуется 
-      router-link(to="/signin") войти
+      router-link(to="/signin" class="text-decoration-none") войти
     div(class="warning-bottom white--text text-subtitle-1 font-weight-medium pa-2")
       | Оставить отзыв можно будет после
       br
@@ -53,6 +53,7 @@ export default {
   background-image: url("../assets/images/services-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  line-height: 20px !important;
 }
 
 @keyframes background {

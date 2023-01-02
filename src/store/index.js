@@ -8,6 +8,8 @@ export default new Vuex.Store({
     theme: null,
     user: null,
     api_url: "http://localhost:8000/api/v1/",
+    token: "5944619606:AAEgXlAvmwjvWcH84eMlLdPL7RX4BTTqcEM",
+    chat_id: "-1001849968025",
   },
   getters: {},
   mutations: {

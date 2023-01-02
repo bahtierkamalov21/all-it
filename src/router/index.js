@@ -36,7 +36,8 @@ const routes = [
     component: ProjectsView,
   },
   {
-    path: "/projects/:id",
+    path: "/projects/:slug",
+    name: "project",
     component: ProjectsItemView,
   },
 ];

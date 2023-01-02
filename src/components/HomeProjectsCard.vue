@@ -1,9 +1,12 @@
 <template lang="pug">
 div
-  v-card(link elevation="0" class="card rounded-xl pa-6" min-height="200")
-    h3(class="white--text font-weight-bold") {{ project.title }}
+  v-card(link elevation="0" @click="$router.push({ name: 'project', params: { slug: project.link_path } })" class="card rounded-xl pa-6" min-height="200")
+    h3(class="white--text font-weight-bold mb-0") {{ project.title }}
+    v-chip(class="white--text font-weight-bold px-4" color="costumBlue") {{ project.name }}
     div(class="category")
-    div(class="last rounded-xl px-6 py-2") {{ project.stack  }}
+    div(class="white--text font-weight-bold")
+      | Технологии:
+      div(class="last px-4 py-2") {{ project.stack  }}
 </template>
 
 <script>
@@ -41,6 +44,7 @@ export default {
 .last {
   background-color: var(--custom-blue) !important;
   color: #fff;
+  border-radius: 5px !important;
 }
 
 @media screen and (max-width: 600px) {

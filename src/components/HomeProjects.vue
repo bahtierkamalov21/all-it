@@ -10,8 +10,10 @@ div
       h2(class="white--text mb-4") Наши работы и кейсы
       home-projects-navigation(@sendProjects="getProjects")
       v-card(elevateion="0" class="rounded-xl pa-4 mt-6" ref="card")
-        div(class="d-flex justify-space-between mb-2")
-          h3(class="card-title") // Здесь представлены наши лучшие проекты и собственные разработки
+        div(class="navigation d-flex justify-space-between mb-2")
+          v-chip(color="primary pr-6")
+            v-icon(class="status mr-2") mdi-star-check
+            | Здесь представлены наши лучшие проекты и собственные разработки
           div(class="card-buttons")
             v-btn(
               elevation="0"
@@ -135,6 +137,10 @@ export default {
   }
 }
 
+.status {
+  width: fit-content;
+}
+
 .swiper-projects {
   overflow: hidden;
 }
@@ -175,7 +181,7 @@ h2 {
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 878px) {
   .projects {
     &-wrapper {
       & > *:first-child {
@@ -186,6 +192,11 @@ h2 {
         width: 0%;
       }
     }
+  }
+
+  .navigation {
+    flex-direction: column;
+    gap: 12px;
   }
 
   .card {

@@ -82,18 +82,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'all_it_db',
-    #     'USER': 'all_it_db_user',
-    #     'PASSWORD': 'ba81906377',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'database',
+        'USER': 'root',
+        'PASSWORD': 'gwSQv9ii',
+        'HOST': 'database',
+        'PORT': '5432',
+    }
 }
 
 
@@ -157,6 +157,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://example.com',
     'https://sub.example.com',
     'http://localhost:8080',
+    'http://localhost:8081',
     'http://127.0.0.1:9000',
 ]
 

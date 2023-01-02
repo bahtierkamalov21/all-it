@@ -1,0 +1,82 @@
+version: "3"
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    command: >
+      bash -c "python3 manage.py migrate
+      && python3 manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - network
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+  # client:
+  #   build: .
+  #   container_name: client
+  #   restart: always
+  #   command: npm run serve
+  #   volumes:
+  #     - ./:/app
+  #   networks:
+  #     - network
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - backend
+  database:
+    image: postgres
+    container_name: database
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=gwSQv9ii
+      - POSTGRES_DB=database
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - network
+    ports:
+      - 5432:5432
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin
+  #   restart: always
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=bahtierkamalov21@gmail.com
+  #     - PGADMIN_DEFAULT_PASSWORD=ba819063
+  #   networks:
+  #     - network
+  #   ports:
+  #     - 5050:5050
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx_server
+  #   restart: always
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #   networks:
+  #     - network
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  # certbot:
+  #   image: certbot/certbot
+  #   container_name: certbot
+  #   volumes:
+  #     - ./serst:/etc/letsencrypt
+  #     - ./certbot:/var/www/certbot
+  #   networks:
+  #     - network
+  #   depends_on:
+  #     - nginx
+
+volumes:
+  pg_data:
+networks:
+  network:
+    driver: bridge

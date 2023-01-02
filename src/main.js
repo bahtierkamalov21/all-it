@@ -22,7 +22,7 @@ import {
   faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faTelegram } from "@fortawesome/free-brands-svg-icons";
+import { faTelegram, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -37,6 +37,7 @@ library.add(
   faBars,
   faTelegram,
   faHouse,
+  faGoogle,
   faLayerGroup
 );
 
