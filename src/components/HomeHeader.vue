@@ -31,7 +31,6 @@ div
                 font-awesome-icon(icon="fa-solid fa-layer-group" class="mr-2")
                 | Получить
                 span(class="ml-1 text-lowercase") консультацию
-            div(class="right")
       div(class="bottom mt-6")
         marquee-item
 </template>
@@ -150,7 +149,7 @@ h2 {
     }
   }
 
-  .h2 {
+  h2 {
     font-size: calc(var(--index) * 2.8);
     line-height: 2.4rem;
 
@@ -161,8 +160,6 @@ h2 {
   }
 
   .left {
-    width: 100%;
-
     &-button {
       width: 232px !important;
       margin-top: 24px !important;

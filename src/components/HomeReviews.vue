@@ -7,18 +7,12 @@ div
           h2(class="align-center") Отзывы 
           v-chip(class="title-chip white--text font-weight-bold pa-2 px-4") Спасибо за вашу поддержку!
       v-col
-        v-row(class="justify-space-between")
+        v-row(class="justify-space-between" style="gap: 12px;")
           div(class="left mb-6")
             v-card(class="card rounded-lg pa-4 mb-4")
-              p(class="font-weight-bold") Мы ценим мнение наших клиентов и рады
+              div(class="font-weight-bold") Мы ценим мнение наших клиентов и рады
                 br
                 | услышать обратную связь. 
-              p(class="font-weight-medium") В этой секции вы можете прочитать отзывы наших клиентов, 
-                | которые оставили свои впечатления о наших услугах. 
-              p(class="mb-0 font-weight-medium")
-                | Мы стремимся улучшать качество наших 
-                br
-                | услуг и ваши отзывы помогут нам стать лучше. 
             home-reviews-warning
           div(class="right")
             v-card(class="card py-4 rounded-lg" elevation="0")
@@ -151,17 +145,16 @@ h2 {
   font-size: var(--section-title);
 }
 
-.title-chip {
-  background-color: var(--custom-blue) !important;
+.left {
+  flex-grow: inherit;
 }
 
 .right {
-  width: 48%;
+  flex-grow: 2;
 }
 
-.left {
-  width: 52%;
-  padding-right: 12px;
+.title-chip {
+  background-color: var(--custom-blue) !important;
 }
 
 .card {
@@ -193,14 +186,6 @@ h2 {
 @media screen and (max-width: 600px) {
   .reviews {
     padding-top: 112px !important;
-  }
-
-  .left {
-    width: 100%;
-  }
-
-  .right {
-    width: 100%;
   }
 }
 </style>

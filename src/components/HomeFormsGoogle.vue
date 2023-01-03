@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   v-col 
-    v-row 
+    v-row(class="container ma-0")
       div(class="left rounded-xl pa-12")
       div(class="right d-flex align-center justify-center")
         font-awesome-icon(
@@ -18,8 +18,8 @@ export default {
 
 <style scoped lang="scss">
 .right {
-  width: 50%;
   position: relative;
+  flex-grow: inherit;
 
   &-icon {
     font-size: calc(var(--section-title) * 3);

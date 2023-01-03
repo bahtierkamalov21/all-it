@@ -1,10 +1,10 @@
 <template lang="pug">
 div
   v-col 
-    v-row 
+    v-row(class="container ma-0")
       div(class="left rounded-xl pa-12")
         div(class="font-weight-bold text-center text-uppercase mb-6")
-          | Отправте заявку нам в телеграм
+          | Отправте заявку нам в Telegram
           br
           | наш консультант свяжется с вами
         v-form(class="text-center" ref="form" v-model="valid" lazy-validation @submit.prevent="submitForm")
@@ -30,11 +30,6 @@ div
           v-radio-group(v-model="radios" hide-details required :rules="[v => !!v || '']") 
             v-radio(label="Физическое лицо" value="Физическое лицо")
             v-radio(label="Компания" value="Компания")
-          v-checkbox(v-model="agree" required :rules="[v => !!v || 'Вы должны согласиться с политикой конфиденциальности']")
-            template(v-slot:label)
-              v-card(elevation="0" class="agree pa-2 px-4")
-                div принимаю 
-                router-link(to="/" class="d-flex text-decoration-none") политику конфиденциальности
           v-btn(rounded elevation="0" min-height="52" @click="submitForm" class="white--text font-weight-bold px-16 mt-6" color="costumBlue")
             | Отправить
       div(class="right d-flex align-center justify-center")
@@ -95,12 +90,11 @@ export default {
 <style scoped lang="scss">
 .left {
   box-shadow: var(--shadow-2xl);
-  width: 50%;
   max-width: 460px;
 }
 
 .right {
-  width: 50%;
+  flex-grow: inherit;
   position: relative;
 
   &-icon {
@@ -122,13 +116,14 @@ input {
   height: 48px;
 }
 
-@media screen and (max-width: 1086px) {
-  .left {
-    width: 70%;
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column-reverse;
+    gap: 24px;
   }
 
-  .right {
-    width: 30%;
+  .left {
+    padding: 24px !important;
   }
 }
 </style>

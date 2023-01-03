@@ -173,12 +173,6 @@ ul {
   }
 }
 
-@media screen and (max-width: 960px) {
-  .left {
-    width: 100%;
-  }
-}
-
 @media screen and (max-width: 600px) {
   .group {
     width: 100% !important;

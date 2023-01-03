@@ -18,7 +18,7 @@ div
               )
               | {{ item.title }}
           div(class="top-orange ml-6")
-        v-card(class="pa-6" elevation="0")
+        v-card(elevation="0")
           home-forms-google(v-if="activeFormId === 0")
           home-forms-telegram(v-if="activeFormId === 1")
 </template>
@@ -72,9 +72,9 @@ h2 {
 .card {
   & > *:last-child {
     border-top-left-radius: 0 !important;
-    border-top-right-radius: 12px !important;
-    border-bottom-left-radius: 12px !important;
-    border-bottom-right-radius: 12px !important;
+    border-top-right-radius: 24px !important;
+    border-bottom-left-radius: 24px !important;
+    border-bottom-right-radius: 24px !important;
     box-shadow: 10px 10px 24px 0 rgba(0, 0, 0, 0.15) !important;
     border: 2px solid #666;
   }
@@ -125,6 +125,18 @@ h2 {
 @media screen and (max-width: 1086px) {
   .top-orange {
     width: 30%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .socials {
+    & > * {
+      min-width: 142px;
+    }
+  }
+
+  .top-orange {
+    display: none;
   }
 }
 </style>
