@@ -16,6 +16,7 @@ div
             hide-details
             class="mb-4"
             label="Telegram username" 
+            rounded
             prepend-inner-icon="mdi-account"
           )
           v-text-field(
@@ -23,6 +24,7 @@ div
             outlined
             v-model="phone"
             required
+            rounded
             label="Номер телефона" 
             prepend-inner-icon="mdi-phone"
             hide-details

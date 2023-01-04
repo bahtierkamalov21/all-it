@@ -236,4 +236,10 @@ export default {
     transform: translate(-50%, 250%);
   }
 }
+
+@media screen and (max-width: 1086px) {
+  .header {
+    padding-top: 106px;
+  }
+}
 </style>

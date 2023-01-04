@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
+from rest_framework_simplejwt.models import TokenUser
 
 
 def requestImagePath(instance, filename):
@@ -9,13 +10,17 @@ def requestImagePath(instance, filename):
 def avatarImagePath(instance, filename):
     return "avatars/user_{username}/{file}".format(username=instance.username, file=filename)
 
+
+class CustomTokenUser(TokenUser):
+    def has_usable_password(self):
+        return True
+
 # Create your models here.
 
 class CustomUser(AbstractUser):
     projects = models.ManyToManyField("backend_index.Project", blank=True, verbose_name="Проекты")
     telegram_username = models.CharField(
         max_length=32, blank=True, null=True, verbose_name="Телеграм username")
-    requests = models.ManyToManyField("RequestUser", blank=True, verbose_name="Заявки пользователя")
     reviews = models.ForeignKey("UserReview", blank=True, null=True, on_delete=models.CASCADE, verbose_name="Отзыв пользователя")
     avatar = models.ImageField(upload_to=avatarImagePath, blank=True, null=True, verbose_name="Аватарка")    
 
@@ -25,7 +30,7 @@ class CustomUser(AbstractUser):
 # Заявки пользователей
 
 class RequestUser(models.Model):
-    fk_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    fk_user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=256, blank=True,
                              verbose_name="Заголовок проекта")
     name = models.CharField(max_length=56, verbose_name="Имя проекта")

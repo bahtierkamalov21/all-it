@@ -12,7 +12,7 @@ div
             v-card(class="card rounded-lg pa-4 mb-4")
               div(class="font-weight-bold") Мы ценим мнение наших клиентов и рады
                 br
-                | услышать обратную связь. 
+                | услышать обратную связь
             home-reviews-warning
           div(class="right")
             v-card(class="card py-4 rounded-lg" elevation="0")

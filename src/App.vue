@@ -62,6 +62,10 @@ html {
   background: rgba(255, 255, 255, 0.15) !important;
 }
 
+.field-sign .v-input__control .v-text-field__details {
+  margin-left: 24px !important;
+}
+
 @keyframes hover-list-link {
   from {
     opacity: 0.2;

@@ -7,10 +7,10 @@ div
     p(class="font-weight-bold mb-2 mt-6" v-if="!this.$store.state.user")
       | Чтобы оставить отзыв вам требуется 
       router-link(to="/signin" class="text-decoration-none") войти
-    div(class="warning-bottom white--text text-subtitle-1 font-weight-medium pa-2")
+    div(class="warning-bottom white--text text-subtitle-1 font-weight-medium pa-2" :class="{ 'mt-5': this.$store.state.user}")
       | Оставить отзыв можно будет после
       br
-      | завершения выполнения вашего проекта. 
+      | завершения выполнения вашего проекта
 </template>
 
 <script>

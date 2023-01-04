@@ -25,8 +25,10 @@ div
                 div
                   router-link(class="text-decoration-none px-4" v-for="list in item.list" :to="list.href" :key="list.id")
                     | {{ list.name }}
-          v-btn(class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
+          v-btn(v-if="!$store.state.user" class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
             router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
+          v-btn(v-else class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
+            router-link(class="white--text text-decoration-none" to="/profile") Личный кабинет
 </template>
 
 <script>

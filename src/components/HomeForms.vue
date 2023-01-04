@@ -6,8 +6,9 @@ div
       v-card(class="card" elevation="0" color="transparent")
         div(class="d-flex align-end")
           div(class="socials d-flex align-center")
-            div(
+            v-card(
               @click="setActiveForm(index)" 
+              elevation="0"
               v-for="(item, index) in forms" 
               :key="item.name" 
               :class="item.name + ' d-flex align-center pa-2 pl-3 font-weight-bold ' + (item.active ? 'active' : null)"
@@ -101,12 +102,12 @@ h2 {
   gap: 4px;
 
   & > * {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15) !important;
     cursor: pointer;
     min-width: 200px;
-    background-color: #fff;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    overflow: hidden;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
     transition: all 0.5s ease-in-out;
 
     &.telegram:hover {
