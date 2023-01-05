@@ -91,7 +91,6 @@ export default {
   },
   mounted() {
     this.swiperReviews = new Swiper(".swiper-reviews");
-    console.log(this.swiperReviews);
   },
   methods: {
     async getReviews() {

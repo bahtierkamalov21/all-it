@@ -4,7 +4,7 @@ div
     v-row(class="container ma-0")
       div(class="left rounded-xl pa-12")
         div(class="font-weight-bold text-center text-uppercase mb-6")
-          | Отправте заявку нам в Telegram
+          | Отправте заявку в Telegram
           br
           | наш консультант свяжется с вами
         v-form(class="text-center" ref="form" v-model="valid" lazy-validation @submit.prevent="submitForm")
@@ -122,6 +122,7 @@ input {
   .container {
     flex-direction: column-reverse;
     gap: 24px;
+    padding-left: 0;
   }
 
   .left {

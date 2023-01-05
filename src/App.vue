@@ -33,7 +33,7 @@ export default {
 :root {
   --base-shadow: 0 0 10px -8px var(--v-color_shadow-base);
   --index: (1vw + 1vh);
-  --size-title: calc((1vw + 1vh) * 3.2);
+  --size-title: calc((1vw + 1vh) * 3.05);
   --section-title: calc(var(--index) * 2);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),

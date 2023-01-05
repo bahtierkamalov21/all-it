@@ -18,7 +18,7 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              a(class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ item.name }}
+              a(class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
@@ -26,7 +26,7 @@ div
                   router-link(class="text-decoration-none px-4" v-for="list in item.list" :to="list.href" :key="list.id")
                     | {{ list.name }}
           v-btn(v-if="!$store.state.user" class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
-            router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
+            router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / {{ $t("signup") }}
           v-btn(v-else class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
             router-link(class="white--text text-decoration-none" to="/profile") Личный кабинет
 </template>
@@ -45,11 +45,11 @@ export default {
       sheetOpen: false,
       links: [
         {
-          name: "Поддержка",
+          name: "support",
           href: "#",
         },
         {
-          name: this.$t("projects-md"),
+          name: "projects-md",
           href: "#",
           list: [
             {
@@ -83,11 +83,11 @@ export default {
           ],
         },
         {
-          name: "О компании",
+          name: "about-company",
           href: "#",
         },
         {
-          name: "Отзывы",
+          name: "reviews",
           href: "#reviews",
         },
       ],

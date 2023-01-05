@@ -186,6 +186,10 @@ ul {
     &-title {
       font-size: calc(var(--index) * 1.8);
     }
+
+    & > *:last-child {
+      font-size: 14px !important;
+    }
   }
 }
 </style>

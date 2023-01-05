@@ -52,12 +52,16 @@ export default {
       password_regex: /^[a-zA-Z0-9]{6,}/,
       passwordRules: [
         (v) => !!v || "Пароль обязателен",
-        (v) => this.password_regex.test(v) || "Пароль должен состоять из 6 цифр и латинских букв",
+        (v) =>
+          this.password_regex.test(v) ||
+          "Пароль должен состоять из 6 цифр и латинских букв",
       ],
       telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
       telegramUsernameRules: [
         (v) => !!v || "Telegram username обязателен",
-        (v) => this.telegram_username_regex.test(v) || "Неверно введен telegram username",
+        (v) =>
+          this.telegram_username_regex.test(v) ||
+          "Неверно введен telegram username",
       ],
     };
   },

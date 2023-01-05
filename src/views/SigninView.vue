@@ -11,6 +11,7 @@ div
             v-model="username" 
             class="field-sign"
             label="Имя пользователя"
+            :rules="[(v) => !!v || 'Имя пользователя обязательно']"
             rounded
           )
           v-text-field(
@@ -20,7 +21,7 @@ div
             class="field-sign"
             rounded
           )
-          v-btn(@click="signin" class="white--text text-capitalize mt-6" elevation="0" :disabled="!valid" rounded color="costumBlue") Зарегистрироваться
+          v-btn(@click="signin" class="white--text text-capitalize mt-6" elevation="0" :disabled="!valid" rounded color="costumBlue") Войти
 </template>
 
 <script>
@@ -36,7 +37,9 @@ export default {
       regex: /^[a-zA-Z0-9]{6,}/,
       passwordRules: [
         (v) => !!v || "Пароль обязателен",
-        (v) => this.regex.test(v) || "Пароль должен состоять из 6 цифр и латинских букв",
+        (v) =>
+          this.regex.test(v) ||
+          "Пароль должен состоять из 6 цифр и латинских букв",
       ],
     };
   },
@@ -54,8 +57,10 @@ export default {
             password: this.password,
           })
           .then((response) => {
+            // Сохраняем данные в localStorage
             localStorage.setItem("tokens", response.data);
             localStorage.setItem("user", response.data.access);
+            // Сохраняем данные с store
             this.$store.commit("setUser", response.data.access);
             this.$store.commit("setTokenAccess", response.data.access);
             this.$store.commit("setTokenRefresh", response.data.refresh);

@@ -1,7 +1,7 @@
 <template lang="pug">
 div 
   section(class="about" id="#about-us")
-    v-container(class="pa-0 about-container")
+    v-container(class="about-container")
       v-col
         v-row(class="justify-center align-center")
           v-card(class="about-card text-center rounded-lg")

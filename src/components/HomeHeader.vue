@@ -1,11 +1,11 @@
 <template lang="pug">
 div
   div(class="header")
-    div(class="header-wrapper" ref="headerWrapper")
+    div(class="header-wrapper")
       div
       div
         shapes-home-header
-    v-container(class="header-container rounded-xl" ref="headerContainer")
+    v-container(class="header-container rounded-xl")
       div(class="top")
         v-col 
           v-row(class="align-center") 
@@ -21,7 +21,7 @@ div
                 v-chip(color="costumBlue" class="ml-2 rounded-xl")
                   | WCAG 3.0
               v-btn(
-                class="text-capitalize font-weight-bold white--text mt-8"
+                class="button-consultation text-capitalize font-weight-bold white--text mt-8"
                 rounded 
                 color="costumBlue"
                 elevation="0"
@@ -29,8 +29,8 @@ div
                 width="312"
               )
                 font-awesome-icon(icon="fa-solid fa-layer-group" class="mr-2")
-                | Получить
-                span(class="ml-1 text-lowercase") консультацию
+                | {{ $t("get-consultation") }}
+                span(class="ml-1 text-lowercase") {{ $t("get-consultation2") }}
       div(class="bottom mt-6")
         marquee-item
 </template>
@@ -42,21 +42,6 @@ import MarqueeItem from "./MarqueeItem";
 export default {
   name: "HomeHeader",
   components: { ShapesHomeHeader, MarqueeItem },
-  methods: {
-    changeStyleElementsForMedia() {
-      this.$refs.headerWrapper.style.minHeight = `${
-        this.$refs.headerContainer.offsetHeight + 198
-      }px`;
-    },
-  },
-  mounted() {
-    // First initilization media styles
-    this.changeStyleElementsForMedia();
-    // Resize window
-    window.addEventListener("resize", () => {
-      this.changeStyleElementsForMedia();
-    });
-  },
 };
 </script>
 
@@ -72,13 +57,16 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
+    height: 620px;
 
     & > *:first-child {
       width: 50%;
+      height: 100%;
     }
 
     & > *:last-child {
       width: 50%;
+      height: 100%;
       min-height: inherit;
       position: relative;
     }
@@ -87,7 +75,7 @@ export default {
   &-container {
     position: absolute;
     backdrop-filter: blur(16px);
-    box-shadow: var(--shadow-2xl);
+    box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset;
     padding: 32px;
     padding-bottom: 26px;
     top: 112px;
@@ -95,10 +83,6 @@ export default {
     justify-content: space-between;
     flex-direction: column;
   }
-}
-
-.left {
-  width: 100%;
 }
 
 .the-title {
@@ -125,6 +109,10 @@ h2 {
 
 @media screen and (max-width: 1086px) {
   .header {
+    &-wrapper {
+      height: 560px;
+    }
+
     &-container {
       width: 92.2%;
     }
@@ -134,6 +122,8 @@ h2 {
 @media screen and (max-width: 600px) {
   .header {
     &-wrapper {
+      height: 500px;
+
       & > *:first-child {
         width: 0;
       }
@@ -159,12 +149,8 @@ h2 {
     }
   }
 
-  .left {
-    &-button {
-      width: 232px !important;
-      margin-top: 24px !important;
-      font-size: 14px;
-    }
+  .button-consultation {
+    margin-top: 24px !important;
   }
 }
 </style>

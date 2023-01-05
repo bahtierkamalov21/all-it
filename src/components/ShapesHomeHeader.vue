@@ -111,4 +111,10 @@ export default {
     width: 70vw;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .image {
+    width: 100vw;
+  }
+}
 </style>

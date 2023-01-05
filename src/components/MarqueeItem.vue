@@ -2,7 +2,7 @@
 div
   div(class="marquee") 
     ul
-      li(v-for="item in images" :key="item.id")
+      li(v-for="item in images" :key="item.id" style="width: 120px; height: 60px;")
         v-img(:src="item.image")
 </template>
 
@@ -24,6 +24,9 @@ export default {
         {
           image: require("@/assets/marquee/linux-marquee.svg"),
         },
+        {
+          image: require("@/assets/marquee/django-logo-marquee.svg"),
+        },
       ],
     };
   },
@@ -44,6 +47,8 @@ export default {
 
     & > li {
       list-style: none;
+      display: flex;
+      align-items: center;
 
       & > * {
         filter: grayscale(100%);

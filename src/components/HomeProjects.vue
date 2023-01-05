@@ -1,11 +1,11 @@
 <template lang="pug">
 div
   section(class="projects")
-    div(class="projects-wrapper" ref="projectsWrapper")
+    div(class="projects-wrapper")
       div
         shapes-home-header
       div
-    v-container(class="container rounded-xl" ref="container")
+    v-container(class="container rounded-xl")
       router-link(to="/projects" class="text-decoration-none font-weight-medium") Последние проекты
       h2(class="white--text mb-4") Наши работы и кейсы
       home-projects-navigation(@sendProjects="getProjects")
@@ -68,12 +68,6 @@ export default {
         },
       },
     });
-    // First initilization media styles
-    this.changeStyleElementsForMedia();
-    // Resize window
-    window.addEventListener("resize", () => {
-      this.changeStyleElementsForMedia();
-    });
   },
   computed: {
     disabledPrevSlide() {
@@ -97,11 +91,6 @@ export default {
       // Только завершенные проекты
       this.projects = data.filter((item) => item.complete);
     },
-    changeStyleElementsForMedia() {
-      this.$refs.projectsWrapper.style.minHeight = `${
-        this.$refs.container.clientHeight + 380
-      }px`;
-    },
   },
 };
 </script>
@@ -124,15 +113,18 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
+    height: 720px;
 
     & > *:first-child {
       width: 50%;
+      height: 100%;
       min-height: inherit;
       position: relative;
     }
 
     & > *:last-child {
       width: 50%;
+      height: 100%;
     }
   }
 }
@@ -184,12 +176,10 @@ h2 {
 @media screen and (max-width: 878px) {
   .projects {
     &-wrapper {
-      & > *:first-child {
-        width: 100%;
-      }
+      height: 640px;
 
-      & > *:last-child {
-        width: 0%;
+      & > *:first-child {
+        height: 50%;
       }
     }
   }
@@ -212,6 +202,16 @@ h2 {
   .container {
     padding: 18px;
     backdrop-filter: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .projects {
+    &-wrapper {
+      & > *:first-child {
+        height: 10%;
+      }
+    }
   }
 }
 </style>
