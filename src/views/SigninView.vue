@@ -26,11 +26,13 @@ div
 
 <script>
 import axios from "axios";
+import decodedTokensAndSetUserData from "@/mixins/decodedTokensAndSetUserData";
 
 export default {
   name: "SigninView",
   data() {
     return {
+      complete: false,
       username: null,
       password: null,
       valid: false,
@@ -43,6 +45,7 @@ export default {
       ],
     };
   },
+  mixins: [decodedTokensAndSetUserData],
   created() {
     if (this.$store.state.user) {
       this.$router.push("/");
@@ -51,26 +54,31 @@ export default {
   methods: {
     signin() {
       if (this.$refs.form.validate()) {
+        // Получаем токены
         axios
           .post(this.$store.state.api_url + "token/", {
             username: this.username,
             password: this.password,
           })
           .then((response) => {
-            // Сохраняем данные в localStorage
-            localStorage.setItem("tokens", response.data);
-            localStorage.setItem("user", response.data.access);
-            // Сохраняем данные с store
-            this.$store.commit("setUser", response.data.access);
+            // Сохраняем токены в localStorage
+            localStorage.setItem("token_access", response.data.access);
+            localStorage.setItem("token_refresh", response.data.refresh);
+            // Сохраняем токены с store
             this.$store.commit("setTokenAccess", response.data.access);
             this.$store.commit("setTokenRefresh", response.data.refresh);
-            location.reload();
+
+            // Декодируем токен и получаем данные пользователя
+            this.decodedTokensAndSetUserData();
           })
           .catch((errors) => {
             console.log(errors);
           });
       }
     },
+  },
+  mounted() {
+    window.scrollTo(0, 0);
   },
 };
 </script>

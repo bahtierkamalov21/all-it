@@ -96,7 +96,11 @@ export default {
 
 @media screen and (max-width: 1086px) {
   .prompt {
-    display: block;
+    display: inline-block;
+  }
+
+  .swiper {
+    max-width: 660px !important;
   }
 }
 </style>

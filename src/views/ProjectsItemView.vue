@@ -49,6 +49,7 @@ export default {
     this.getProject();
   },
   mounted() {
+    window.scrollTo(0, 0);
     this.swiper_project_images = new Swiper(".swiper-project-images", {
       slidesPerView: 1,
     });

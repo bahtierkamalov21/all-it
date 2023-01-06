@@ -36,6 +36,9 @@ export default {
   created() {
     this.updateTitle(this.$t("main"));
   },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 

@@ -11,5 +11,6 @@ router.register(r'populars_reviews', views.PopularReviewViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('reset_password/', views.reset_password_and_email_send_code)
+    path('reset_password/', views.reset_password_and_email_send_code),
+    path('decoded_tokens/', views.decoded_tokens)
 ]

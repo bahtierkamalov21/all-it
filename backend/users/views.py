@@ -1,12 +1,16 @@
-from urllib import response
 from rest_framework import viewsets, permissions
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from .models import CustomUser, RequestUser, RequestUserImage, UserReview, PopularReview
 from .serializers import CustomUserSerializer, RequestUserSerializer, RequestUserImageSerializer, UserReviewSerializer, PopularReviewSerializer
 from .permissions import IsAdminUserOrReadOnly
 from django.http import HttpResponse
-import random
 from django.core.mail import send_mail
 from django.conf import settings
+import random
+import jwt
+import json
 
 # Create your views here.
 class CustomUserViewSet(viewsets.ModelViewSet):
@@ -49,7 +53,14 @@ class PopularReviewViewSet(viewsets.ModelViewSet):
     serializer_class = PopularReviewSerializer
     permission_classes = [IsAdminUserOrReadOnly]
 
-def reset_password_and_email_send_code(request):
+@api_view(["GET"])
+@permission_classes((IsAuthenticated, ))
+def decoded_tokens(request):
+    token = request.headers["Authorization"].replace("Bearer ", "")
+    decoded = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+    return Response(decoded, status=200)
+
+def reset_password_and_email_send_code():
     step = 0
     arrayNumbers = []
     code = ""

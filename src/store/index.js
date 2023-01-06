@@ -12,6 +12,7 @@ export default new Vuex.Store({
     api_url: "http://localhost:8000/api/v1/",
     token: "5944619606:AAEgXlAvmwjvWcH84eMlLdPL7RX4BTTqcEM",
     chat_id: "-1001849968025",
+    decoded: null,
   },
   getters: {},
   mutations: {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     setTokenRefresh(state, payload) {
       state.token_refresh = payload;
+    },
+    setDecoded(state, payload) {
+      state.decoded = payload;
     },
   },
   actions: {},
