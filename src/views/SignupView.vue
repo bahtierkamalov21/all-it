@@ -6,7 +6,8 @@ div
         v-chip(color="costumBlue")
           router-link(to="signin" class="text-decoration-none font-weight-bold white--text") Войти?
         h1(class="text-center") Регистрация
-        v-form(ref="form" v-model="valid" lazy-validation @submit.prevent="registration")
+        sign-complete(v-if="complete")
+        v-form(v-else ref="form" v-model="valid" lazy-validation @submit.prevent="registration")
           v-text-field(v-model="first_name" rounded label="Имя")
           v-text-field(v-model="last_name" rounded label="Фамилия")
           v-text-field(
@@ -28,7 +29,6 @@ div
             v-model="telegramUsername" 
             rounded 
             label="Telegram username" 
-            required
             class="field-sign"
             :rules="telegramUsernameRules"
           )
@@ -38,6 +38,7 @@ div
 <script>
 import axios from "axios";
 import decodedTokensAndSetUserData from "@/mixins/decodedTokensAndSetUserData";
+import SignComplete from "@/components/SignComplete";
 
 export default {
   name: "SignupView",
@@ -46,6 +47,7 @@ export default {
       valid: false,
       first_name: null,
       last_name: null,
+      complete: false,
       username: null,
       password: null,
       telegramUsername: null,
@@ -59,13 +61,13 @@ export default {
       ],
       telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
       telegramUsernameRules: [
-        (v) => !!v || "Telegram username обязателен",
         (v) =>
           this.telegram_username_regex.test(v) ||
           "Неверно введен telegram username",
       ],
     };
   },
+  components: { SignComplete },
   mixins: [decodedTokensAndSetUserData],
   created() {
     if (this.$store.state.user) {

@@ -6,13 +6,15 @@ div
         v-chip(color="costumBlue")
           router-link(to="signup" class="text-decoration-none font-weight-bold white--text") Зарегистрироваться?
         h1 Login
-        v-form(ref="form" v-model="valid" lazy-validation @submit.prevent="signin")
+        sign-complete(v-if="complete")
+        v-form(v-else ref="form" v-model="valid" lazy-validation @submit.prevent="signin")
           v-text-field(
             v-model="username" 
             class="field-sign"
             label="Имя пользователя"
             :rules="[(v) => !!v || 'Имя пользователя обязательно']"
             rounded
+            :error-messages="error"
           )
           v-text-field(
             v-model="password" 
@@ -20,6 +22,7 @@ div
             :rules="passwordRules"
             class="field-sign"
             rounded
+            :error-messages="error"
           )
           v-btn(@click="signin" class="white--text text-capitalize mt-6" elevation="0" :disabled="!valid" rounded color="costumBlue") Войти
 </template>
@@ -27,6 +30,7 @@ div
 <script>
 import axios from "axios";
 import decodedTokensAndSetUserData from "@/mixins/decodedTokensAndSetUserData";
+import SignComplete from "@/components/SignComplete";
 
 export default {
   name: "SigninView",
@@ -35,6 +39,7 @@ export default {
       complete: false,
       username: null,
       password: null,
+      error: null,
       valid: false,
       regex: /^[a-zA-Z0-9]{6,}/,
       passwordRules: [
@@ -45,6 +50,7 @@ export default {
       ],
     };
   },
+  components: { SignComplete },
   mixins: [decodedTokensAndSetUserData],
   created() {
     if (this.$store.state.user) {
@@ -71,8 +77,8 @@ export default {
             // Декодируем токен и получаем данные пользователя
             this.decodedTokensAndSetUserData();
           })
-          .catch((errors) => {
-            console.log(errors);
+          .catch(() => {
+            this.error = "Данные введены не верно";
           });
       }
     },

@@ -23,7 +23,15 @@ export default {
                 `users/${this.$store.state.decoded.user_id}/`
             )
             .then((response) => {
-              console.log(response.data);
+              // Сохраняем данные пользователя в store и localStorage
+              localStorage.setItem("user", JSON.stringify(response.data));
+              this.$store.commit("setUser", JSON.stringify(response.data));
+              // Отображаем check template
+              this.complete = true;
+              // Перезагружаем страницу
+              setTimeout(() => {
+                location.reload();
+              }, 4000);
             })
             .catch((errors) => {
               console.log(errors);
