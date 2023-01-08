@@ -6,16 +6,16 @@ div
         v-row(class="ma-0" style="gap: 12px;")
           div(class="left")
             v-card(class="card pa-6 rounded-xl" elevation="0")
-              v-chip(class="pr-6")
+              v-chip(class="white--text pr-6" color="costumBlue")
                 v-icon mdi-information-variant
                 | Изменения данных вступят в силу после рассмотрения администрацией
               div(class="d-flex my-6" style="gap: 12px;")
-                div(class="text-center")
-                  div(class="avatar")
+                div(class="text-center avatar-container rounded-lg pa-6")
+                  div(class="avatar ma-auto")
                     v-img(:src="user.avatar" v-if="user.avatar")
                     v-icon(v-else) mdi-account-circle
-                  v-chip(class="white--text mt-2" color="costumBlue") {{ user.first_name }} {{ user.last_name }}
-                div
+                  div(class="username rounded-lg pa-2 px-4 white--text mt-4") {{ user.first_name }} {{ user.last_name }}
+                div(style="width: 100%;")
                   v-text-field(v-model="user.first_name" rounded label="Имя" hide-details @input="changeUserData")
                   v-text-field(v-model="user.last_name" rounded label="Фамилия" hide-details @input="changeUserData")
                   v-text-field(v-model="user.username" rounded label="Username" hide-details @input="changeUserData")
@@ -66,36 +66,35 @@ export default {
       localStorage.clear();
       // Очистка store
       this.$store.commit("setUser", null);
+      this.$store.commit("setDecoded", null);
       this.$store.commit("setTokenAccess", null);
       this.$store.commit("setTokenRefresh", null);
       // Push in home page
       this.$router.push("/");
     },
     getUserData() {
-      // Преобразуем JSON в объект
-      this.user = JSON.parse(this.$store.state.user);
-      this.user_copied = JSON.parse(this.$store.state.user);
+      const decoded = JSON.parse(localStorage.getItem("decoded"));
+      axios
+        .get(this.$store.state.api_url + `users/${decoded.user_id}/`)
+        .then((response) => {
+          // Сохраняем данные пользователя в store и localStorage
+          localStorage.setItem("user", JSON.stringify(response.data));
+          this.$store.commit("setUser", JSON.stringify(response.data));
+
+          this.user = response.data;
+          this.user_copied = response.data;
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
     },
     sendMessageInTelegramAbouUpdateUserData() {
       let listData = {};
       // Проверка входных данных
-      if (this.user_copied.username !== this.user.username) {
-        listData.username = this.user.username;
-      }
-      if (this.user_copied.first_name !== this.user.first_name) {
-        listData.first_name = this.user.first_name;
-      }
-      if (this.user_copied.last_name !== this.user.last_name) {
-        listData.last_name = this.user.last_name;
-      }
-      if (this.user_copied.telegram_username !== this.user.telegram_username) {
-        listData.telegram_user = this.user.telegram_user;
-      }
-      if (this.user_copied.email !== this.user.email) {
-        listData.email = this.user.email;
-      }
-      if (this.user_copied.phone !== this.user.phone) {
-        listData.phone = this.user.phone;
+      for (const key in this.user) {
+        if (this.user[key] !== this.user_copied[key]) {
+          listData[key] = this.user[key];
+        }
       }
       // Отправка сообщения в телеграмм
       this.message = `<b>Telegram username отправителя: ${this.user_copied.username}</b>\n`;
@@ -137,6 +136,14 @@ export default {
 
 .card {
   box-shadow: var(--shadow-2xl) !important;
+  overflow: hidden;
+}
+
+.username {
+  background-color: var(--custom-blue);
+  max-width: 164px;
+  min-width: 164px;
+  transition: all 0.2s ease-in-out;
 }
 
 .avatar {
@@ -150,6 +157,13 @@ export default {
   align-items: center;
   overflow: hidden;
   cursor: pointer;
+
+  &-container {
+    background-image: url("../assets/images/card-two-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: var(--shadow-2xl);
+  }
 
   & > *:last-child {
     font-size: 165px;

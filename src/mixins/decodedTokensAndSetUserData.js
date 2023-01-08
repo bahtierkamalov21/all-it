@@ -13,15 +13,13 @@ export default {
           },
         })
         .then((response) => {
-          localStorage.setItem("decoded", response.data);
-          this.$store.commit("setDecoded", response.data);
+          localStorage.setItem("decoded", JSON.stringify(response.data));
+          this.$store.commit("setDecoded", JSON.stringify(response.data));
 
           // Получаем данные пользователя
+          const decoded = JSON.parse(this.$store.state.decoded);
           axios
-            .get(
-              this.$store.state.api_url +
-                `users/${this.$store.state.decoded.user_id}/`
-            )
+            .get(this.$store.state.api_url + `users/${decoded.user_id}/`)
             .then((response) => {
               // Сохраняем данные пользователя в store и localStorage
               localStorage.setItem("user", JSON.stringify(response.data));
