@@ -18,17 +18,17 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              a(class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              a(class="text-decoration-none" :href="item.name === 'projects-md' ? projectsHref : item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
                 div
-                  router-link(class="text-decoration-none px-4" v-for="list in item.list" :to="list.href" :key="list.id")
+                  div(class="px-4" style="cursor: pointer;" v-for="list in item.list" @click="pushCategory(list.href)" :key="list.id")
                     | {{ list.name }}
           v-btn(v-if="!$store.state.user" class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
             router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / {{ $t("signup") }}
           v-btn(v-else class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
-            router-link(class="white--text text-decoration-none" to="/profile") Личный кабинет
+            router-link(class="white--text text-decoration-none" to="/profile") {{ $t("personal-area") }}
 </template>
 
 <script>
@@ -50,35 +50,34 @@ export default {
         },
         {
           name: "projects-md",
-          href: "#",
           list: [
             {
               name: "Сайты",
-              href: "projects/category/sites",
+              href: "sites",
             },
             {
               name: "Telegram Боты",
-              href: "projects/category/telegram-bots",
+              href: "telegram-bots",
             },
             {
               name: "PWA",
-              href: "projects/category/pwa",
+              href: "pwa",
             },
             {
               name: "Моб приложения",
-              href: "projects/category/mobile-apps",
+              href: "mobile-apps",
             },
             {
               name: "Автоматизации",
-              href: "projects/category/automation",
+              href: "automation",
             },
             {
               name: "DevOps",
-              href: "projects/category/devops",
+              href: "devops",
             },
             {
               name: "Серверное администрирование",
-              href: "projects/category/server-administration",
+              href: "server-administration",
             },
           ],
         },
@@ -92,6 +91,13 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    projectsHref() {
+      if (this.$route.path === "/") {
+        return "#projects";
+      } else return "/projects";
+    },
   },
   watch: {
     sheetOpen() {
@@ -108,6 +114,9 @@ export default {
     },
     getOpen(callback) {
       this.sheetOpen = callback;
+    },
+    pushCategory(href) {
+      this.$router.push({ name: "projectsCategory", params: { slug: href } });
     },
   },
 };

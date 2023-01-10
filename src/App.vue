@@ -56,14 +56,29 @@ html {
   &-group {
     overflow: hidden;
   }
+
+  &-item__content {
+    padding: 12px;
+  }
+}
+
+.input > div > div:first-child {
+  box-shadow: none !important;
+  padding: 12px 16px !important;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: #232323 !important;
+  background: linear-gradient(
+    120.61deg,
+    rgba(255, 188, 167, 0.1) 0%,
+    rgba(255, 220, 209, 0.1) 100%
+  ) !important;
+  border-radius: 8px;
 }
 
 .theme--light.v-timeline::before {
   background: rgba(255, 255, 255, 0.15) !important;
-}
-
-.field-sign .v-input__control .v-text-field__details {
-  margin-left: 24px !important;
 }
 
 @keyframes hover-list-link {

@@ -17,19 +17,19 @@ services:
       - 8000:8000
     depends_on:
       - database
-  # client:
-  #   build: .
-  #   container_name: client
-  #   restart: always
-  #   command: npm run serve
-  #   volumes:
-  #     - ./:/app
-  #   networks:
-  #     - network
-  #   ports:
-  #     - 8080:8080
-  #   depends_on:
-  #     - backend
+  frontend:
+    build: .
+    container_name: client
+    restart: always
+    command: npm run serve
+    volumes:
+      - ./:/app
+    networks:
+      - network
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
   database:
     image: postgres
     container_name: database
@@ -54,17 +54,17 @@ services:
   #     - network
   #   ports:
   #     - 5050:5050
-  # nginx:
-  #   image: nginx
-  #   container_name: nginx_server
-  #   restart: always
-  #   volumes:
-  #     - ./nginx.conf:/etc/nginx/nginx.conf
-  #   networks:
-  #     - network
-  #   ports:
-  #     - 80:80
-  #     - 443:443
+  nginx:
+    image: nginx
+    container_name: nginx_server
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - network
+    ports:
+      - 80:80
+      - 443:443
   # certbot:
   #   image: certbot/certbot
   #   container_name: certbot

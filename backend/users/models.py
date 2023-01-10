@@ -20,7 +20,7 @@ class CustomTokenUser(TokenUser):
 class CustomUser(AbstractUser):
     projects = models.ManyToManyField("backend_index.Project", blank=True, verbose_name="Проекты")
     telegram_username = models.CharField(
-        max_length=32, blank=True, null=True, verbose_name="Телеграм username")
+        max_length=32, blank=True, verbose_name="Телеграм username")
     reviews = models.ForeignKey("UserReview", blank=True, null=True, on_delete=models.CASCADE, verbose_name="Отзыв пользователя")
     avatar = models.ImageField(upload_to=avatarImagePath, blank=True, null=True, verbose_name="Аватарка")    
 

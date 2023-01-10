@@ -10,22 +10,22 @@ div
         v-form(class="text-center" ref="form" v-model="valid" lazy-validation @submit.prevent="submitForm")
           v-text-field(
             v-model="username"
-            outlined
             :rules="[v => !!v || '']"
             required
             hide-details
+            solo
             class="mb-4"
             label="Telegram username" 
-            rounded
+            class="input"
             prepend-inner-icon="mdi-account"
           )
           v-text-field(
             :rules="phoneRules"
-            outlined
+            solo
             v-model="phone"
             required
-            rounded
             label="Номер телефона" 
+            class="input"
             prepend-inner-icon="mdi-phone"
             hide-details
           )

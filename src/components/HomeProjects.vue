@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  section(class="projects")
+  section(class="projects" id="projects")
     div(class="projects-wrapper")
       div
         shapes-home-header

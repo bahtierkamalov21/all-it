@@ -17,7 +17,7 @@ export default {
           this.$store.commit("setDecoded", JSON.stringify(response.data));
 
           // Получаем данные пользователя
-          const decoded = JSON.parse(this.$store.state.decoded);
+          const decoded = JSON.parse(localStorage.getItem("decoded"));
           axios
             .get(this.$store.state.api_url + `users/${decoded.user_id}/`)
             .then((response) => {

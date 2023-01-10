@@ -82,7 +82,7 @@ h2 {
 }
 
 .top-orange {
-  width: 50%;
+  width: 40%;
   height: 24px;
   background-color: orange;
   border-top-left-radius: 12px;
@@ -108,6 +108,8 @@ h2 {
     overflow: hidden;
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
     transition: all 0.5s ease-in-out;
 
     &.telegram:hover {

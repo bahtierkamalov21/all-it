@@ -27,6 +27,9 @@ export default {
         {
           image: require("@/assets/marquee/django-logo-marquee.svg"),
         },
+        {
+          image: require("@/assets/marquee/vue-marquee.svg"),
+        },
       ],
     };
   },

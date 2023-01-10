@@ -107,6 +107,24 @@ h2 {
   }
 }
 
+@media screen and (min-width: 1420px) {
+  .header {
+    padding-bottom: 22px;
+  }
+}
+
+@media screen and (min-width: 1620px) {
+  .header {
+    padding-bottom: 42px;
+  }
+}
+
+@media screen and (min-width: 1760px) {
+  .header {
+    padding-bottom: 72px;
+  }
+}
+
 @media screen and (max-width: 1086px) {
   .header {
     &-wrapper {

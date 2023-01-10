@@ -7,24 +7,24 @@ div
           router-link(to="signup" class="text-decoration-none font-weight-bold white--text") Зарегистрироваться?
         h1 Login
         sign-complete(v-if="complete")
-        v-form(v-else ref="form" v-model="valid" lazy-validation @submit.prevent="signin")
+        v-form(v-else ref="form" class="mt-6" v-model="valid" lazy-validation @submit.prevent="signin")
           v-text-field(
             v-model="username" 
-            class="field-sign"
             label="Имя пользователя"
             :rules="[(v) => !!v || 'Имя пользователя обязательно']"
-            rounded
+            solo
+            class="input"
             :error-messages="error"
           )
           v-text-field(
             v-model="password" 
             label="Пароль"
             :rules="passwordRules"
-            class="field-sign"
-            rounded
+            solo
+            class="input"
             :error-messages="error"
           )
-          v-btn(@click="signin" class="white--text text-capitalize mt-6" elevation="0" :disabled="!valid" rounded color="costumBlue") Войти
+          v-btn(@click="signin" class="white--text text-capitalize mt-2" elevation="0" :disabled="!valid" rounded color="costumBlue") Войти
 </template>
 
 <script>

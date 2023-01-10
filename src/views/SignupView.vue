@@ -7,32 +7,50 @@ div
           router-link(to="signin" class="text-decoration-none font-weight-bold white--text") Войти?
         h1(class="text-center") Регистрация
         sign-complete(v-if="complete")
-        v-form(v-else ref="form" v-model="valid" lazy-validation @submit.prevent="registration")
-          v-text-field(v-model="first_name" rounded label="Имя")
-          v-text-field(v-model="last_name" rounded label="Фамилия")
+        v-form(v-else ref="form" class="mt-6" v-model="valid" lazy-validation @submit.prevent="registration")
+          v-text-field(
+            v-model="first_name" 
+            label="Имя"
+            solo
+            class="input"
+          )
+          v-text-field(
+            v-model="last_name" 
+            solo
+            class="input" 
+            label="Фамилия"
+          )
           v-text-field(
             v-model="username" 
-            rounded 
             required
             label="Имя пользователя" 
             :rules="[v => !!v || 'Имя пользователя обязательно']"
             :error-messages="error"
-            class="field-sign"
+            solo
+            class="input"
           )
           v-text-field(
             v-model="password" 
             :rules="passwordRules" 
-            rounded label="Пароль"
-            class="field-sign"
+            label="Пароль"
+            solo
+            class="input"
           )
           v-text-field(
             v-model="telegramUsername" 
-            rounded 
             label="Telegram username" 
-            class="field-sign"
+            solo
+            class="input"
             :rules="telegramUsernameRules"
           )
-          v-btn(@click="registration" class="white--text text-capitalize mt-6" elevation="0" :disabled="!valid" rounded color="costumBlue") Зарегистрироваться
+          v-text-field(
+            v-model="phone" 
+            label="Телефон" 
+            solo
+            class="input"
+            :rules="phoneRules"
+          )
+          v-btn(@click="registration" class="white--text text-capitalize mt-2" elevation="0" :disabled="!valid" rounded color="costumBlue") Зарегистрироваться
 </template>
 
 <script>
@@ -51,7 +69,12 @@ export default {
       username: null,
       password: null,
       telegramUsername: null,
+      phone: null,
       error: null,
+      phone_regex: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
+      phoneRules: [
+        (v) => this.phone_regex.test(v) || "Неверно введен номер телефона",
+      ],
       password_regex: /^[a-zA-Z0-9]{6,}/,
       passwordRules: [
         (v) => !!v || "Пароль обязателен",
@@ -87,6 +110,7 @@ export default {
             username: this.username,
             password: this.password,
             telegram_username: this.telegramUsername,
+            phone: this.phone,
           })
           .then(() => {
             // После создания пользователя
