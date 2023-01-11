@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('backend_index.urls')),
     path('api/v1/', include('users.urls')),
+    path('api/v1/', include('emails.urls')),
     path('api/v1/token/', TokenObtainPairView.as_view(), name ='token_obtain_pair'),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name ='token_refresh'),
     path('', redirect_view)

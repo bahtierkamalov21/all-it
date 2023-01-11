@@ -104,14 +104,15 @@ export default {
   components: { LoadingItem },
   created() {
     this.determineWhetherUserAuthorized();
-    this.getUserData();
   },
   methods: {
     // Determine whether the user is authorized
     determineWhetherUserAuthorized() {
       if (!this.$store.state.user) {
         this.$router.push("/signin");
-      } else null;
+      } else {
+        this.getUserData();
+      }
     },
     changeUserData() {
       this.update = true;
