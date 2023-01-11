@@ -43,39 +43,30 @@ services:
       - network
     ports:
       - 5432:5432
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   container_name: pgadmin
-  #   restart: always
-  #   environment:
-  #     - PGADMIN_DEFAULT_EMAIL=bahtierkamalov21@gmail.com
-  #     - PGADMIN_DEFAULT_PASSWORD=ba819063
-  #   networks:
-  #     - network
-  #   ports:
-  #     - 5050:5050
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=bahtierkamalov21@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=ba819063
+    networks:
+      - network
+    ports:
+      - 5050:5050
   nginx:
     image: nginx
     container_name: nginx_server
     restart: always
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./serts/certificate.crt:/usr/share/nginx/serts/certificate.crt
+      - ./serts/certificate.key:/usr/share/nginx/serts/certificate.key
     networks:
       - network
     ports:
       - 80:80
       - 443:443
-  # certbot:
-  #   image: certbot/certbot
-  #   container_name: certbot
-  #   volumes:
-  #     - ./serst:/etc/letsencrypt
-  #     - ./certbot:/var/www/certbot
-  #   networks:
-  #     - network
-  #   depends_on:
-  #     - nginx
-
 volumes:
   pg_data:
 networks:
