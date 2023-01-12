@@ -207,4 +207,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'bahtierkamalov21@gmail.com'
 EMAIL_HOST_PASSWORD = 'ba819063'
 EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True

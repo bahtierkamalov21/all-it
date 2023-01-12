@@ -38,6 +38,10 @@ export default {
   },
   mounted() {
     window.scrollTo(0, 0);
+
+    if (location.hash) {
+      location.href = `/${location.hash}`;
+    } else null;
   },
 };
 </script>

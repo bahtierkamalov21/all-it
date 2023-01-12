@@ -5,6 +5,7 @@ import store from "./store";
 import i18n from "./plugins/i18n";
 import vuetify from "./plugins/vuetify";
 import flag from "./plugins/flag";
+import axios from "axios";
 
 // FontAwesomeIcons
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -44,6 +45,25 @@ library.add(
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+
+// Получение данных пользователя
+function getUserData() {
+  if (localStorage.getItem("user")) {
+    const decoded = JSON.parse(localStorage.getItem("decoded"));
+    axios
+      .get(store.state.api_url + `users/${decoded.user_id}/`)
+      .then((response) => {
+        // Сохраняем данные пользователя в store и localStorage
+        localStorage.setItem("user", JSON.stringify(response.data));
+        store.commit("setUser", JSON.stringify(response.data));
+      })
+      .catch((errors) => {
+        console.log(errors);
+      });
+  } else null;
+}
+
+getUserData();
 
 new Vue({
   router,

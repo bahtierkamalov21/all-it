@@ -28,6 +28,7 @@ div
             :error-messages="error"
             solo
             class="input"
+            @input="changeInput"
           )
           v-text-field(
             v-model="password" 
@@ -41,14 +42,19 @@ div
             label="Telegram username" 
             solo
             class="input"
+            :error-messages="errorTelegram"
             :rules="telegramUsernameRules"
+            @input="changeInput"
           )
           v-text-field(
             v-model="phone" 
-            label="Телефон" 
+            label="Телефон"
+            required="false"
             solo
             class="input"
+            :error-messages="errorPhone"
             :rules="phoneRules"
+            @input="changeInput"
           )
           v-btn(@click="registration" class="white--text text-capitalize mt-2" elevation="0" :disabled="!valid" rounded color="costumBlue") Зарегистрироваться
 </template>
@@ -71,6 +77,8 @@ export default {
       telegramUsername: null,
       phone: null,
       error: null,
+      errorPhone: null,
+      errorTelegram: null,
       phone_regex: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
       phoneRules: [
         (v) => this.phone_regex.test(v) || "Неверно введен номер телефона",
@@ -101,6 +109,11 @@ export default {
     window.scrollTo(0, 0);
   },
   methods: {
+    changeInput() {
+      this.error = null;
+      this.errorPhone = null;
+      this.errorTelegram = null;
+    },
     registration() {
       if (this.$refs.form.validate()) {
         axios
@@ -111,6 +124,7 @@ export default {
             password: this.password,
             telegram_username: this.telegramUsername,
             phone: this.phone,
+            is_active: "true",
           })
           .then(() => {
             // После создания пользователя
@@ -138,6 +152,10 @@ export default {
             console.log(errors);
             if (errors.response.data.username) {
               this.error = errors.response.data.username;
+            } else if (errors.response.data.phone) {
+              this.errorPhone = errors.response.data.phone;
+            } else if (errors.response.data.telegram_username) {
+              this.errorTelegram = errors.response.data.telegram_username;
             }
           });
       }
@@ -149,6 +167,9 @@ export default {
 <style scoped lang="scss">
 .header {
   padding-top: 126px;
+  background-image: url("../assets/images/about-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .card {

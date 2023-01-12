@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import CustomUser, RequestUser, RequestUserImage, UserReview, PopularReview
 from .serializers import CustomUserSerializer, RequestUserSerializer, RequestUserImageSerializer, UserReviewSerializer, PopularReviewSerializer
 from .permissions import IsAdminUserOrReadOnly
+from django.conf import settings
 import jwt
 
 # Create your views here.

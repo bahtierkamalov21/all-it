@@ -13,6 +13,7 @@ div
             label="Имя пользователя"
             :rules="[(v) => !!v || 'Имя пользователя обязательно']"
             solo
+            @input="changeInput"
             class="input"
             :error-messages="error"
           )
@@ -21,6 +22,7 @@ div
             label="Пароль"
             :rules="passwordRules"
             solo
+            @input="changeInput"
             class="input"
             :error-messages="error"
           )
@@ -82,6 +84,9 @@ export default {
           });
       }
     },
+    changeInput() {
+      this.error = null;
+    },
   },
   mounted() {
     window.scrollTo(0, 0);
@@ -92,6 +97,9 @@ export default {
 <style scoped lang="scss">
 .header {
   padding-top: 126px;
+  background-image: url("../assets/images/about-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .card {

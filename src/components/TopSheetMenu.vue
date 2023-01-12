@@ -4,23 +4,27 @@ div
     v-card(class="card pa-4 pr-2" color="menuBackground" elevation="0" :class="{ 'active' : active }")
       v-col(class="top d-flex justify-space-between align-center")
         v-row(class="align-center")
-          v-chip(color="costumBlue" class="px-6") Меню
-          switch-language(class="ml-4")
+          v-chip(color="costumBlue" class="font-weight-bold px-6") {{ $t("menu") }}
+          div(class="avatar ml-2" @click="profilePush")
+            v-img(width="100%" height="100%" :src="avatar" v-if="avatar")
+            v-icon(v-else color="#707070") mdi-account-circle
+          switch-language(class="ml-2")
           switch-theme(class="ml-4")
         v-btn(icon @click="setAndCloseOpen()")
           v-icon mdi-close
-      div(class="mt-2") ascasc
 </template>
 
 <script>
 import SwitchTheme from "@/components/SwitchTheme";
 import SwitchLanguage from "@/components/SwitchLanguage";
+import { mapState } from "vuex";
 
 export default {
   name: "TopSheetMenu",
   data() {
     return {
       active: false,
+      avatar: null,
     };
   },
   components: { SwitchTheme, SwitchLanguage },
@@ -28,6 +32,12 @@ export default {
     open() {
       this.setOpen();
     },
+    user() {
+      this.getUserAvatar();
+    },
+  },
+  computed: {
+    ...mapState(["user"]),
   },
   props: {
     open: Boolean,
@@ -36,10 +46,23 @@ export default {
     window.addEventListener("click", (event) => {
       if (event.target === this.$refs.modal) {
         this.setAndCloseOpen();
-      } else null;
+      }
     });
   },
+  created() {
+    this.getUserAvatar();
+  },
   methods: {
+    profilePush() {
+      if (this.$route.path !== "/profile") {
+        this.$router.push("/profile");
+      }
+    },
+    getUserAvatar() {
+      if (this.$store.state.user) {
+        this.avatar = JSON.parse(localStorage.getItem("user")).avatar;
+      }
+    },
     setOpen() {
       this.$emit("setOpen", this.open);
     },
@@ -65,6 +88,18 @@ export default {
   background-color: rgba(0, 0, 0, 0.25);
   top: 0;
   overflow: hidden;
+}
+
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+
+  & > *:last-child {
+    font-size: 52px;
+  }
 }
 
 .bottom-sheet[open] > .card {

@@ -32,6 +32,7 @@ export default {
   justify-content: space-between;
   box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset !important;
   transition: all 0.2s ease-in-out;
+  gap: 12px;
 
   &:hover {
     transition: 0.2s all ease-in-out;

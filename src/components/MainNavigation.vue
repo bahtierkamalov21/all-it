@@ -18,7 +18,10 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              a(class="text-decoration-none" :href="item.name === 'projects-md' ? projectsHref : item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+                v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
+                v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
+              router-link(v-else class="text-decoration-none" :to="'/' + item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
@@ -50,6 +53,7 @@ export default {
         },
         {
           name: "projects-md",
+          href: "#projects",
           list: [
             {
               name: "Сайты",
@@ -91,13 +95,6 @@ export default {
         },
       ],
     };
-  },
-  computed: {
-    projectsHref() {
-      if (this.$route.path === "/") {
-        return "#projects";
-      } else return "/projects";
-    },
   },
   watch: {
     sheetOpen() {
