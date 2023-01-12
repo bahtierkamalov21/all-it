@@ -1,37 +1,36 @@
 <template lang="pug">
 div
   div(class="header")
-    div(class="header-wrapper" ref="headerWrapper")
+    div(class="header-wrapper")
       div
       div
         shapes-home-header
-    v-container(class="header-container" ref="headerContainer")
+    v-container(class="header-container rounded-xl")
       div(class="top")
         v-col 
           v-row(class="align-center") 
             div(class="left d-flex flex-column")
-              v-chip(color="primary" style="width: fit-content;")
+              v-chip(color="primary" class="pr-4" style="width: fit-content;")
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
               h1(class="the-title") {{ $t("header__h1") }}
-              h2(class="pa-0 font-weight-medium")
+              h2(class="pa-0")
                 | {{ $t("modern") }}
                 br
                 | {{ $t("projects") }}
-                v-chip(color="costumBlue" class="ml-4 rounded-xl")
+                v-chip(color="costumBlue" class="ml-2 rounded-xl")
                   | WCAG 3.0
               v-btn(
-                class="text-capitalize white--text mt-8"
+                class="button-consultation text-capitalize font-weight-bold white--text mt-8"
                 rounded 
                 color="costumBlue"
                 elevation="0"
                 x-large
-                width="250"
+                width="312"
               )
                 font-awesome-icon(icon="fa-solid fa-layer-group" class="mr-2")
-                | {{ $t("discuss") }}
-                span(class="ml-1 text-lowercase") {{ $t("project") }}
-            div(class="right")
+                | {{ $t("get-consultation") }}
+                span(class="ml-1 text-lowercase") {{ $t("get-consultation2") }}
       div(class="bottom mt-6")
         marquee-item
 </template>
@@ -39,47 +38,10 @@ div
 <script>
 import ShapesHomeHeader from "./ShapesHomeHeader.vue";
 import MarqueeItem from "./MarqueeItem";
-import { mapState } from "vuex";
 
 export default {
   name: "HomeHeader",
   components: { ShapesHomeHeader, MarqueeItem },
-  computed: {
-    ...mapState(["theme"]),
-  },
-  watch: {
-    theme() {
-      this.changeBackgroundContainer();
-    },
-  },
-  methods: {
-    changeBackgroundContainer() {
-      if (this.theme) {
-        this.$refs.headerContainer.style.backgroundColor = "#262626D9";
-      } else {
-        this.$refs.headerContainer.style.backgroundColor =
-          "rgba(255, 255, 255, 0.6)";
-      }
-    },
-    changeStopIntervalShapes(data) {
-      this.stopIntervalShapes = data;
-    },
-    changeStyleElementsForMedia() {
-      this.$refs.headerWrapper.style.minHeight = `${
-        this.$refs.headerContainer.offsetHeight + 198
-      }px`;
-    },
-  },
-  mounted() {
-    // If default dark theme
-    this.changeBackgroundContainer();
-    // First initilization media styles
-    this.changeStyleElementsForMedia();
-    // Resize window
-    window.addEventListener("resize", () => {
-      this.changeStyleElementsForMedia();
-    });
-  },
 };
 </script>
 
@@ -95,13 +57,16 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
+    height: 620px;
 
     & > *:first-child {
       width: 50%;
+      height: 100%;
     }
 
     & > *:last-child {
       width: 50%;
+      height: 100%;
       min-height: inherit;
       position: relative;
     }
@@ -109,23 +74,15 @@ export default {
 
   &-container {
     position: absolute;
-    backdrop-filter: blur(12px);
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 12px;
-    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset;
     padding: 32px;
     padding-bottom: 26px;
     top: 112px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    transition: all 0.2s ease-in-out;
   }
-}
-
-.left {
-  width: 100%;
 }
 
 .the-title {
@@ -150,8 +107,30 @@ h2 {
   }
 }
 
+@media screen and (min-width: 1420px) {
+  .header {
+    padding-bottom: 22px;
+  }
+}
+
+@media screen and (min-width: 1620px) {
+  .header {
+    padding-bottom: 42px;
+  }
+}
+
+@media screen and (min-width: 1760px) {
+  .header {
+    padding-bottom: 72px;
+  }
+}
+
 @media screen and (max-width: 1086px) {
   .header {
+    &-wrapper {
+      height: 560px;
+    }
+
     &-container {
       width: 92.2%;
     }
@@ -161,6 +140,8 @@ h2 {
 @media screen and (max-width: 600px) {
   .header {
     &-wrapper {
+      height: 500px;
+
       & > *:first-child {
         width: 0;
       }
@@ -176,7 +157,7 @@ h2 {
     }
   }
 
-  .h2 {
+  h2 {
     font-size: calc(var(--index) * 2.8);
     line-height: 2.4rem;
 
@@ -186,14 +167,8 @@ h2 {
     }
   }
 
-  .left {
-    width: 100%;
-
-    &-button {
-      width: 232px !important;
-      margin-top: 24px !important;
-      font-size: 14px;
-    }
+  .button-consultation {
+    margin-top: 24px !important;
   }
 }
 </style>

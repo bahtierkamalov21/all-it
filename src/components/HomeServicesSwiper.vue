@@ -1,28 +1,24 @@
 <template lang="pug">
 div
-  div(class="swiper")
+  div(class="swiper" style="max-width: 980px")
     div(class="swiper-wrapper")
-      div(class="swiper-slide")
-        v-col(class="pa-0 pt-4 pb-4")
-          v-row(class="swiper-slide-content")
-            v-card(
-              v-for="service in services"
-              :key="service.id"
-              class="card white--text pa-8"
-              color="transparent rounded-lg"
-              min-height="320"
-              max-width="240"
-            )
-              v-icon(:color="service.icon_color") {{ "mdi-" + service.icon }}
-              h3(class="mt-2") {{ service.title }}
-              div(class="mt-2") {{ service.text }}
-    div(class="swiper-pagination")
+      div(class="swiper-slide d-flex justify-center" v-for="service in services" :key="service.id")
+        v-card(
+          class="card white--text pa-8"
+          color="transparent rounded-lg"
+          min-height="320"
+          max-width="240"
+        )
+          v-icon(:color="service.icon_color") {{ "mdi-" + service.icon }}
+          h3(class="mt-2") {{ service.title }}
+          p(class="mt-2") {{ service.text }}
+  v-chip(color="prompt costumBlue white--text pr-4 mt-6")
+    v-icon(class="mr-2") mdi-credit-card-fast-outline
+    | Свайпните слайд
 </template>
 
 <script>
-import { Swiper, Pagination } from "swiper";
-import "swiper/css";
-import "swiper/css/pagination";
+import { Swiper } from "swiper";
 
 export default {
   name: "HomeServicesSwiper",
@@ -62,9 +58,17 @@ export default {
   },
   mounted() {
     this.swiper = new Swiper(".swiper", {
-      modules: [Pagination],
-      pagination: {
-        el: ".swiper-pagination",
+      slidesPerView: 3,
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+        },
+        640: {
+          slidesPerView: 2,
+        },
+        1086: {
+          slidesPerView: 3,
+        },
       },
     });
   },
@@ -86,8 +90,17 @@ export default {
   }
 }
 
-.swiper-slide-content {
-  justify-content: center;
-  gap: 25px;
+.prompt {
+  display: none;
+}
+
+@media screen and (max-width: 1086px) {
+  .prompt {
+    display: inline-block;
+  }
+
+  .swiper {
+    max-width: 660px !important;
+  }
 }
 </style>

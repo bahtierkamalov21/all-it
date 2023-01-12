@@ -5,10 +5,11 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'users', views.CustomUserViewSet)
 router.register(r'requests', views.RequestUserViewSet)
-router.register(r'requests/images', views.RequestUserImageViewSet)
-router.register(r'users/reviews', views.UserReviewViewSet)
-router.register(r'reviews', views.ReviewViewSet)
+router.register(r'requests-images', views.RequestUserImageViewSet)
+router.register(r'users_reviews', views.UserReviewViewSet)
+router.register(r'populars_reviews', views.PopularReviewViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('decoded_tokens/', views.decoded_tokens)
 ]

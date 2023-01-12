@@ -18,15 +18,20 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              router-link(class="text-decoration-none" :to="item.href" :class="item.list ? 'category-link pr-2' : null") {{ item.name }}
+              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+                v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
+                v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
+              router-link(v-else class="text-decoration-none" :to="'/' + item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
                 div
-                  router-link(class="text-decoration-none" v-for="list in item.list" :to="list.href" :key="list.id")
+                  div(class="px-4" style="cursor: pointer;" v-for="list in item.list" @click="pushCategory(list.href)" :key="list.id")
                     | {{ list.name }}
-          v-btn(class="text-capitalize ml-4" elevation="0" rounded color="costumBlue")
-            router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / Регистрация
+          v-btn(v-if="!$store.state.user" class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
+            router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / {{ $t("signup") }}
+          v-btn(v-else class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
+            router-link(class="white--text text-decoration-none" to="/profile") {{ $t("personal-area") }}
 </template>
 
 <script>
@@ -43,50 +48,50 @@ export default {
       sheetOpen: false,
       links: [
         {
-          name: "Поддержка",
+          name: "support",
           href: "#",
         },
         {
-          name: this.$t("projects-md"),
-          href: "#",
+          name: "projects-md",
+          href: "#projects",
           list: [
             {
               name: "Сайты",
-              href: "projects/category/sites",
+              href: "sites",
             },
             {
               name: "Telegram Боты",
-              href: "projects/category/telegram-bots",
+              href: "telegram-bots",
             },
             {
               name: "PWA",
-              href: "projects/category/pwa",
+              href: "pwa",
             },
             {
               name: "Моб приложения",
-              href: "projects/category/mobile-apps",
+              href: "mobile-apps",
             },
             {
               name: "Автоматизации",
-              href: "projects/category/automation",
+              href: "automation",
             },
             {
               name: "DevOps",
-              href: "projects/category/devops",
+              href: "devops",
             },
             {
               name: "Серверное администрирование",
-              href: "projects/category/server-administration",
+              href: "server-administration",
             },
           ],
         },
         {
-          name: "О компании",
+          name: "about-company",
           href: "#",
         },
         {
-          name: "Отзывы",
-          href: "#",
+          name: "reviews",
+          href: "#reviews",
         },
       ],
     };
@@ -107,15 +112,17 @@ export default {
     getOpen(callback) {
       this.sheetOpen = callback;
     },
+    pushCategory(href) {
+      this.$router.push({ name: "projectsCategory", params: { slug: href } });
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
 .nav {
-  background-color: #e5e5e533;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   padding: 12px;
   position: fixed;
   width: 100%;
@@ -192,7 +199,7 @@ li {
     font-weight: 600;
     display: flex;
     align-items: center;
-    color: #000000de !important;
+    color: #666 !important;
     height: 68px;
     padding: 0 16px 0 0;
   }
@@ -219,7 +226,7 @@ li {
 
 .icon-list {
   display: none;
-  color: #000000de;
+  color: #666;
   position: relative;
   top: -1px;
 }
@@ -252,17 +259,27 @@ li {
     position: relative;
     background-color: #fff;
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: var(--base-shadow);
+    padding: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
     & > * {
       color: #999 !important;
+      border-radius: 8px;
       display: block;
+      padding: 6px 0;
+      margin-bottom: 8px;
       transition: all 0.2s ease-in;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+
+      &:last-child {
+        margin: 0;
+      }
 
       &:hover {
         transition: all 0.2s ease-in;
         color: #666 !important;
+        box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+        border: solid 1px #999;
       }
     }
   }

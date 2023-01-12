@@ -1,12 +1,19 @@
 <template lang="pug">
 div
-  section(class="reviews py-16")
+  section(class="reviews py-16" id="reviews")
     v-container(class="pt-10 px-6")
-      h2 Отзывы
-      v-col
+      v-col(class="mb-4")
         v-row(class="align-center justify-space-between")
-          div(class="left")
-            div Frontend Backend | Web Developers
+          h2(class="align-center") Отзывы 
+          v-chip(class="title-chip white--text font-weight-bold pa-2 px-4") Спасибо за вашу поддержку!
+      v-col
+        v-row(class="justify-space-between" style="gap: 12px;")
+          div(class="left mb-6")
+            v-card(class="card rounded-lg pa-4 mb-4")
+              div(class="font-weight-bold") Мы ценим мнение наших клиентов и рады
+                br
+                | услышать обратную связь
+            home-reviews-warning
           div(class="right")
             v-card(class="card py-4 rounded-lg" elevation="0")
               div(class="d-flex align-center justify-space-between px-4")
@@ -30,14 +37,27 @@ div
                     v-icon mdi-arrow-right
               div(class="swiper-reviews")
                 div(class="swiper-wrapper")
-                  div(class="swiper-slide")
-                    div(class="px-4") dcdcs
-                  div(class="swiper-slide")
-                    div(class="px-4")
-                      | cascasca
+                  div(class="swiper-slide" v-for="item in reviews" :key="item.id")
+                    v-col 
+                      v-row(class="reviews-top align-center justify-space-between")
+                        v-list
+                          v-list-item
+                            v-list-item-avatar
+                              v-img(v-if="item.fk_user.avatar" :src="item.fk_user.avatar")
+                              v-icon(v-else style="font-size: 48px;") mdi-account-circle
+                            v-list-item-content
+                              v-list-item-title {{ item.fk_user.first_name ? item.fk_user.first_name : item.fk_user.username }}
+                              v-list-item-subtitle {{ item.fk_user.last_name }}
+                        div(class="d-flex align-center pr-12")
+                          v-icon(color="yellow" v-for="rating in item.rating" :key="rating.id") mdi-star-shooting 
+                          //- | {{ for(let i = 0; i < item.rating; i++) { return v-icon(color="yellow") mdi-star-shooting } }}
+                          v-chip(color="primary" class="font-weight-bold px-4 ml-2") Рейтинг
+                    div(class="swiper-slide-message px-4") {{ item.message }}
 </template>
 
 <script>
+import HomeReviewsWarning from "@/components/HomeReviewsWarning";
+import axios from "axios";
 import Swiper from "swiper";
 
 export default {
@@ -45,8 +65,10 @@ export default {
   data() {
     return {
       swiperReviews: null,
+      reviews: [],
     };
   },
+  components: { HomeReviewsWarning },
   computed: {
     disabledPrevSlide() {
       if (this.swiperReviews) {
@@ -64,9 +86,47 @@ export default {
       } else return null;
     },
   },
+  created() {
+    this.getReviews();
+  },
   mounted() {
     this.swiperReviews = new Swiper(".swiper-reviews");
-    console.log(this.swiperReviews);
+  },
+  methods: {
+    async getReviews() {
+      await axios
+        .get(this.$store.state.api_url + "populars_reviews/")
+        .then((response) => {
+          const reviews = response.data;
+          reviews.forEach((item) => {
+            axios
+              .get(item.fk_user_review)
+              .then((response) => {
+                let fk_user_review = response.data;
+                axios
+                  .get(response.data.fk_user)
+                  .then((response) => {
+                    fk_user_review.fk_user = {
+                      first_name: response.data.first_name,
+                      last_name: response.data.last_name,
+                      username: response.data.username,
+                      avatar: response.data.avatar,
+                    };
+                    this.reviews.push(fk_user_review);
+                  })
+                  .catch((errors) => {
+                    console.log(errors);
+                  });
+              })
+              .catch((errors) => {
+                console.log(errors);
+              });
+          });
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+    },
   },
 };
 </script>
@@ -84,12 +144,47 @@ h2 {
   font-size: var(--section-title);
 }
 
+.left {
+  flex-grow: inherit;
+}
+
 .right {
-  width: 50%;
+  flex-grow: 2;
+}
+
+.title-chip {
+  background-color: var(--custom-blue) !important;
 }
 
 .card {
   overflow: hidden;
   box-shadow: var(--shadow-2xl) !important;
+}
+
+.swiper-slide {
+  &-message {
+    max-height: 234px;
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .reviews {
+    &-top {
+      display: block;
+
+      & > *:last-child {
+        justify-content: end;
+        padding-right: 38px !important;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .reviews {
+    padding-top: 112px !important;
+  }
 }
 </style>

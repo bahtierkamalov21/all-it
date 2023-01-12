@@ -3,7 +3,7 @@ from users.models import CustomUser
 
 
 def projectImagePath(instance, filename):
-    return "project_{title}/images/{file}".format(title=instance.fk_project.link_path, file=filename)
+    return "projects/{title}/images/{file}".format(title=instance.fk_project.link_path, file=filename)
 
 # Create your models here.
 
@@ -13,6 +13,7 @@ class Category(models.Model):
     title = models.CharField(max_length=56, verbose_name="Категория")
     projects = models.ManyToManyField(
         "Project", blank=True, verbose_name="Проекты")
+    prefix = models.SlugField(max_length=42, verbose_name="Префикс")
 
     def __str__(self):
         return f"Категория - {self.title}"
@@ -32,6 +33,8 @@ class Project(models.Model):
     stack = models.TextField(blank=True, verbose_name="Технологии")
     fk_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     images = models.ManyToManyField("ProjectImage", blank=True, verbose_name="Изображения")
+    status = models.BooleanField(default=False, blank=True, verbose_name="Статус принятия")
+    complete = models.BooleanField(default=False, blank=True, verbose_name="Проект завершен")
 
     def __str__(self):
         return f"Проект - {self.name}"

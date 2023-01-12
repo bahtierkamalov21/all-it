@@ -29,15 +29,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 :root {
   --base-shadow: 0 0 10px -8px var(--v-color_shadow-base);
   --index: (1vw + 1vh);
-  --size-title: calc((1vw + 1vh) * 3.6);
+  --size-title: calc((1vw + 1vh) * 3.05);
   --section-title: calc(var(--index) * 2);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --custom-blue: #1867c0;
 }
 
 html {
@@ -51,6 +52,33 @@ html {
 
 .v-list {
   background-color: transparent !important;
+
+  &-group {
+    overflow: hidden;
+  }
+
+  &-item__content {
+    padding: 12px;
+  }
+}
+
+.input > div > div:first-child {
+  box-shadow: none !important;
+  padding: 12px 16px !important;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: #232323 !important;
+  background: linear-gradient(
+    120.61deg,
+    rgba(255, 188, 167, 0.1) 0%,
+    rgba(255, 220, 209, 0.1) 100%
+  ) !important;
+  border-radius: 8px;
+}
+
+.theme--light.v-timeline::before {
+  background: rgba(255, 255, 255, 0.15) !important;
 }
 
 @keyframes hover-list-link {

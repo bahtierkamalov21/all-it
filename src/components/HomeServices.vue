@@ -10,7 +10,7 @@ div
               br
               | специализируемся?
             font-awesome-icon(icon="fa-solid fa-circle-check" class="subtitle")
-        home-services-swiper(class="my-10")
+        home-services-swiper(class="my-8")
     home-services-view
 </template>
 
@@ -64,6 +64,10 @@ h2 {
     & > div {
       padding-bottom: 104px !important;
     }
+  }
+
+  .subtitle {
+    font-size: calc(var(--index) * 4.8);
   }
 }
 </style>

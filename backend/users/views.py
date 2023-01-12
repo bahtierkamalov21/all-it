@@ -1,8 +1,12 @@
-from urllib import response
 from rest_framework import viewsets, permissions
-from .models import CustomUser, RequestUser, RequestUserImage, UserReview, Review
-from .serializers import CustomUserSerializer, RequestUserSerializer, RequestUserImageSerializer, UserReviewSerializer, ReviewSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from .models import CustomUser, RequestUser, RequestUserImage, UserReview, PopularReview
+from .serializers import CustomUserSerializer, RequestUserSerializer, RequestUserImageSerializer, UserReviewSerializer, PopularReviewSerializer
 from .permissions import IsAdminUserOrReadOnly
+from django.conf import settings
+import jwt
 
 # Create your views here.
 class CustomUserViewSet(viewsets.ModelViewSet):
@@ -11,7 +15,7 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
 class RequestUserViewSet(viewsets.ModelViewSet):
     """
@@ -37,10 +41,17 @@ class UserReviewViewSet(viewsets.ModelViewSet):
     serializer_class = UserReviewSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class ReviewViewSet(viewsets.ModelViewSet):
+class PopularReviewViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+    queryset = PopularReview.objects.all()
+    serializer_class = PopularReviewSerializer
     permission_classes = [IsAdminUserOrReadOnly]
+
+@api_view(["GET"])
+@permission_classes((IsAuthenticated, ))
+def decoded_tokens(request):
+    token = request.headers["Authorization"].replace("Bearer ", "")
+    decoded = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+    return Response(decoded, status=200)

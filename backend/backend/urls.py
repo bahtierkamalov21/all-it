@@ -17,15 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from rest_framework_simplejwt import views as jwt_views
 from .views import redirect_view
+from rest_framework_simplejwt.views import ( TokenObtainPairView, TokenRefreshView )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('backend_index.urls')),
     path('api/v1/', include('users.urls')),
-    path('api/v1/token/', jwt_views.TokenObtainPairView.as_view(), name ='token_obtain_pair'),
-    path('api/v1/token/refresh/', jwt_views.TokenRefreshView.as_view(), name ='token_refresh'),
+    path('api/v1/', include('emails.urls')),
+    path('api/v1/token/', TokenObtainPairView.as_view(), name ='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name ='token_refresh'),
     path('', redirect_view)
 ]
 

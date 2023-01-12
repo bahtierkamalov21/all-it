@@ -6,6 +6,7 @@ import ProjectsItemView from "../views/ProjectsItemView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import SigninView from "../views/SigninView.vue";
 import SignupView from "../views/SignupView.vue";
+import ProjectsCategory from "../components/ProjectsCategory";
 
 Vue.use(VueRouter);
 
@@ -34,9 +35,17 @@ const routes = [
     path: "/projects",
     name: "projects",
     component: ProjectsView,
+    children: [
+      {
+        name: "projectsCategory",
+        path: "category/:slug",
+        component: ProjectsCategory,
+      },
+    ],
   },
   {
-    path: "/projects/:id",
+    path: "/projects/:slug",
+    name: "project",
     component: ProjectsItemView,
   },
 ];

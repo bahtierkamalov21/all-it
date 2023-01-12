@@ -9,7 +9,9 @@ div
           v-icon(class="chevron") {{ open ? "mdi-chevron-up" : "mdi-chevron-down" }}
         div(class="list-languages" v-if="open")
           ul
-            li(v-for="item in listLanguages" :key="item.id" @click="changeLanguage(item)")
+            li(v-for="item in listLanguages" :key="item.id" class="align-center px-4" @click="changeLanguage(item)")
+              flag(:iso="item" class="mr-2 rounded-xl" v-if="item != 'en'")
+              flag(iso="us" class="mr-1 rounded-xl" v-else)
               | {{ item === "ru" ? (`Русский (${item.toUpperCase()})`) : null }}
               | {{ item === "en" ? (`Английский (${item.toUpperCase()})`) : null }}
     span Сменить язык
@@ -81,20 +83,31 @@ ul {
   position: absolute;
   background-color: #fff;
   top: 56px;
-  padding: 20px;
-  min-width: 200px;
+  padding: 8px;
+  z-index: 10;
+  width: max-content;
   left: -16px;
   border-radius: 10px;
-  box-shadow: var(--base-shadow);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
-  & > * {
+  & > ul > * {
     text-decoration: none;
     color: #999 !important;
     transition: all 0.2s ease-in;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+    padding: 6px 0;
+    margin-bottom: 8px;
+    border-radius: 8px;
+
+    &:last-child {
+      margin: 0;
+    }
 
     &:hover {
       transition: all 0.2s ease-in;
       color: #666 !important;
+      box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
+      border: solid 1px #999;
     }
   }
 }
