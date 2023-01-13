@@ -81,6 +81,10 @@ html {
   background: rgba(255, 255, 255, 0.15) !important;
 }
 
+.container {
+  max-width: 1160px;
+}
+
 @keyframes hover-list-link {
   from {
     opacity: 0.2;
