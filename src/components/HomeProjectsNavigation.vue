@@ -21,16 +21,31 @@ export default {
       activeIndexCategory: 126,
     };
   },
+  props: {
+    checkUrl: Boolean,
+  },
   created() {
     this.getCategoriesWithProjectsArray();
     this.getAllProjects();
+  },
+  watch: {
+    $route: function () {
+      this.checkUrlAndSetCategory();
+    },
   },
   methods: {
     sendProjects() {
       this.$emit("sendProjects", this.projectsWithActiveIndexCategory);
     },
+    checkUrlAndSetCategory() {
+      this.links.forEach((item, index) => {
+        item.prefix === this.$route.params.slug
+          ? this.setActiveCategory(index, item.projects)
+          : null;
+      });
+    },
     setActiveCategory(index, array) {
-      if (array.length) {
+      if (array.length && !this.checkUrl) {
         this.activeIndexCategory = index;
         this.projectsWithActiveIndexCategory = array;
         this.sendProjects();

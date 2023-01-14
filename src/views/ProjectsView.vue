@@ -3,13 +3,13 @@ div(class="main")
   header(class="header pb-12")
     loading-item(v-if="!projects")
     div(v-else)
-      v-container(v-if="childrenActive")
-        router-view
-      v-container(v-else)
+      v-container
         v-card(class="main-card rounded-xl ma-auto pb-6" max-width="1160")
-          div(class="d-flex")
+          div(class="pa-4")
+            v-card-title(class="pa-2") Все проекты
+            home-projects-navigation(@sendProjects="getProjects")
           div(class="ma-auto pa-6")
-            div(class="d-flex flex-wrap")
+            div(class="d-flex flex-wrap" :class="addCenteredClass")
               home-projects-card(style="max-width: 336px; min-width: 336px;" v-for="project in forProjects" :key="project.url" :project="project")
           v-pagination(:length="lengthPages" v-model="page")
 </template>
@@ -18,29 +18,28 @@ div(class="main")
 import updateTitle from "@/mixins/updateTitle";
 import HomeProjectsCard from "@/components/HomeProjectsCard";
 import LoadingItem from "@/components/LoadingItem";
-import axios from "axios";
+import HomeProjectsNavigation from "@/components/HomeProjectsNavigation";
 
 export default {
   name: "ProjectsView",
   mixins: [updateTitle],
   data() {
     return {
-      projects: null,
+      projects: [],
       childrenActive: false,
       page: 1,
       page_copy: 1,
       sliceStart: 0,
       sliceEnd: 9,
+      difference: null,
+      projectsOnThisPage: null,
     };
   },
-  components: { HomeProjectsCard, LoadingItem },
+  components: { HomeProjectsCard, LoadingItem, HomeProjectsNavigation },
   mounted() {
     window.scrollTo(0, 0);
   },
   watch: {
-    $route: function () {
-      this.childrenActive = true;
-    },
     page() {
       if (this.page_copy < this.page) {
         this.sliceEnd = this.sliceEnd * this.page;
@@ -55,7 +54,6 @@ export default {
   },
   created() {
     this.updateTitle(this.$t("projects-md"));
-    this.getProjects();
   },
   computed: {
     lengthPages() {
@@ -63,20 +61,26 @@ export default {
         return Math.floor(this.projects.length / 9) + 1;
       } else return null;
     },
+    addCenteredClass() {
+      if (this.projectsOnThisPage > 1 && this.projectsOnThisPage % 3 != 0) {
+        return "centered";
+      } else if (this.projectsOnThisPage % 3 === 0) {
+        return null;
+      } else return null;
+    },
     forProjects() {
       return this.projects.slice(this.sliceStart, this.sliceEnd);
     },
   },
   methods: {
-    getProjects() {
-      axios
-        .get(this.$store.state.api_url + "projects/")
-        .then((response) => {
-          this.projects = response.data.filter((item) => item.complete);
-        })
-        .catch((errors) => {
-          console.log(errors);
-        });
+    findingProjectsOnThisPage() {
+      this.difference = (this.sliceEnd - this.projects.length) * 1;
+      this.difference < 0 ? (this.difference = -this.difference) : null;
+      this.projectsOnThisPage = this.projects.length - this.difference;
+    },
+    getProjects(data) {
+      // Только завершенные проекты
+      data ? (this.projects = data.filter((item) => item.complete)) : null;
     },
   },
 };
@@ -94,11 +98,14 @@ export default {
   padding-top: 126px;
 }
 
+.centered {
+  justify-content: center;
+}
+
 .main-card {
   box-shadow: var(--shadow-2xl) !important;
 
   & > *:first-child {
-    height: 100px;
     background: #eaf2ff;
   }
 
@@ -114,6 +121,14 @@ export default {
 @media screen and (max-width: 1086px) {
   .header {
     padding-top: 106px;
+  }
+}
+
+@media screen and (max-width: 1126px) {
+  .main-card {
+    & > *:nth-child(2) {
+      max-width: 732px;
+    }
   }
 }
 

@@ -18,10 +18,10 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : 'pr-2'") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
-              router-link(v-else class="text-decoration-none" :to="'/' + item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              router-link(v-else class="text-decoration-none" :to="'/' + item.href" :class="item.list ? 'category-link pr-2' : 'pr-2'") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list")
@@ -39,6 +39,7 @@ import SwitchLanguage from "@/components/SwitchLanguage.vue";
 import LogoItem from "@/components/LogoItem.vue";
 import TopSheetMenu from "@/components/TopSheetMenu";
 import SwitchTheme from "@/components/SwitchTheme";
+import axios from "axios";
 
 export default {
   name: "MainNavigation",
@@ -54,36 +55,7 @@ export default {
         {
           name: "projects-md",
           href: "#projects",
-          list: [
-            {
-              name: "Сайты",
-              href: "sites",
-            },
-            {
-              name: "Telegram Боты",
-              href: "telegram-bots",
-            },
-            {
-              name: "PWA",
-              href: "pwa",
-            },
-            {
-              name: "Моб приложения",
-              href: "mobile-apps",
-            },
-            {
-              name: "Автоматизации",
-              href: "automation",
-            },
-            {
-              name: "DevOps",
-              href: "devops",
-            },
-            {
-              name: "Серверное администрирование",
-              href: "server-administration",
-            },
-          ],
+          list: [],
         },
         {
           name: "about-company",
@@ -105,7 +77,26 @@ export default {
       }
     },
   },
+  created() {
+    this.getCategoriesAndSetList();
+  },
   methods: {
+    getCategoriesAndSetList() {
+      axios
+        .get(this.$store.state.api_url + "categories/")
+        .then((response) => {
+          response.data.forEach((item) => {
+            const object = {
+              name: item.title,
+              href: item.prefix,
+            };
+            this.links[1].list.push(object);
+          });
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+    },
     openSheet() {
       this.sheetOpen = !this.sheetOpen;
     },
@@ -113,7 +104,12 @@ export default {
       this.sheetOpen = callback;
     },
     pushCategory(href) {
-      this.$router.push({ name: "projectsCategory", params: { slug: href } });
+      this.$route.params.slug === href
+        ? null
+        : this.$router.push({
+            name: "projectsCategory",
+            params: { slug: href },
+          });
     },
   },
 };

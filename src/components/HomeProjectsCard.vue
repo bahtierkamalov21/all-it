@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  v-card(link elevation="0" @click="$router.push({ name: 'project', params: { slug: project.link_path } })" class="card rounded-xl pa-6" min-height="200")
+  v-card(link elevation="0" @click="$router.push({ name: 'project', params: { slug: project.link_path } })" class="card pa-6" min-height="200")
     h3(class="white--text font-weight-bold mb-0") {{ project.title }}
     v-chip(class="white--text font-weight-bold px-4 pr-6" color="costumBlue")
       v-icon(class="mr-2") mdi-checkbook
@@ -26,6 +26,7 @@ export default {
   background-repeat: no-repeat;
   background-image: url("../assets/images/card-two-background.jpg");
   transition: 0.2s all ease-in-out;
+  border-radius: 22px !important;
   display: flex;
   overflow: hidden;
   flex-direction: column;
@@ -42,6 +43,12 @@ export default {
   & > * {
     width: fit-content;
   }
+}
+
+h3 {
+  max-height: 56px;
+  overflow: hidden;
+  border-radius: 0 !important;
 }
 
 .last {
