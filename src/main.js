@@ -50,6 +50,7 @@ Vue.config.productionTip = false;
 function getUserData() {
   if (localStorage.getItem("user")) {
     const decoded = JSON.parse(localStorage.getItem("decoded"));
+
     axios
       .get(store.state.api_url + `users/${decoded.user_id}/`)
       .then((response) => {

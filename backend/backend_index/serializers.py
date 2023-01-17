@@ -7,6 +7,11 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    def validate(self, validated_data):
+        if Project.objects.filter(fk_user=validated_data["fk_user"], complete=False).exists():
+            raise serializers.ValidationError({"fk_user": "Предыдущий проект пользователя является не завершенным."})
+        return validated_data
+
     class Meta:
         model = Project
         fields = '__all__'

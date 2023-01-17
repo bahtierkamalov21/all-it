@@ -4,10 +4,13 @@ div(class="main")
     loading-item(v-if="!projects")
     div(v-else)
       v-container
+        h1(class="pl-6 mb-2" style="color: #121133;") {{ $t("all") }}
+          span(class="text-lowercase mx-2") {{ $t("projects-md") }}
+          | /
+          span(class="ml-1" style="font-size: 14px;") Выполнено проектов более 100+
         v-card(class="main-card rounded-xl ma-auto pb-6" max-width="1160")
           div(class="pa-4")
-            v-card-title(class="pa-2") Все проекты
-            home-projects-navigation(@sendProjects="getProjects")
+            home-projects-navigation(@sendProjects="getProjects" @sendPage="getPage" checkUrl)
           div(class="ma-auto pa-6")
             div(class="d-flex flex-wrap" :class="addCenteredClass")
               home-projects-card(style="max-width: 336px; min-width: 336px;" v-for="project in forProjects" :key="project.url" :project="project")
@@ -81,6 +84,9 @@ export default {
     getProjects(data) {
       // Только завершенные проекты
       data ? (this.projects = data.filter((item) => item.complete)) : null;
+    },
+    getPage(data) {
+      this.page = data;
     },
   },
 };

@@ -124,9 +124,16 @@ export default {
             password: this.password,
             telegram_username: this.telegramUsername,
             phone: this.phone,
-            is_active: "true",
+            is_active: true,
           })
           .then(() => {
+            // Сохраняем username и passowrd в localStorage
+            localStorage.setItem("username", this.username);
+            localStorage.setItem("password", this.password);
+            // Сохраняем username и passowrd в store
+            this.$store.commit("setUsername", this.username);
+            this.$store.commit("setPassword", this.password);
+
             // После создания пользователя
             axios
               .post(this.$store.state.api_url + "token/", {

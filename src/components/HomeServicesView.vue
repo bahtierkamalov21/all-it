@@ -92,7 +92,7 @@ export default {
   width: 90%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 2;
 
   & > div {
     max-width: 680px;

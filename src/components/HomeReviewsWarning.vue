@@ -1,16 +1,18 @@
 <template lang="pug">
-div
+div(v-if="!this.$store.state.user")
   v-card(class="card rounded-lg pa-4 pt-2 pb-6")
     div(class="card-bottom")
     div(class="text-right")
       div(class="card-top")
-    p(class="font-weight-bold mb-2 mt-6" v-if="!this.$store.state.user")
-      | Чтобы оставить отзыв вам требуется 
-      router-link(to="/signin" class="text-decoration-none") войти
-    div(class="warning-bottom white--text text-subtitle-1 font-weight-medium pa-2" :class="{ 'mt-5': this.$store.state.user}")
-      | Оставить отзыв можно будет после
-      br
-      | завершения выполнения вашего проекта
+    div(class="d-flex flex-wrap align-center mt-5" style="gap: 6px")
+      div(class="warning-bottom white--text text-subtitle-1 font-weight-bold pa-2 px-4")
+        | Чтобы оставить отзыв вам требуется 
+      div(
+        @click="$router.push('/profile')"
+        style="cursor: pointer;"
+        class="warning-bottom white--text text-subtitle-1 font-weight-bold pa-2"
+      )
+        | Войти
 </template>
 
 <script>

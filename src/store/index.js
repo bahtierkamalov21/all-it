@@ -13,6 +13,8 @@ export default new Vuex.Store({
     token: "5944619606:AAEgXlAvmwjvWcH84eMlLdPL7RX4BTTqcEM",
     chat_id: "-1001849968025",
     decoded: null,
+    username: null,
+    password: null,
   },
   getters: {},
   mutations: {
@@ -30,6 +32,12 @@ export default new Vuex.Store({
     },
     setDecoded(state, payload) {
       state.decoded = payload;
+    },
+    setUsername(state, payload) {
+      state.username = payload;
+    },
+    setPassword(state, payload) {
+      state.password = payload;
     },
   },
   actions: {},

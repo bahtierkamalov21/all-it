@@ -5,12 +5,14 @@ v-app
   the-bottom-navigation
   footer
     the-faq
+  button-up
 </template>
 
 <script>
 import MainNavigation from "@/components/MainNavigation";
 import TheBottomNavigation from "@/components/TheBottomNavigation";
 import TheFaq from "@/components/TheFaq";
+import ButtonUp from "./components/ButtonUp";
 
 export default {
   name: "App",
@@ -18,6 +20,7 @@ export default {
     MainNavigation,
     TheBottomNavigation,
     TheFaq,
+    ButtonUp,
   },
   data: () => ({}),
   created() {
@@ -39,6 +42,23 @@ export default {
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
   --custom-blue: #1867c0;
+}
+
+.v-dialog__content.v-dialog__content--active {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10 !important;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+
+  & > *:first-child {
+    overflow: initial;
+    box-shadow: none !important;
+  }
 }
 
 html {

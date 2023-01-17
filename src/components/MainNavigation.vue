@@ -6,7 +6,7 @@ div
       v-col
         v-row(class="nav-row align-center")
           div(class="title")
-            router-link(class="text-decoration-none" to="/") All IT.agency
+            router-link(class="text-decoration-none" to="/") BMM LITER.agency
               div(class="lang-prefix") {{ $i18n.locale }}
               div(class="tm") TM
           div(class="bar")

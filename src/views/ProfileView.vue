@@ -1,5 +1,14 @@
 <template lang="pug">
 div
+  dialog-reviews(
+    :dialogReviews="dialogReviews" 
+    @getDialogReviews="getDialogReviews" 
+    @getHaveReviews="getHaveReviews"
+  )
+  dialog-projects(
+    :dialogProjects="dialogProjects" 
+    @getDialogProjects="getDialogProjects"
+  )
   header(class="header pb-12")
     loading-item(v-if="!user")
     v-container(v-else)
@@ -73,11 +82,43 @@ div
           v-btn(@click="exitSystem" class="delete pa-0 ml-6 mt-4" color="red" min-width="38" rounded elevation="0")
             v-icon(color="white") mdi-delete
             div(class="delete-text font-weight-bold") Выйти из системы
+      div(class="prompts d-flex flex-wrap justify-space-between ma-auto my-6" style="max-width: 960px;")
+        div(class="text-left mb-6")
+          v-btn( 
+            v-if="!haveReviews"
+            @click="dialogReviews = !dialogReviews"
+            color="costumBlue" 
+            rounded 
+            class="white--text text-capitalize" 
+            elevation="0"
+          )
+            v-icon(left) mdi-typewriter
+            | Оставить
+            span(class="text-lowercase ml-1") отзыв
+          v-chip(class="d-block mt-2 pr-6")
+            v-icon mdi-information-variant
+            | Можно оставить только один отзыв
+        div(class="text-right")  
+          v-btn( 
+            @click="dialogProjects = !dialogProjects"
+            color="costumBlue" 
+            rounded 
+            class="white--text text-capitalize" 
+            elevation="0"
+          )
+            v-icon(left) mdi-file-document-edit
+            | Заполнить
+            span(class="text-lowercase ml-1") анкету своего проекта
+          v-chip(class="d-block mt-2 pr-6")
+            v-icon mdi-information-variant
+            | Можно заполнить после завершения текущего проекта
 </template>
 
 <script>
 import axios from "axios";
 import LoadingItem from "@/components/LoadingItem";
+import DialogReviews from "@/components/DialogReviews";
+import DialogProjects from "@/components/DialogProjects";
 
 export default {
   name: "ProfileView",
@@ -85,6 +126,7 @@ export default {
     return {
       user: null,
       user_copied: null,
+      haveReviews: null,
       update: false,
       message: null,
       valid: false,
@@ -99,20 +141,29 @@ export default {
           this.telegram_username_regex.test(v) ||
           "Неверно введен telegram username",
       ],
+      dialogReviews: false,
+      dialogProjects: false,
     };
   },
-  components: { LoadingItem },
+  components: { LoadingItem, DialogReviews, DialogProjects },
   created() {
     this.determineWhetherUserAuthorized();
   },
   methods: {
+    getHaveReviews(data) {
+      this.haveReviews = data;
+    },
+    getDialogReviews(data) {
+      this.dialogReviews = data;
+    },
+    getDialogProjects(data) {
+      this.dialogProjects = data;
+    },
     // Determine whether the user is authorized
     determineWhetherUserAuthorized() {
-      if (!this.$store.state.user) {
-        this.$router.push("/signin");
-      } else {
-        this.getUserData();
-      }
+      !localStorage.getItem("user")
+        ? this.$router.push("/signin")
+        : this.getUserData();
     },
     changeUserData() {
       this.update = true;
@@ -159,6 +210,9 @@ export default {
 
           this.user = response.data;
           this.user_copied = response.data;
+
+          // Сохранение отзыва пользователя
+          this.haveReviews = response.data.review;
         })
         .catch((errors) => {
           console.log(errors);
@@ -219,6 +273,10 @@ export default {
   }
 }
 
+.child-card {
+  box-shadow: var(--shadow-2xl) !important;
+}
+
 .userdata {
   gap: 24px;
 
@@ -268,6 +326,19 @@ export default {
   &-text {
     position: absolute;
     right: -192px;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .prompts {
+    & > *:last-child {
+      width: 100%;
+
+      & > *:last-child {
+        width: max-content;
+        margin-left: auto;
+      }
+    }
   }
 }
 

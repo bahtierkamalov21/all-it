@@ -19,6 +19,7 @@ export default {
       allProjects: [],
       projectsWithActiveIndexCategory: [],
       activeIndexCategory: 126,
+      page: 1,
     };
   },
   props: {
@@ -37,7 +38,11 @@ export default {
     sendProjects() {
       this.$emit("sendProjects", this.projectsWithActiveIndexCategory);
     },
+    sendPage() {
+      this.$emit("sendPage", this.page);
+    },
     checkUrlAndSetCategory() {
+      this.sendPage();
       this.links.forEach((item, index) => {
         item.prefix === this.$route.params.slug
           ? this.setActiveCategory(index, item.projects)
@@ -45,10 +50,34 @@ export default {
       });
     },
     setActiveCategory(index, array) {
-      if (array.length && !this.checkUrl) {
+      this.sendPage();
+      const showAndSetProjects = () => {
         this.activeIndexCategory = index;
         this.projectsWithActiveIndexCategory = array;
         this.sendProjects();
+      };
+      let areArraysEqual =
+        JSON.stringify(array) === JSON.stringify(this.allProjects);
+      let arrayIsNotEmpty = array.length !== 0;
+      if (arrayIsNotEmpty) {
+        if (!areArraysEqual && !this.checkUrl) {
+          showAndSetProjects();
+        } else if (areArraysEqual && this.checkUrl) {
+          showAndSetProjects();
+          this.$route.path !== "/projects"
+            ? this.$router.push("/projects")
+            : null;
+        } else if (!areArraysEqual && this.checkUrl) {
+          showAndSetProjects();
+          this.$route.params.slug !== this.links[index].prefix
+            ? this.$router.push({
+                name: "projectsCategory",
+                params: { slug: this.links[index].prefix },
+              })
+            : null;
+        } else if (areArraysEqual && !this.checkUrl) {
+          showAndSetProjects();
+        }
       }
     },
     getAllProjects() {

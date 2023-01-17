@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, RequestUser, RequestUserImage, UserReview, PopularReview
+from .models import CustomUser, UserReview, PopularReview
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
 
@@ -34,19 +34,14 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ("url", "id", "is_active", "is_staff", "is_superuser", "first_name", "last_name", "username", "telegram_username", "password", "email", "avatar", "phone")
-
-class RequestUserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = RequestUser
-        fields = '__all__'
-
-class RequestUserImageSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = RequestUserImage
-        fields = '__all__'
+        fields = ("url", "id", "is_active", "is_staff", "is_superuser", "first_name", "last_name", "username", "telegram_username", "password", "email", "avatar", "phone", "review")
 
 class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
+    def validate(self, validated_data):
+        if UserReview.objects.filter(fk_user=validated_data["fk_user"]).exists():
+            raise serializers.ValidationError({"fk_user": "Пользователь может оставить только один отзыв."})
+        return validated_data
+
     class Meta:
         model = UserReview
         fields = '__all__'

@@ -16,6 +16,7 @@ div
             @input="changeInput"
             class="input"
             :error-messages="error"
+            autocomplete="username"
           )
           v-text-field(
             v-model="password" 
@@ -25,6 +26,7 @@ div
             @input="changeInput"
             class="input"
             :error-messages="error"
+            autocomplete="current-password"
           )
           v-btn(@click="signin" class="white--text text-capitalize mt-2" elevation="0" :disabled="!valid" rounded color="costumBlue") Войти
 </template>
@@ -69,6 +71,13 @@ export default {
             password: this.password,
           })
           .then((response) => {
+            // Сохраняем username и passowrd в localStorage
+            localStorage.setItem("username", this.username);
+            localStorage.setItem("password", this.password);
+            // Сохраняем username и passowrd в store
+            this.$store.commit("setUsername", this.username);
+            this.$store.commit("setPassword", this.password);
+
             // Сохраняем токены в localStorage
             localStorage.setItem("token_access", response.data.access);
             localStorage.setItem("token_refresh", response.data.refresh);

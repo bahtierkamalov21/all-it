@@ -44,9 +44,7 @@ export default {
   },
   mounted() {
     window.addEventListener("click", (event) => {
-      if (event.target === this.$refs.modal) {
-        this.setAndCloseOpen();
-      }
+      event.target === this.$refs.modal ? this.setAndCloseOpen() : null;
     });
   },
   created() {
@@ -54,14 +52,12 @@ export default {
   },
   methods: {
     profilePush() {
-      if (this.$route.path !== "/profile") {
-        this.$router.push("/profile");
-      }
+      this.$route.path !== "/profile" ? this.$router.push("/profile") : null;
     },
     getUserAvatar() {
-      if (this.$store.state.user) {
-        this.avatar = JSON.parse(localStorage.getItem("user")).avatar;
-      }
+      this.$store.state.user
+        ? (this.avatar = JSON.parse(localStorage.getItem("user")).avatar)
+        : null;
     },
     setOpen() {
       this.$emit("setOpen", this.open);

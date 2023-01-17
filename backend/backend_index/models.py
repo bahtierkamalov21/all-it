@@ -31,6 +31,8 @@ class Project(models.Model):
     name = models.CharField(max_length=56, verbose_name="Имя проекта")
     link_path = models.SlugField(max_length=32, verbose_name="Api проекта")
     stack = models.TextField(blank=True, verbose_name="Технологии")
+    description = models.TextField(blank=True, verbose_name="Описание проекта")
+    website = models.URLField(blank=True, verbose_name="WebSite")
     fk_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     images = models.ManyToManyField("ProjectImage", blank=True, verbose_name="Изображения")
     status = models.BooleanField(default=False, blank=True, verbose_name="Статус принятия")
