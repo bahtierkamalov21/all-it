@@ -1,6 +1,6 @@
 <template lang="pug">
 div(v-if="!this.$store.state.user")
-  v-card(class="card rounded-lg pa-4 pt-2 pb-6")
+  v-card(class="card rounded-lg pa-4 pt-2 pb-6 mt-6")
     div(class="card-bottom")
     div(class="text-right")
       div(class="card-top")

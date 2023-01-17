@@ -8,7 +8,7 @@ div
           v-chip(class="title-chip white--text font-weight-bold pa-2 px-4") Спасибо за вашу поддержку!
       v-col
         v-row(class="justify-space-between" style="gap: 12px;")
-          div(class="left mb-6")
+          div(class="left")
             v-card(class="card rounded-lg pa-4 mb-4")
               div(class="font-weight-bold") Мы ценим мнение наших клиентов и рады
                 br
@@ -45,7 +45,7 @@ div
                             v-list-item-avatar
                               v-img(v-if="item.fk_user.avatar" :src="item.fk_user.avatar")
                               v-icon(v-else style="font-size: 48px;") mdi-account-circle
-                            v-list-item-content
+                            v-list-item-content(class="pl-0")
                               v-list-item-title {{ item.fk_user.first_name ? item.fk_user.first_name : item.fk_user.username }}
                               v-list-item-subtitle {{ item.fk_user.last_name }}
                         div(class="d-flex align-center pr-12")
@@ -145,11 +145,12 @@ h2 {
 }
 
 .left {
-  flex-grow: inherit;
+  flex-grow: 1;
 }
 
 .right {
   flex-grow: 2;
+  width: calc(100vw / 2.5);
 }
 
 .title-chip {
@@ -162,6 +163,8 @@ h2 {
 }
 
 .swiper-slide {
+  overflow: hidden;
+
   &-message {
     max-height: 234px;
     overflow: auto;

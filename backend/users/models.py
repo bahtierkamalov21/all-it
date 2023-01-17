@@ -44,6 +44,6 @@ class PopularReview(models.Model):
         return f"Отзыв пользователя - {self.fk_user_review.fk_user.username}"
 
     class Meta:
-        verbose_name = "Отзыв"
-        verbose_name_plural = "Отзывы"
+        verbose_name = "Популярный отзыв"
+        verbose_name_plural = "Популярные отзывы"
     

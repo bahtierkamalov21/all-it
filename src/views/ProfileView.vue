@@ -89,12 +89,22 @@ div
             @click="dialogReviews = !dialogReviews"
             color="costumBlue" 
             rounded 
-            class="white--text text-capitalize" 
+            class="white--text button text-capitalize" 
             elevation="0"
           )
             v-icon(left) mdi-typewriter
             | Оставить
             span(class="text-lowercase ml-1") отзыв
+          v-btn( 
+            v-if="haveReviews"
+            color="costumBlue" 
+            rounded 
+            class="white--text button text-capitalize" 
+            elevation="0"
+          )
+            v-icon(left) mdi-typewriter
+            | Отредактировать
+            span(class="text-lowercase ml-1") | посмотреть отзыв
           v-chip(class="d-block mt-2 pr-6")
             v-icon mdi-information-variant
             | Можно оставить только один отзыв
@@ -103,7 +113,7 @@ div
             @click="dialogProjects = !dialogProjects"
             color="costumBlue" 
             rounded 
-            class="white--text text-capitalize" 
+            class="white--text button text-capitalize" 
             elevation="0"
           )
             v-icon(left) mdi-file-document-edit
@@ -354,6 +364,10 @@ export default {
   }
   .avatar {
     margin-right: 45%;
+  }
+
+  .button {
+    font-size: 12px !important;
   }
 }
 </style>
