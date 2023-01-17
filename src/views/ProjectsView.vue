@@ -97,7 +97,6 @@ export default {
   background-image: url("../assets/images/projects-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  max-height: 2300px;
 }
 
 .header {
@@ -147,6 +146,10 @@ export default {
         justify-content: center;
       }
     }
+  }
+
+  h1 {
+    line-height: 20px;
   }
 }
 </style>
