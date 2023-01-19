@@ -23,12 +23,6 @@ export default {
     ButtonUp,
   },
   data: () => ({}),
-  created() {
-    // Determine whether the user is authorized
-    this.$store.commit("setUser", localStorage.getItem("user"));
-    // Commit theme in store
-    this.$store.commit("changeTheme", this.$vuetify.theme.dark);
-  },
 };
 </script>
 

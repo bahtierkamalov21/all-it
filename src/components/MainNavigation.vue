@@ -6,7 +6,7 @@ div
       v-col
         v-row(class="nav-row align-center")
           div(class="title")
-            router-link(class="text-decoration-none" to="/") BMM LITER.agency
+            router-link(class="text-decoration-none" to="/") BMM LITER.org
               div(class="lang-prefix") {{ $i18n.locale }}
               div(class="tm") TM
           div(class="bar")
@@ -70,11 +70,9 @@ export default {
   },
   watch: {
     sheetOpen() {
-      if (this.sheetOpen) {
-        document.getElementsByTagName("html")[0].style.overflow = "hidden";
-      } else {
-        document.getElementsByTagName("html")[0].style.overflow = "auto";
-      }
+      this.sheetOpen
+        ? (document.getElementsByTagName("html")[0].style.overflow = "hidden")
+        : (document.getElementsByTagName("html")[0].style.overflow = "auto");
     },
   },
   created() {

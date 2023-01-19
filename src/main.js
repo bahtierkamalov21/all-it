@@ -42,6 +42,8 @@ library.add(
   faLayerGroup
 );
 
+import exitSystem from "./mixins/exitSystem";
+
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
@@ -58,8 +60,9 @@ function getUserData() {
         localStorage.setItem("user", JSON.stringify(response.data));
         store.commit("setUser", JSON.stringify(response.data));
       })
-      .catch((errors) => {
-        console.log(errors);
+      .catch(() => {
+        // Ошибка возможна если пользователя нет в БД
+        exitSystem.methods.exitSystem({ reload: true });
       });
   } else null;
 }

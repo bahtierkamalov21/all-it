@@ -57,9 +57,7 @@ export default {
   components: { SignComplete },
   mixins: [decodedTokensAndSetUserData],
   created() {
-    if (this.$store.state.user) {
-      this.$router.push("/");
-    }
+    localStorage.getItem("user") ? this.$router.push("/") : null;
   },
   methods: {
     signin() {

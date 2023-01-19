@@ -38,20 +38,19 @@ div
               div(class="swiper-reviews")
                 div(class="swiper-wrapper")
                   div(class="swiper-slide" v-for="item in reviews" :key="item.id")
-                    v-col 
-                      v-row(class="reviews-top align-center justify-space-between")
-                        v-list
-                          v-list-item
-                            v-list-item-avatar
-                              v-img(v-if="item.fk_user.avatar" :src="item.fk_user.avatar")
-                              v-icon(v-else style="font-size: 48px;") mdi-account-circle
-                            v-list-item-content(class="pl-0")
-                              v-list-item-title {{ item.fk_user.first_name ? item.fk_user.first_name : item.fk_user.username }}
-                              v-list-item-subtitle {{ item.fk_user.last_name }}
-                        div(class="d-flex align-center pr-12")
-                          v-icon(color="yellow" v-for="rating in item.rating" :key="rating.id") mdi-star-shooting 
-                          //- | {{ for(let i = 0; i < item.rating; i++) { return v-icon(color="yellow") mdi-star-shooting } }}
-                          v-chip(color="primary" class="font-weight-bold px-4 ml-2") Рейтинг
+                    div(class="d-flex flex-wrap reviews-top align-center justify-space-between")
+                      v-list
+                        v-list-item
+                          v-list-item-avatar
+                            v-img(v-if="item.fk_user.avatar" :src="item.fk_user.avatar")
+                            v-icon(v-else style="font-size: 48px;") mdi-account-circle
+                          v-list-item-content(class="pl-0")
+                            v-list-item-title {{ item.fk_user.first_name ? item.fk_user.first_name : item.fk_user.username }}
+                            v-list-item-subtitle {{ item.fk_user.last_name }}
+                      div(class="d-flex align-center pr-6")
+                        v-icon(color="yellow" v-for="rating in item.rating" :key="rating.id") mdi-star
+                        //- | {{ for(let i = 0; i < item.rating; i++) { return v-icon(color="yellow") mdi-star-shooting } }}
+                        v-chip(color="primary" class="font-weight-bold px-4 ml-2") Рейтинг
                     div(class="swiper-slide-message px-4") {{ item.message }}
 </template>
 
@@ -71,18 +70,14 @@ export default {
   components: { HomeReviewsWarning },
   computed: {
     disabledPrevSlide() {
-      if (this.swiperReviews) {
-        return this.swiperReviews.activeIndex === 0;
-      } else return null;
+      return this.swiperReviews ? this.swiperReviews.activeIndex === 0 : null;
     },
     disabledNextSlide() {
       if (this.swiperReviews) {
-        if (
-          this.swiperReviews.activeIndex ===
+        return this.swiperReviews.activeIndex ===
           this.swiperReviews.slides.length - 1
-        ) {
-          return true;
-        } else return false;
+          ? true
+          : false;
       } else return null;
     },
   },
@@ -168,26 +163,22 @@ h2 {
   &-message {
     max-height: 234px;
     overflow: auto;
-  }
-}
-
-@media screen and (max-width: 960px) {
-  .reviews {
-    &-top {
-      display: block;
-
-      & > *:last-child {
-        justify-content: end;
-        padding-right: 38px !important;
-        margin-bottom: 12px;
-      }
-    }
+    padding: 16px 0 0;
+    font-weight: bold;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
   }
 }
 
 @media screen and (max-width: 600px) {
   .reviews {
     padding-top: 112px !important;
+
+    &-top {
+      & > *:last-child {
+        margin-left: auto;
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 </style>

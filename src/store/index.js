@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    theme: null,
     user: null,
     token_access: null,
     token_refresh: null,
@@ -18,9 +17,6 @@ export default new Vuex.Store({
   },
   getters: {},
   mutations: {
-    changeTheme(state, payload) {
-      state.theme = payload;
-    },
     setUser(state, payload) {
       state.user = payload;
     },

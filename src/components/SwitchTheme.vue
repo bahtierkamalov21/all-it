@@ -24,7 +24,6 @@ export default {
   methods: {
     changeTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      this.$store.commit("changeTheme", this.$vuetify.theme.dark);
     },
   },
 };

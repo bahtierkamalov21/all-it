@@ -33,7 +33,7 @@ div
               v-icon mdi-arrow-right
         div(class="swiper-projects rounded-xl")
           div(class="swiper-wrapper")
-            div(class="swiper-slide mr-2" v-for="project in projects" :key="project.url")
+            div(class="swiper-slide" v-for="project in projects" :key="project.url")
               home-projects-card(:project="project")
 </template>
 
@@ -71,18 +71,14 @@ export default {
   },
   computed: {
     disabledPrevSlide() {
-      if (this.swiperProjects) {
-        return this.swiperProjects.activeIndex === 0;
-      } else return null;
+      return this.swiperProjects ? this.swiperProjects.activeIndex === 0 : null;
     },
     disabledNextSlide() {
       if (this.swiperProjects) {
-        if (
-          this.swiperProjects.activeIndex ===
+        return this.swiperProjects.activeIndex ===
           this.swiperProjects.slides.length - 1
-        ) {
-          return true;
-        } else return false;
+          ? true
+          : false;
       } else return null;
     },
   },

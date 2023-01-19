@@ -9,6 +9,12 @@ div
     :dialogProjects="dialogProjects" 
     @getDialogProjects="getDialogProjects"
   )
+  viewing-editing-reviews(
+    v-if="user"
+    :dialogViewingEditingReviews="dialogViewingEditingReviews"
+    @getDialogViewingEditingReviews="getDialogViewingEditingReviews"
+    :userData="{user: user, linkReview: user.review}"
+  )
   header(class="header pb-12")
     loading-item(v-if="!user")
     v-container(v-else)
@@ -98,6 +104,7 @@ div
           v-btn( 
             v-if="haveReviews"
             color="costumBlue" 
+            @click="dialogViewingEditingReviews = !dialogViewingEditingReviews"
             rounded 
             class="white--text button text-capitalize" 
             elevation="0"
@@ -127,8 +134,10 @@ div
 <script>
 import axios from "axios";
 import LoadingItem from "@/components/LoadingItem";
-import DialogReviews from "@/components/DialogReviews";
-import DialogProjects from "@/components/DialogProjects";
+import DialogReviews from "@/components/dialogs/DialogReviews";
+import DialogProjects from "@/components/dialogs/DialogProjects";
+import ViewingEditingReviews from "@/components/dialogs/ViewingEditingReviews";
+import exitSystem from "@/mixins/exitSystem";
 
 export default {
   name: "ProfileView",
@@ -153,21 +162,31 @@ export default {
       ],
       dialogReviews: false,
       dialogProjects: false,
+      dialogViewingEditingReviews: false,
     };
   },
-  components: { LoadingItem, DialogReviews, DialogProjects },
+  mixins: [exitSystem],
+  components: {
+    LoadingItem,
+    DialogReviews,
+    DialogProjects,
+    ViewingEditingReviews,
+  },
   created() {
     this.determineWhetherUserAuthorized();
   },
   methods: {
-    getHaveReviews(data) {
-      this.haveReviews = data;
+    getDialogViewingEditingReviews(value) {
+      this.dialogViewingEditingReviews = value;
     },
-    getDialogReviews(data) {
-      this.dialogReviews = data;
+    getHaveReviews(value) {
+      this.haveReviews = value;
     },
-    getDialogProjects(data) {
-      this.dialogProjects = data;
+    getDialogReviews(value) {
+      this.dialogReviews = value;
+    },
+    getDialogProjects(value) {
+      this.dialogProjects = value;
     },
     // Determine whether the user is authorized
     determineWhetherUserAuthorized() {
@@ -197,17 +216,6 @@ export default {
         .catch((errors) => {
           console.log(errors);
         });
-    },
-    exitSystem() {
-      // Очистка localStorage
-      localStorage.clear();
-      // Очистка store
-      this.$store.commit("setUser", null);
-      this.$store.commit("setDecoded", null);
-      this.$store.commit("setTokenAccess", null);
-      this.$store.commit("setTokenRefresh", null);
-      // Push in home page
-      this.$router.push("/");
     },
     getUserData() {
       const decoded = JSON.parse(localStorage.getItem("decoded"));

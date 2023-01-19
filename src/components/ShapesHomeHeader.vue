@@ -7,10 +7,13 @@ div(class="shapes" ref="shapes")
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "ShapesHomeHeader",
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark;
+    },
+  },
   data() {
     return {
       images: {
@@ -50,19 +53,14 @@ export default {
       index: 0,
     };
   },
-  computed: {
-    ...mapState(["theme"]),
-  },
   mounted() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((item) => {
         if (item.isIntersecting) {
           window.interval = setInterval(() => {
-            if (this.theme) {
-              this.changeImages(this.images.dark);
-            } else {
-              this.changeImages(this.images.light);
-            }
+            this.theme
+              ? this.changeImages(this.images.dark)
+              : this.changeImages(this.images.light);
           }, 2000);
         } else clearInterval(window.interval);
       });
@@ -71,19 +69,17 @@ export default {
     observer.observe(this.$refs.shapes);
   },
   methods: {
-    changeImages(data) {
-      if (this.index === data.length - 1) {
+    changeImages(images) {
+      if (this.index === images.length - 1) {
         this.index = 0;
-        data.forEach((item) => {
+        images.forEach((item) => {
           item.active = false;
         });
-        data[0].active = true;
+        images[0].active = true;
       } else {
         this.index++;
-        data.forEach((item, index) => {
-          if (this.index === index) {
-            item.active = true;
-          } else item.active = false;
+        images.forEach((item, index) => {
+          this.index === index ? (item.active = true) : (item.active = false);
         });
       }
     },

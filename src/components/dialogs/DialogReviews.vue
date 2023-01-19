@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  v-dialog(hide-overlay v-model="dialogReviews" width="500")
+  v-dialog(hide-overlay v-model="dialogReviewsLocal" width="500")
     div
       div(class="title font-weight-bold pl-6 mb-2") Оставить отзыв
       v-card(class="card rounded-lg pa-6" elevation="0")
@@ -39,14 +39,19 @@ export default {
       error: null,
     };
   },
-  watch: {
-    review() {
-      this.sendDialogReviews();
+  computed: {
+    dialogReviewsLocal: {
+      get() {
+        return this.dialogReviews;
+      },
+      set(value) {
+        this.sendDialogReviews(value);
+      },
     },
   },
   methods: {
-    sendDialogReviews() {
-      this.$emit("getDialogReviews", !this.dialogReviews);
+    sendDialogReviews(value) {
+      this.$emit("getDialogReviews", value);
     },
     sendHaveReviews() {
       this.$emit("getHaveReviews", true);
@@ -89,7 +94,8 @@ export default {
                 // Url отзыва для добавления его в поле review пользователя
                 const review_url = {
                   password: JSON.parse(localStorage.getItem("user")).password,
-                  telegram_username: JSON.parse(localStorage.getItem("user")).telegram_username,
+                  telegram_username: JSON.parse(localStorage.getItem("user"))
+                    .telegram_username,
                   username: JSON.parse(localStorage.getItem("user")).username,
                   review: response.data.url,
                 };
@@ -104,7 +110,7 @@ export default {
                   })
                   .then(() => {
                     this.sendHaveReviews();
-                    this.sendDialogReviews();
+                    this.sendDialogReviews(this.dialogReviews);
                   })
                   .catch((errors) => {
                     console.log(errors);

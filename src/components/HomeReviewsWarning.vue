@@ -2,15 +2,14 @@
 div(v-if="!this.$store.state.user")
   v-card(class="card rounded-lg pa-4 pt-2 pb-6 mt-6")
     div(class="card-bottom")
-    div(class="text-right")
-      div(class="card-top")
+    div(class="card-top")
     div(class="d-flex flex-wrap align-center mt-5" style="gap: 6px")
-      div(class="warning-bottom white--text text-subtitle-1 font-weight-bold pa-2 px-4")
+      v-card(class="warning-bottom text-subtitle-1 font-weight-bold pa-2 px-4")
         | Чтобы оставить отзыв вам требуется 
-      div(
+      v-btn(
         @click="$router.push('/profile')"
-        style="cursor: pointer;"
-        class="warning-bottom white--text text-subtitle-1 font-weight-bold pa-2"
+        color="costumBlue"
+        class="warning-bottom text-capitalize white--text pa-2"
       )
         | Войти
 </template>
@@ -52,10 +51,8 @@ export default {
 
 .warning-bottom {
   border-radius: 5px !important;
-  background-image: url("../assets/images/services-background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
   line-height: 20px !important;
+  box-shadow: var(--shadow-lg) !important;
 }
 
 @keyframes background {
