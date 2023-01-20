@@ -10,10 +10,11 @@ div
     @getDialogProjects="getDialogProjects"
   )
   viewing-editing-reviews(
-    v-if="user"
+    v-if="haveReviews && user"
+    @getHaveReviews="getHaveReviews"
     :dialogViewingEditingReviews="dialogViewingEditingReviews"
     @getDialogViewingEditingReviews="getDialogViewingEditingReviews"
-    :userData="{user: user, linkReview: user.review}"
+    :userDataAndLinkReview="user_copied"
   )
   header(class="header pb-12")
     loading-item(v-if="!user")
@@ -145,7 +146,7 @@ export default {
     return {
       user: null,
       user_copied: null,
-      haveReviews: null,
+      haveReviews: false,
       update: false,
       message: null,
       valid: false,
@@ -164,6 +165,11 @@ export default {
       dialogProjects: false,
       dialogViewingEditingReviews: false,
     };
+  },
+  watch: {
+    haveReviews() {
+      this.getUserData();
+    },
   },
   mixins: [exitSystem],
   components: {
@@ -207,6 +213,7 @@ export default {
       formData.append("username", this.user.username);
       formData.append("password", this.user.password);
       formData.append("telegram_username", this.user.telegram_username);
+      formData.append("is_active", true);
       const decoded = JSON.parse(localStorage.getItem("decoded"));
       axios
         .put(this.$store.state.api_url + `users/${decoded.user_id}/`, formData)

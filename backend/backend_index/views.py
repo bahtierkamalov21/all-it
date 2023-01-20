@@ -1,6 +1,6 @@
-from .models import Category, Project, ProjectImage
+from .models import Category, Project, ProjectImage, Stack
 from rest_framework import viewsets, permissions
-from .serializers import CategorySerializer, ProjectSerializer, ProjectImageSerializer
+from .serializers import CategorySerializer, ProjectSerializer, ProjectImageSerializer, StackSerializer
 
 # Create your views here.
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -17,6 +17,14 @@ class ProjectViewSet(viewsets.ModelViewSet):
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    permission_classes = [permissions.AllowAny]
+
+class StackViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Stack.objects.all()
+    serializer_class = StackSerializer
     permission_classes = [permissions.AllowAny]
 
 class ProjectImageViewSet(viewsets.ModelViewSet):

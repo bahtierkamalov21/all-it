@@ -140,6 +140,7 @@ h2 {
 .container {
   position: absolute;
   padding: 32px;
+  width: 95%;
   backdrop-filter: blur(16px);
   box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset;
 

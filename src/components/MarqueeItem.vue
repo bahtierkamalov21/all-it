@@ -30,6 +30,9 @@ export default {
         {
           image: require("@/assets/marquee/vue-marquee.svg"),
         },
+        {
+          image: require("@/assets/marquee/javascript-logo-marquee.svg"),
+        },
       ],
     };
   },
@@ -47,6 +50,8 @@ export default {
     display: flex;
     gap: 20px;
     align-items: center;
+    padding-left: 0;
+    justify-content: center;
 
     & > li {
       list-style: none;
@@ -63,6 +68,13 @@ export default {
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 1142px) {
+  ul {
+    padding-left: 12px !important;
+    justify-content: start !important;
   }
 }
 </style>

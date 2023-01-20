@@ -8,7 +8,9 @@ div
     div(class="category")
     div(class="white--text font-weight-bold")
       | Технологии:
-      div(class="last pa-2") {{ project.stack  }}
+      br
+      div(class="last pa-2 px-4 mt-2 d-flex flex-wrap d-inline-block" style="gap: 6px;")
+        span(v-for="stack in project.stacks" :key="stack.url") {{ stack.stack }}
 </template>
 
 <script>

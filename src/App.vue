@@ -47,7 +47,7 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
 
   & > *:first-child {
     overflow: initial;
@@ -89,6 +89,38 @@ html {
     rgba(255, 220, 209, 0.1) 100%
   ) !important;
   border-radius: 8px;
+}
+
+.v-menu__content.theme--dark.v-menu__content--fixed.menuable__content__active {
+  border-radius: 10px;
+  background: #232323;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
+}
+
+.v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active {
+  border-radius: 10px;
+  background: white;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
+}
+
+.v-menu__content.theme--dark.v-menu__content--fixed.menuable__content__active.v-autocomplete__content {
+  border-radius: 10px;
+  background: #232323;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
+}
+
+.v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active.v-autocomplete__content {
+  border-radius: 10px;
+  background: white;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
 }
 
 .theme--light.v-timeline::before {

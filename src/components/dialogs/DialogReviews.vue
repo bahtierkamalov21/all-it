@@ -93,6 +93,7 @@ export default {
               .then((response) => {
                 // Url отзыва для добавления его в поле review пользователя
                 const review_url = {
+                  is_active: true,
                   password: JSON.parse(localStorage.getItem("user")).password,
                   telegram_username: JSON.parse(localStorage.getItem("user"))
                     .telegram_username,
@@ -110,7 +111,7 @@ export default {
                   })
                   .then(() => {
                     this.sendHaveReviews();
-                    this.sendDialogReviews(this.dialogReviews);
+                    this.sendDialogReviews(!this.dialogReviews);
                   })
                   .catch((errors) => {
                     console.log(errors);

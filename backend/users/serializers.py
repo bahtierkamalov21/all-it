@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, UserReview, PopularReview
+from .models import CustomUser, UserReview, PopularReview, Note, CategoryNote
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
 
@@ -38,12 +38,24 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
 
 class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
     def validate(self, validated_data):
-        if UserReview.objects.filter(fk_user=validated_data["fk_user"]).exists():
-            raise serializers.ValidationError({"fk_user": "Пользователь может оставить только один отзыв."})
+        if self.context['request'].method == 'POST':
+            if UserReview.objects.filter(fk_user=validated_data["fk_user"]).exists():
+                raise serializers.ValidationError({"fk_user": "Пользователь может оставить только один отзыв."})
+            return validated_data
         return validated_data
 
     class Meta:
         model = UserReview
+        fields = '__all__'
+
+class NoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        fields = ("name", "category")
+
+class CategoryNoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoryNote
         fields = '__all__'
         
 class PopularReviewSerializer(serializers.HyperlinkedModelSerializer):

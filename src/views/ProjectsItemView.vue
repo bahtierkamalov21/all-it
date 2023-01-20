@@ -25,10 +25,10 @@ div
     v-container
       div(class="stack mx-auto")
         v-timeline
-          v-timeline-item(v-for="item in project.stack" :key="item.id")
-            v-card(elevation="0" :color="addColorInTimeline(item)")
-              v-card-title(class="white--text card-title") {{ item }}
-              v-card-text(class="white card-text pt-2") {{ addTextInTimeline(item) }}
+          v-timeline-item(v-for="item in project.stacks" :key="item.id")
+            v-card(elevation="0" :color="item.color")
+              v-card-title(class="white--text card-title") {{ item.stack }}
+              v-card-text(class="white card-text pt-2") {{ item.description }}
 </template>
 
 <script>
@@ -61,66 +61,22 @@ export default {
           params: { link_path: this.$route.params },
         })
         .then((response) => {
-          let images = [];
+          const images = [];
+          const stacks = [];
           response.data[0].images.forEach((item) => {
-            axios
-              .get(item)
-              .then((response) => {
-                images.push(response.data.image);
-              })
-              .catch((errors) => {
-                console.log(errors);
-              });
+            axios.get(item).then((response) => {
+              images.push(response.data.image);
+            });
+          });
+          response.data[0].stacks.forEach((item) => {
+            axios.get(item).then((response) => {
+              stacks.push(response.data);
+            });
           });
           this.project = response.data[0];
           this.project.images = images;
-          const arr = this.project.stack.split(" ");
-          this.project.stack = arr;
-          console.log(this.project);
-        })
-        .catch((errors) => {
-          console.log(errors);
+          this.project.stacks = stacks;
         });
-    },
-    addTextInTimeline(item) {
-      switch (item) {
-        case "Python":
-          return "Python — высокоуровневый язык программирования общего назначения с динамической строгой типизацией и автоматическим управлением памятью, ориентированный на повышение производительности разработчика, читаемости кода и его качества, а также на обеспечение переносимости написанных на нём программ.";
-        case "JavaScript":
-          return "JavaScript — мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили. Является реализацией спецификации ECMAScript. JavaScript обычно используется как встраиваемый язык для программного доступа к объектам приложений.";
-        case "Docker":
-          return "Docker — программное обеспечение для автоматизации развёртывания и управления приложениями в средах с поддержкой контейнеризации, контейнеризатор приложений.";
-        case "Vue":
-          return "Vue.js — JavaScript-фреймворк с открытым исходным кодом для создания пользовательских интерфейсов. Легко интегрируется в проекты с использованием других JavaScript-библиотек. Может функционировать как веб-фреймворк для разработки одностраничных приложений в реактивном стиле.";
-        case "React":
-          return "React — JavaScript-библиотека с открытым исходным кодом для разработки пользовательских интерфейсов. React разрабатывается и поддерживается Facebook, Instagram и сообществом отдельных разработчиков и корпораций. React может использоваться для разработки одностраничных и мобильных приложений.";
-        case "Django":
-          return "Django — свободный фреймворк для веб-приложений на языке Python, использующий шаблон проектирования MVC. Проект поддерживается организацией Django Software Foundation. Сайт на Django строится из одного или нескольких приложений, которые рекомендуется делать отчуждаемыми и подключаемыми.";
-        case "Nginx":
-          return "Nginx — веб-сервер и почтовый прокси-сервер, работающий на Unix-подобных операционных системах. Начиная с версии 0.7.52 появилась экспериментальная бинарная сборка под Microsoft Windows. Игорь Сысоев начал разработку в 2002 году. Осенью 2004 года вышел первый публично доступный релиз. ";
-        case "Nodejs":
-          return "Node или Node.js — программная платформа, основанная на движке V8, превращающая JavaScript из узкоспециализированного языка в язык общего назначения.";
-      }
-    },
-    addColorInTimeline(item) {
-      switch (item) {
-        case "Python":
-          return "green";
-        case "Docker":
-          return "blue";
-        case "JavaScript":
-          return "orange";
-        case "Nginx":
-          return "green";
-        case "Vue":
-          return "lime";
-        case "Nodejs":
-          return "#3e3f35";
-        case "React":
-          return "blue";
-        case "Django":
-          return "red";
-      }
     },
   },
 };

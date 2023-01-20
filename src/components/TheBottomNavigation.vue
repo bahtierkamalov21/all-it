@@ -91,7 +91,7 @@ export default {
   display: none;
 }
 
-@media screen and (max-width: 1086px) {
+@media screen and (max-width: 1142px) {
   .navigation {
     display: flex;
   }

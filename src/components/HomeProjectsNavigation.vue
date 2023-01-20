@@ -50,6 +50,7 @@ export default {
       });
     },
     setActiveCategory(index, array) {
+      // Конечно жесть))
       this.sendPage();
       const showAndSetProjects = () => {
         this.activeIndexCategory = index;
@@ -79,11 +80,21 @@ export default {
           showAndSetProjects();
         }
       }
+      // Жестко))
     },
     getAllProjects() {
       axios
         .get(this.$store.state.api_url + "projects/")
         .then((response) => {
+          const stacks = [];
+          response.data.forEach((project) => {
+            project.stacks.forEach((stack) => {
+              axios.get(stack).then((response) => {
+                stacks.push(response.data);
+              });
+            });
+            project.stacks = stacks;
+          });
           this.allProjects = response.data;
           this.projectsWithActiveIndexCategory = this.allProjects;
           this.sendProjects();
@@ -102,7 +113,15 @@ export default {
               axios
                 .get(project)
                 .then((response) => {
-                  projectsArray.push(response.data);
+                  let object = response.data;
+                  let stacks = [];
+                  object.stacks.forEach((stack) => {
+                    axios.get(stack).then((response) => {
+                      stacks.push(response.data);
+                    });
+                  });
+                  object.stacks = stacks;
+                  projectsArray.push(object);
                 })
                 .catch((errors) => {
                   console.log(errors);

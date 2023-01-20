@@ -18,13 +18,13 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
-              router-link(v-else class="text-decoration-none" :to="'/' + item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              router-link(v-else class="text-decoration-none" :to="'/' + item.href") {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
-              div(v-if="item.list" class="link-list")
+              div(v-if="item.list" class="link-list" :class="item.list ? 'mr-2' : null")
                 div
                   div(class="px-4" style="cursor: pointer;" v-for="list in item.list" @click="pushCategory(list.href)" :key="list.id")
                     | {{ list.name }}
@@ -306,7 +306,7 @@ li {
   }
 }
 
-@media screen and (max-width: 1086px) {
+@media screen and (max-width: 1142px) {
   .nav-row {
     height: 62px;
     justify-content: space-between;
