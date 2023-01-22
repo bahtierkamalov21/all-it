@@ -18,10 +18,19 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href") {{ $t(item.name) }}
+              a(
+                v-if="$route.path === '/'" 
+                class="text-decoration-none" 
+                :href="item.href" :class="item.list ? 'category-link pr-2' : null"
+              ) {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
-              router-link(v-else class="text-decoration-none" :to="'/' + item.href") {{ $t(item.name) }}
+              router-link(
+                v-else 
+                class="text-decoration-none" 
+                :to="'/' + item.href" 
+                :class="item.list ? 'category-link pr-2' : null"
+              ) {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list" :class="item.list ? 'mr-2' : null")
@@ -50,7 +59,7 @@ export default {
       links: [
         {
           name: "support",
-          href: "#",
+          href: "#support",
         },
         {
           name: "projects-md",

@@ -52,23 +52,6 @@ export default {
       swiperProjects: null,
     };
   },
-  mounted() {
-    this.swiperProjects = new Swiper(".swiper-projects", {
-      slidesPerView: 3,
-      spaceBetween: 10,
-      breakpoints: {
-        320: {
-          slidesPerView: 1,
-        },
-        640: {
-          slidesPerView: 2,
-        },
-        1086: {
-          slidesPerView: 3,
-        },
-      },
-    });
-  },
   computed: {
     disabledPrevSlide() {
       return this.swiperProjects ? this.swiperProjects.activeIndex === 0 : null;
@@ -84,8 +67,26 @@ export default {
   },
   methods: {
     getProjects(data) {
+      // Очиащем swiper
+      this.swiperProjects = null;
       // Только завершенные проекты
       this.projects = data.filter((item) => item.complete);
+      // Инициализируем новый swiper
+      this.swiperProjects = new Swiper(".swiper-projects", {
+        slidesPerView: 3,
+        spaceBetween: 10,
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          1086: {
+            slidesPerView: 3,
+          },
+        },
+      });
     },
   },
 };

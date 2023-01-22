@@ -49,7 +49,7 @@ div
           v-text-field(
             v-model="phone" 
             label="Телефон"
-            required="false"
+            required
             solo
             class="input"
             :error-messages="errorPhone"
@@ -92,9 +92,13 @@ export default {
       ],
       telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
       telegramUsernameRules: [
-        (v) =>
-          this.telegram_username_regex.test(v) ||
-          "Неверно введен telegram username",
+        (v) => {
+          if (!v) return true;
+          return (
+            this.telegram_username_regex.test(v) ||
+            "Неверно введен telegram username"
+          );
+        },
       ],
     };
   },

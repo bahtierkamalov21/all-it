@@ -10,4 +10,6 @@ router.register(r'stacks', views.StackViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('user_projects/', views.getProjectsUser),
+    path('project_slug/', views.getProjectSlug),
 ]

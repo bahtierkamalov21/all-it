@@ -94,6 +94,7 @@ export default {
                 // Url отзыва для добавления его в поле review пользователя
                 const review_url = {
                   is_active: true,
+                  phone: JSON.parse(localStorage.getItem("user")).phone,
                   password: JSON.parse(localStorage.getItem("user")).password,
                   telegram_username: JSON.parse(localStorage.getItem("user"))
                     .telegram_username,

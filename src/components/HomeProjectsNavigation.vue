@@ -86,15 +86,18 @@ export default {
       axios
         .get(this.$store.state.api_url + "projects/")
         .then((response) => {
-          const stacks = [];
           response.data.forEach((project) => {
+            const stacks = [];
+
             project.stacks.forEach((stack) => {
               axios.get(stack).then((response) => {
                 stacks.push(response.data);
               });
             });
+
             project.stacks = stacks;
           });
+
           this.allProjects = response.data;
           this.projectsWithActiveIndexCategory = this.allProjects;
           this.sendProjects();
@@ -110,18 +113,18 @@ export default {
           response.data.forEach((item) => {
             let projectsArray = [];
             item.projects.forEach((project) => {
+              const stacks = [];
               axios
                 .get(project)
                 .then((response) => {
-                  let object = response.data;
-                  let stacks = [];
-                  object.stacks.forEach((stack) => {
+                  response.data.stacks.forEach((stack) => {
                     axios.get(stack).then((response) => {
                       stacks.push(response.data);
                     });
                   });
-                  object.stacks = stacks;
-                  projectsArray.push(object);
+
+                  response.data.stacks = stacks;
+                  projectsArray.push(response.data);
                 })
                 .catch((errors) => {
                   console.log(errors);

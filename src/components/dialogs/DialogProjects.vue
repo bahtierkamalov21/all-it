@@ -59,6 +59,7 @@ div
             class="input mb-4"
             label="Описание проекта"
             solo
+            v-model="description"
             hide-details
           )
           v-btn(
@@ -83,6 +84,7 @@ export default {
     slug: null,
     technology: [],
     categories: [],
+    description: null,
     objectsCategories: [],
     technologies: [],
     objectsTechnologies: [],
@@ -156,13 +158,33 @@ export default {
         stacks: this.technology,
         title: this.projectTitle,
         name: this.projectName,
+        description: this.description,
         fk_user: fk_user,
         fk_category: this.category,
       };
 
       if (this.$refs.form.validate()) {
         axios.post(api, data).then(() => {
-          location.reload();
+          // Отправка уведомления в телеграм
+          const user = JSON.parse(localStorage.getItem("user"));
+          let message = "<b>Уведомление: </b>\n";
+          message += "<b>Добавлен новый проект от пользователя: </b>\n";
+          message += `<b>telegram_username: ${user.telegram_username}</b>\n`;
+          message += `<b>телефон: ${user.phone}</b>\n`;
+          message += `<b>url проекта: ${this.$store.state.api_url}/projects/${this.slug}/</b>\n`;
+          const api_url = `https://api.telegram.org/bot${this.$store.state.token}/sendMessage`;
+          axios
+            .post(api_url, {
+              chat_id: this.$store.state.chat_id,
+              parse_mode: "html",
+              text: message,
+            })
+            .then(() => {
+              location.reload();
+            })
+            .catch((errors) => {
+              console.log(errors);
+            });
         });
       }
     },

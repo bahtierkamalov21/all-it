@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  div(class="faq")
+  div(class="faq" id="support")
     v-container(class="pt-16 pb-12 px-6 container")
       div(class="mb-2 header")
         h2 {{ escaped }}
@@ -39,6 +39,8 @@ div
                 | Задайте 
                 span(class="text-lowercase") вопрос в 
                 | Telegram
+  div(class="footer-bottom text-center white--text pa-4")
+    | © 2023 — 2023 BMM LITER - IT Разработка современных проектов
 </template>
 
 <script>
@@ -133,6 +135,11 @@ ul {
 
 .left {
   width: 60%;
+}
+
+.footer-bottom {
+  background-color: #212121;
+  box-shadow: 0 -10px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .group {

@@ -89,7 +89,7 @@ div
           v-btn(@click="exitSystem" class="delete pa-0 ml-6 mt-4" color="red" min-width="38" rounded elevation="0")
             v-icon(color="white") mdi-delete
             div(class="delete-text font-weight-bold") Выйти из системы
-      div(class="prompts d-flex flex-wrap justify-space-between ma-auto my-6" style="max-width: 960px;")
+      div(class="prompts d-flex flex-wrap justify-space-between ma-auto mt-6 mb-0" style="max-width: 960px;")
         div(class="text-left mb-6")
           v-btn( 
             v-if="!haveReviews"
@@ -113,10 +113,10 @@ div
             v-icon(left) mdi-typewriter
             | Отредактировать
             span(class="text-lowercase ml-1") | посмотреть отзыв
-          v-chip(class="d-block mt-2 pr-6")
+          v-chip(class="d-block mt-2 pr-6" :class="!addProject ? 'ml-0 mr-auto' : null")
             v-icon mdi-information-variant
             | Можно оставить только один отзыв
-        div(class="text-right")  
+        div(class="text-right" v-if="addProject")  
           v-btn( 
             @click="dialogProjects = !dialogProjects"
             color="costumBlue" 
@@ -130,6 +130,7 @@ div
           v-chip(class="d-block mt-2 pr-6")
             v-icon mdi-information-variant
             | Можно заполнить после завершения текущего проекта
+      profile-projects
 </template>
 
 <script>
@@ -138,6 +139,7 @@ import LoadingItem from "@/components/LoadingItem";
 import DialogReviews from "@/components/dialogs/DialogReviews";
 import DialogProjects from "@/components/dialogs/DialogProjects";
 import ViewingEditingReviews from "@/components/dialogs/ViewingEditingReviews";
+import ProfileProjects from "@/components/ProfileProjects";
 import exitSystem from "@/mixins/exitSystem";
 
 export default {
@@ -145,11 +147,13 @@ export default {
   data() {
     return {
       user: null,
+      projects: [],
       user_copied: null,
       haveReviews: false,
       update: false,
       message: null,
       valid: false,
+      addProject: false,
       avatar: null,
       phone_regex: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
       phoneRules: [
@@ -177,11 +181,49 @@ export default {
     DialogReviews,
     DialogProjects,
     ViewingEditingReviews,
+    ProfileProjects,
   },
   created() {
     this.determineWhetherUserAuthorized();
+    this.getProjectsUser();
   },
   methods: {
+    getProjectsUser() {
+      if (localStorage.getItem("user")) {
+        const user_id = JSON.parse(localStorage.getItem("user")).id;
+
+        axios
+          .get(this.$store.state.api_url + "user_projects/", {
+            params: {
+              user_id: user_id,
+            },
+          })
+          .then((response) => {
+            response.data.forEach((project) => {
+              const stacks = [];
+
+              project.stacks.forEach((stack) => {
+                axios.get(stack).then((response) => {
+                  stacks.push(response.data);
+                });
+              });
+
+              project.stacks = stacks;
+            });
+
+            this.projects = response.data;
+
+            // Проверяем на статус complete
+            if (!this.projects.length) {
+              this.addProject = true;
+            } else {
+              this.projects[this.projects.length - 1].complete
+                ? (this.addProject = true)
+                : (this.addProject = false);
+            }
+          });
+      }
+    },
     getDialogViewingEditingReviews(value) {
       this.dialogViewingEditingReviews = value;
     },
@@ -213,6 +255,7 @@ export default {
       formData.append("username", this.user.username);
       formData.append("password", this.user.password);
       formData.append("telegram_username", this.user.telegram_username);
+      formData.append("phone", this.user.phone);
       formData.append("is_active", true);
       const decoded = JSON.parse(localStorage.getItem("decoded"));
       axios
@@ -356,6 +399,8 @@ export default {
 
 @media screen and (max-width: 860px) {
   .prompts {
+    margin-bottom: 24px !important;
+
     & > *:last-child {
       width: 100%;
 

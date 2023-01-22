@@ -14,6 +14,7 @@ export default new Vuex.Store({
     decoded: null,
     username: null,
     password: null,
+    myProjects: null,
   },
   getters: {},
   mutations: {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     setPassword(state, payload) {
       state.password = payload;
+    },
+    setMyProjects(state, payload) {
+      state.myProjects = payload;
     },
   },
   actions: {},

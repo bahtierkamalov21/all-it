@@ -1,26 +1,35 @@
 <template lang="pug">
 div
   header(class="header")
-    v-container(class="container")
-      v-col(class="mb-12")
-        v-row(class="align-center")
-          div(class="left")
+    div(class="header-wrapper")
+      div
+      div
+        shapes-home-header
+    v-container(class="header-container rounded-xl")
+      div(class="mb-12 mt-6 d-flex justify-center" style="gap: 24px;")
+        div(class="left")
+          div(class="d-flex align-center mb-4")
+            v-chip(
+              color="costumBlue"
+              class="name white--text font-weight-bold"
+              style="box-shadow: var(--shadow-lg)"
+            ) {{ project.name }}
+          v-card(elevation="0" class="card-title rounded-lg pa-3") 
             h1 {{ project.title }}
-            h2 {{ project.name }}
-          div(class="right")
-            div(class="swiper-project-images rounded-xl")
-              div(class="swiper-wrapper")
-                div(v-for="image in project.images" class="swiper-slide")
-                  v-img(:src="image")
-            div(class="text-right mt-4")
-              v-chip(color="costumBlue white--text pr-4")
-                v-icon(class="mr-2") mdi-credit-card-fast-outline
-                | Свайпните слайд для просмотра следующей картинки
-    div(class="stack-header white--text text-uppercase font-weight-bold text-center pt-6")
-      | что мы использовали
-      div(class="stack-decor mx-auto")
-      div(class="stack-blur text-center text-uppercase font-weight-bold")
-        div
+        div(class="right")
+          div(class="swiper-project-images rounded-xl")
+            div(class="swiper-wrapper")
+              div(v-for="image in project.images" class="swiper-slide")
+                v-img(:src="image")
+          div(class="text-right mt-4")
+            v-chip(color="costumBlue white--text pr-4")
+              v-icon(class="mr-2") mdi-credit-card-fast-outline
+              | Свайпните слайд для просмотра следующей картинки
+  div(class="stack-header white--text text-uppercase font-weight-bold text-center pt-6")
+    | что мы использовали
+    div(class="stack-decor mx-auto")
+    div(class="stack-blur text-center text-uppercase font-weight-bold")
+      div
   main(class="main")
     v-container
       div(class="stack mx-auto")
@@ -33,12 +42,14 @@ div
 
 <script>
 import updateTitle from "@/mixins/updateTitle";
+import ShapesHomeHeader from "@/components/ShapesHomeHeader";
 import Swiper from "swiper";
 import axios from "axios";
 
 export default {
   name: "ProjectsItemView",
   mixins: [updateTitle],
+  components: { ShapesHomeHeader },
   data() {
     return {
       project: {},
@@ -57,23 +68,23 @@ export default {
   methods: {
     getProject() {
       axios
-        .get(this.$store.state.api_url + "projects/", {
-          params: { link_path: this.$route.params },
+        .get(this.$store.state.api_url + "project_slug/", {
+          params: { link_path: this.$route.params.slug },
         })
         .then((response) => {
           const images = [];
           const stacks = [];
-          response.data[0].images.forEach((item) => {
+          response.data.images.forEach((item) => {
             axios.get(item).then((response) => {
               images.push(response.data.image);
             });
           });
-          response.data[0].stacks.forEach((item) => {
+          response.data.stacks.forEach((item) => {
             axios.get(item).then((response) => {
               stacks.push(response.data);
             });
           });
-          this.project = response.data[0];
+          this.project = response.data;
           this.project.images = images;
           this.project.stacks = stacks;
         });
@@ -84,10 +95,36 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  min-height: 50vh;
-  overflow: hidden;
   padding-top: 126px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  overflow: hidden;
+  background-image: url("../assets/images/about-background.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+
+  &-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 490px;
+
+    & > *:first-child {
+      width: 50%;
+      height: 100%;
+    }
+
+    & > *:last-child {
+      width: 50%;
+      height: 100%;
+      min-height: inherit;
+      position: relative;
+    }
+  }
 }
 
 .main {
@@ -107,9 +144,26 @@ export default {
   width: 50%;
 }
 
-.container {
-  min-height: inherit;
-  position: relative;
+h1 {
+  line-height: 38px;
+}
+
+.name {
+  font-size: 24px;
+  padding: 16px;
+}
+
+.header-container {
+  position: absolute;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset;
+  padding: 32px;
+  padding-bottom: 26px;
+  width: 95%;
+  top: 112px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 
   & > *:first-child {
     min-height: inherit;
@@ -174,6 +228,11 @@ export default {
       position: absolute;
     }
   }
+}
+
+.card-title {
+  box-shadow: var(--shadow-lg) !important;
+  width: fit-content !important;
 }
 
 @keyframes sparkling {

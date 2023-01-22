@@ -10,6 +10,8 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
         message = "Пользователь с таким username уже существует."
     )])
 
+    telegram_username = serializers.CharField(required=False)
+
     email = serializers.CharField(max_length=56, validators=[UniqueValidator(
         queryset = CustomUser.objects.all(),
         message = "Пользователь с таким email уже существует."
@@ -21,8 +23,6 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
         queryset = CustomUser.objects.all(),
         message = "Пользователь с таким номером телефона уже существует."
     )])
-
-    phone = serializers.CharField(required=False)
 
     def create(self, validated_data):
         # Хеширование пароля
