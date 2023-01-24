@@ -91,7 +91,7 @@ export default {
 
 <style scoped lang="scss">
 .left {
-  box-shadow: var(--shadow-2xl);
+  box-shadow: var(--shadow-lg);
   max-width: 460px;
 }
 

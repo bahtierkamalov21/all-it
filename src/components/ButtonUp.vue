@@ -33,7 +33,7 @@ export default {
   bottom: 25px;
   overflow: hidden;
   border-radius: 50% !important;
-  box-shadow: 0 0 24px 0 rgb(0 0 0 / 20%) !important;
+  box-shadow: 0 0 12px 0 rgb(0 0 0 / 50%) !important;
   z-index: 5;
 }
 

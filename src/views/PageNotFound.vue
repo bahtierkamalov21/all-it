@@ -11,7 +11,7 @@ div
             div {{ $t("404-title") }}
             div {{ $t("404-subtitle") }}
         v-chip(color="costumBlue" class="not-found font-weight-bold white--text rounded-xl") 404
-        div(class="d-flex mt-4 justify-center align-center flex-wrap" style="gap: 12px;")
+        div(class="d-flex justify-center align-center flex-wrap" style="gap: 12px;")
           v-btn(
             color="costumBlue white--text" 
             rounded 
