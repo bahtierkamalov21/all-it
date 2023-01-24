@@ -52,6 +52,7 @@ div
             )
           div(class="text-left mb-4")
             v-btn(
+              style="font-size: 12px !important;"
               class="text-capitalize white--text"
               rounded 
               @click="loginToPhone = true"
@@ -64,6 +65,7 @@ div
               span(class="text-lowercase mr-1") номеру
               span(class="text-lowercase") телефона
             v-btn(
+              style="font-size: 12px !important;"
               class="text-capitalize white--text"
               rounded 
               @click="loginToPhone = false"

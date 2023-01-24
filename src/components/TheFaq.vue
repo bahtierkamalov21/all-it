@@ -39,7 +39,7 @@ div
                 | Задайте 
                 span(class="text-lowercase") вопрос в 
                 | Telegram
-  div(class="footer-bottom text-center white--text pa-4")
+  div(class="footer-bottom text-center font-weight-bold white--text pa-4")
     | © 2023 — 2023 BMM LITER - IT Разработка современных проектов
 </template>
 
@@ -139,7 +139,7 @@ ul {
 
 .footer-bottom {
   background-color: #212121;
-  box-shadow: 0 -10px 10px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .group {
