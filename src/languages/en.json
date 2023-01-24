@@ -1,5 +1,6 @@
 {
   "main": "Main",
+  "mains": "home",
   "hello": "hello",
   "login": "Login",
   "services": "Services",
@@ -16,5 +17,11 @@
   "get-consultation": "Get",
   "get-consultation2": "Consultation",
   "personal-area": "Personal Area",
-  "menu": "Menu"
+  "menu": "Menu",
+  "all": "All",
+  "on": "On",
+  "404-h2": "You weren`t supposed to see this",
+  "404-title": "The page you`re looking for no longer exists.",
+  "404-subtitle": "Return to the home page and remember: you heaven`t seen anything.",
+  "page-not-found": "Page Not Found"
 }

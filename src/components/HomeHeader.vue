@@ -78,6 +78,7 @@ export default {
     box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset;
     padding: 32px;
     padding-bottom: 26px;
+    width: 95%;
     top: 112px;
     display: flex;
     justify-content: space-between;

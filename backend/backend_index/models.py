@@ -30,7 +30,9 @@ class Project(models.Model):
     title = models.CharField(max_length=256, verbose_name="Заголовок проекта")
     name = models.CharField(max_length=56, verbose_name="Имя проекта")
     link_path = models.SlugField(max_length=32, verbose_name="Api проекта")
-    stack = models.TextField(blank=True, verbose_name="Технологии")
+    stacks = models.ManyToManyField("Stack", blank=True, null=True)
+    description = models.TextField(blank=True, verbose_name="Описание проекта")
+    website = models.URLField(blank=True, verbose_name="WebSite")
     fk_category = models.ForeignKey(Category, on_delete=models.CASCADE)
     images = models.ManyToManyField("ProjectImage", blank=True, verbose_name="Изображения")
     status = models.BooleanField(default=False, blank=True, verbose_name="Статус принятия")
@@ -42,6 +44,20 @@ class Project(models.Model):
     class Meta:
         verbose_name = "Проект"
         verbose_name_plural = "Проекты"
+
+# Технологии
+
+class Stack(models.Model):
+    stack = models.CharField(max_length=32, verbose_name="Технология")
+    color = models.CharField(max_length=12, verbose_name="Цвет")
+    description = models.TextField(verbose_name="Описание технологии")
+
+    def __str__(self):
+        return f"Технология - {self.stack}"
+
+    class Meta:
+        verbose_name = "Технология"
+        verbose_name_plural = "Технологии"
         
 # Изображения проектов
 

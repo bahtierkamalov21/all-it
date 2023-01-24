@@ -10,6 +10,9 @@ div
     v-btn(v-for="item in buttons" :key="item.id" @click="pushLocation(item.link)")
       span {{ item.span }}
       v-icon mdi-{{ item.icon }}
+    v-btn(@click="pushSupport")
+      span Support
+      v-icon mdi-lifebuoy
     v-btn(@click="pushLocation('/profile')")
       span Profile
       v-icon mdi-{{ profileIcon }}
@@ -34,11 +37,6 @@ export default {
           span: "Projects",
           icon: "semantic-web",
           link: "/projects",
-        },
-        {
-          span: "Support",
-          icon: "lifebuoy",
-          link: "/support",
         },
       ],
     };
@@ -70,10 +68,14 @@ export default {
     },
   },
   methods: {
+    pushSupport() {
+      window.scrollTo(0, document.body.scrollHeight);
+    },
     changeProfileIcon() {
       this.profileIcon = this.user ? "account-check" : "account-circle";
     },
     pushLocation(path) {
+      window.scrollTo(0, 0);
       if (path !== this.$route.path) {
         this.$router.push(path);
       } else null;
@@ -91,7 +93,7 @@ export default {
   display: none;
 }
 
-@media screen and (max-width: 1086px) {
+@media screen and (max-width: 1142px) {
   .navigation {
     display: flex;
   }

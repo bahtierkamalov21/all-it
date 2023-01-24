@@ -6,11 +6,15 @@ import ProjectsItemView from "../views/ProjectsItemView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import SigninView from "../views/SigninView.vue";
 import SignupView from "../views/SignupView.vue";
-import ProjectsCategory from "../components/ProjectsCategory";
+import PageNotFound from "../views/PageNotFound.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "*",
+    component: PageNotFound,
+  },
   {
     path: "/",
     name: "home",
@@ -39,7 +43,6 @@ const routes = [
       {
         name: "projectsCategory",
         path: "category/:slug",
-        component: ProjectsCategory,
       },
     ],
   },

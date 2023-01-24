@@ -49,7 +49,7 @@ div
           v-text-field(
             v-model="phone" 
             label="Телефон"
-            required="false"
+            required
             solo
             class="input"
             :error-messages="errorPhone"
@@ -92,18 +92,20 @@ export default {
       ],
       telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
       telegramUsernameRules: [
-        (v) =>
-          this.telegram_username_regex.test(v) ||
-          "Неверно введен telegram username",
+        (v) => {
+          if (!v) return true;
+          return (
+            this.telegram_username_regex.test(v) ||
+            "Неверно введен telegram username"
+          );
+        },
       ],
     };
   },
   components: { SignComplete },
   mixins: [decodedTokensAndSetUserData],
   created() {
-    if (this.$store.state.user) {
-      this.$router.push("/");
-    }
+    localStorage.getItem("user") ? this.$router.push("/") : null;
   },
   mounted() {
     window.scrollTo(0, 0);
@@ -124,9 +126,16 @@ export default {
             password: this.password,
             telegram_username: this.telegramUsername,
             phone: this.phone,
-            is_active: "true",
+            is_active: true,
           })
           .then(() => {
+            // Сохраняем username и passowrd в localStorage
+            localStorage.setItem("username", this.username);
+            localStorage.setItem("password", this.password);
+            // Сохраняем username и passowrd в store
+            this.$store.commit("setUsername", this.username);
+            this.$store.commit("setPassword", this.password);
+
             // После создания пользователя
             axios
               .post(this.$store.state.api_url + "token/", {

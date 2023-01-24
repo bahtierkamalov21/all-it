@@ -5,20 +5,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    theme: null,
     user: null,
     token_access: null,
     token_refresh: null,
-    api_url: "http://localhost:8000/api/v1/",
+    api_url: "http://localhost:8200/api/v1/",
     token: "5944619606:AAEgXlAvmwjvWcH84eMlLdPL7RX4BTTqcEM",
     chat_id: "-1001849968025",
     decoded: null,
+    username: null,
+    password: null,
+    myProjects: null,
   },
   getters: {},
   mutations: {
-    changeTheme(state, payload) {
-      state.theme = payload;
-    },
     setUser(state, payload) {
       state.user = payload;
     },
@@ -30,6 +29,15 @@ export default new Vuex.Store({
     },
     setDecoded(state, payload) {
       state.decoded = payload;
+    },
+    setUsername(state, payload) {
+      state.username = payload;
+    },
+    setPassword(state, payload) {
+      state.password = payload;
+    },
+    setMyProjects(state, payload) {
+      state.myProjects = payload;
     },
   },
   actions: {},

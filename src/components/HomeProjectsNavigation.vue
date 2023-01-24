@@ -19,27 +19,85 @@ export default {
       allProjects: [],
       projectsWithActiveIndexCategory: [],
       activeIndexCategory: 126,
+      page: 1,
     };
+  },
+  props: {
+    checkUrl: Boolean,
   },
   created() {
     this.getCategoriesWithProjectsArray();
     this.getAllProjects();
   },
+  watch: {
+    $route: function () {
+      this.checkUrlAndSetCategory();
+    },
+  },
   methods: {
     sendProjects() {
       this.$emit("sendProjects", this.projectsWithActiveIndexCategory);
     },
+    sendPage() {
+      this.$emit("sendPage", this.page);
+    },
+    checkUrlAndSetCategory() {
+      this.sendPage();
+      this.links.forEach((item, index) => {
+        item.prefix === this.$route.params.slug
+          ? this.setActiveCategory(index, item.projects)
+          : null;
+      });
+    },
     setActiveCategory(index, array) {
-      if (array.length) {
+      // Конечно жесть))
+      this.sendPage();
+      const showAndSetProjects = () => {
         this.activeIndexCategory = index;
         this.projectsWithActiveIndexCategory = array;
         this.sendProjects();
+      };
+      let areArraysEqual =
+        JSON.stringify(array) === JSON.stringify(this.allProjects);
+      let arrayIsNotEmpty = array.length !== 0;
+      if (arrayIsNotEmpty) {
+        if (!areArraysEqual && !this.checkUrl) {
+          showAndSetProjects();
+        } else if (areArraysEqual && this.checkUrl) {
+          showAndSetProjects();
+          this.$route.path !== "/projects"
+            ? this.$router.push("/projects")
+            : null;
+        } else if (!areArraysEqual && this.checkUrl) {
+          showAndSetProjects();
+          this.$route.params.slug !== this.links[index].prefix
+            ? this.$router.push({
+                name: "projectsCategory",
+                params: { slug: this.links[index].prefix },
+              })
+            : null;
+        } else if (areArraysEqual && !this.checkUrl) {
+          showAndSetProjects();
+        }
       }
+      // Жестко))
     },
     getAllProjects() {
       axios
         .get(this.$store.state.api_url + "projects/")
         .then((response) => {
+          response.data.forEach((project) => {
+            const stacks = [];
+
+            project.stacks.forEach((stack) => {
+              axios.get(stack).then((response) => {
+                stacks.push(response.data);
+              });
+            });
+
+            project.stacks = stacks;
+          });
+
           this.allProjects = response.data;
           this.projectsWithActiveIndexCategory = this.allProjects;
           this.sendProjects();
@@ -55,9 +113,17 @@ export default {
           response.data.forEach((item) => {
             let projectsArray = [];
             item.projects.forEach((project) => {
+              const stacks = [];
               axios
                 .get(project)
                 .then((response) => {
+                  response.data.stacks.forEach((stack) => {
+                    axios.get(stack).then((response) => {
+                      stacks.push(response.data);
+                    });
+                  });
+
+                  response.data.stacks = stacks;
                   projectsArray.push(response.data);
                 })
                 .catch((errors) => {

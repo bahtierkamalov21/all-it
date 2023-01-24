@@ -7,7 +7,6 @@ div
         div(class="d-flex align-end")
           div(class="socials d-flex align-center")
             v-card(
-              @click="setActiveForm(index)" 
               elevation="0"
               v-for="(item, index) in forms" 
               :key="item.name" 
@@ -20,7 +19,7 @@ div
               | {{ item.title }}
           div(class="top-orange ml-6")
         v-card(elevation="0")
-          home-forms-google(v-if="activeFormId === 0")
+          //- home-forms-google(v-if="activeFormId === 0")
           home-forms-telegram(v-if="activeFormId === 1")
 </template>
 
@@ -34,13 +33,13 @@ export default {
     return {
       activeFormId: 1,
       forms: [
-        {
-          id: 0,
-          title: "Google",
-          name: "google",
-          icon: "fa-google",
-          active: false,
-        },
+        // {
+        //   id: 0,
+        //   title: "Google",
+        //   name: "google",
+        //   icon: "fa-google",
+        //   active: false,
+        // },
         {
           id: 1,
           title: "Telegram",

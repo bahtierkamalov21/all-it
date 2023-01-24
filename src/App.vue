@@ -5,12 +5,14 @@ v-app
   the-bottom-navigation
   footer
     the-faq
+  button-up
 </template>
 
 <script>
 import MainNavigation from "@/components/MainNavigation";
 import TheBottomNavigation from "@/components/TheBottomNavigation";
 import TheFaq from "@/components/TheFaq";
+import ButtonUp from "./components/ButtonUp";
 
 export default {
   name: "App",
@@ -18,14 +20,9 @@ export default {
     MainNavigation,
     TheBottomNavigation,
     TheFaq,
+    ButtonUp,
   },
   data: () => ({}),
-  created() {
-    // Determine whether the user is authorized
-    this.$store.commit("setUser", localStorage.getItem("user"));
-    // Commit theme in store
-    this.$store.commit("changeTheme", this.$vuetify.theme.dark);
-  },
 };
 </script>
 
@@ -39,6 +36,23 @@ export default {
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
   --custom-blue: #1867c0;
+}
+
+.v-dialog__content.v-dialog__content--active {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10 !important;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+
+  & > *:first-child {
+    overflow: initial;
+    box-shadow: none !important;
+  }
 }
 
 html {
@@ -77,8 +91,44 @@ html {
   border-radius: 8px;
 }
 
+.v-menu__content.theme--dark.v-menu__content--fixed.menuable__content__active {
+  border-radius: 10px;
+  background: #232323;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
+}
+
+.v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active {
+  border-radius: 10px;
+  background: white;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
+}
+
+.v-menu__content.theme--dark.v-menu__content--fixed.menuable__content__active.v-autocomplete__content {
+  border-radius: 10px;
+  background: #232323;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
+}
+
+.v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active.v-autocomplete__content {
+  border-radius: 10px;
+  background: white;
+  box-shadow: var(--shadow-lg) !important;
+  font-weight: bold;
+  transform: translateY(10px);
+}
+
 .theme--light.v-timeline::before {
   background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.container {
+  max-width: 1160px;
 }
 
 @keyframes hover-list-link {

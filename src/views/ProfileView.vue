@@ -1,5 +1,21 @@
 <template lang="pug">
 div
+  dialog-reviews(
+    :dialogReviews="dialogReviews" 
+    @getDialogReviews="getDialogReviews" 
+    @getHaveReviews="getHaveReviews"
+  )
+  dialog-projects(
+    :dialogProjects="dialogProjects" 
+    @getDialogProjects="getDialogProjects"
+  )
+  viewing-editing-reviews(
+    v-if="haveReviews && user"
+    @getHaveReviews="getHaveReviews"
+    :dialogViewingEditingReviews="dialogViewingEditingReviews"
+    @getDialogViewingEditingReviews="getDialogViewingEditingReviews"
+    :userDataAndLinkReview="user_copied"
+  )
   header(class="header pb-12")
     loading-item(v-if="!user")
     v-container(v-else)
@@ -73,21 +89,71 @@ div
           v-btn(@click="exitSystem" class="delete pa-0 ml-6 mt-4" color="red" min-width="38" rounded elevation="0")
             v-icon(color="white") mdi-delete
             div(class="delete-text font-weight-bold") Выйти из системы
+      div(class="prompts d-flex flex-wrap justify-space-between ma-auto mt-6 mb-0" style="max-width: 960px;")
+        div(class="text-left mb-6")
+          v-btn( 
+            v-if="!haveReviews"
+            @click="dialogReviews = !dialogReviews"
+            color="costumBlue" 
+            rounded 
+            class="white--text button text-capitalize" 
+            elevation="0"
+          )
+            v-icon(left) mdi-typewriter
+            | Оставить
+            span(class="text-lowercase ml-1") отзыв
+          v-btn( 
+            v-if="haveReviews"
+            color="costumBlue" 
+            @click="dialogViewingEditingReviews = !dialogViewingEditingReviews"
+            rounded 
+            class="white--text button text-capitalize" 
+            elevation="0"
+          )
+            v-icon(left) mdi-typewriter
+            | Отредактировать
+            span(class="text-lowercase ml-1") | посмотреть отзыв
+          v-chip(class="d-block mt-2 pr-6" :class="!addProject ? 'ml-0 mr-auto' : null")
+            v-icon mdi-information-variant
+            | Можно оставить только один отзыв
+        div(class="text-right" v-if="addProject")  
+          v-btn( 
+            @click="dialogProjects = !dialogProjects"
+            color="costumBlue" 
+            rounded 
+            class="white--text button text-capitalize" 
+            elevation="0"
+          )
+            v-icon(left) mdi-file-document-edit
+            | Заполнить
+            span(class="text-lowercase ml-1") анкету своего проекта
+          v-chip(class="d-block mt-2 pr-6")
+            v-icon mdi-information-variant
+            | Можно заполнить после завершения текущего проекта
+      profile-projects
 </template>
 
 <script>
 import axios from "axios";
 import LoadingItem from "@/components/LoadingItem";
+import DialogReviews from "@/components/dialogs/DialogReviews";
+import DialogProjects from "@/components/dialogs/DialogProjects";
+import ViewingEditingReviews from "@/components/dialogs/ViewingEditingReviews";
+import ProfileProjects from "@/components/ProfileProjects";
+import exitSystem from "@/mixins/exitSystem";
 
 export default {
   name: "ProfileView",
   data() {
     return {
       user: null,
+      projects: [],
       user_copied: null,
+      haveReviews: false,
       update: false,
       message: null,
       valid: false,
+      addProject: false,
       avatar: null,
       phone_regex: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
       phoneRules: [
@@ -99,20 +165,82 @@ export default {
           this.telegram_username_regex.test(v) ||
           "Неверно введен telegram username",
       ],
+      dialogReviews: false,
+      dialogProjects: false,
+      dialogViewingEditingReviews: false,
     };
   },
-  components: { LoadingItem },
+  watch: {
+    haveReviews() {
+      this.getUserData();
+    },
+  },
+  mixins: [exitSystem],
+  components: {
+    LoadingItem,
+    DialogReviews,
+    DialogProjects,
+    ViewingEditingReviews,
+    ProfileProjects,
+  },
   created() {
     this.determineWhetherUserAuthorized();
+    this.getProjectsUser();
   },
   methods: {
+    getProjectsUser() {
+      if (localStorage.getItem("user")) {
+        const user_id = JSON.parse(localStorage.getItem("user")).id;
+
+        axios
+          .get(this.$store.state.api_url + "user_projects/", {
+            params: {
+              user_id: user_id,
+            },
+          })
+          .then((response) => {
+            response.data.forEach((project) => {
+              const stacks = [];
+
+              project.stacks.forEach((stack) => {
+                axios.get(stack).then((response) => {
+                  stacks.push(response.data);
+                });
+              });
+
+              project.stacks = stacks;
+            });
+
+            this.projects = response.data;
+
+            // Проверяем на статус complete
+            if (!this.projects.length) {
+              this.addProject = true;
+            } else {
+              this.projects[this.projects.length - 1].complete
+                ? (this.addProject = true)
+                : (this.addProject = false);
+            }
+          });
+      }
+    },
+    getDialogViewingEditingReviews(value) {
+      this.dialogViewingEditingReviews = value;
+    },
+    getHaveReviews(value) {
+      this.haveReviews = value;
+    },
+    getDialogReviews(value) {
+      this.dialogReviews = value;
+    },
+    getDialogProjects(value) {
+      this.dialogProjects = value;
+    },
     // Determine whether the user is authorized
     determineWhetherUserAuthorized() {
-      if (!this.$store.state.user) {
-        this.$router.push("/signin");
-      } else {
-        this.getUserData();
-      }
+      !localStorage.getItem("user")
+        ? this.$router.push("/signin")
+        : this.getUserData();
     },
     changeUserData() {
       this.update = true;
@@ -127,6 +255,8 @@ export default {
       formData.append("username", this.user.username);
       formData.append("password", this.user.password);
       formData.append("telegram_username", this.user.telegram_username);
+      formData.append("phone", this.user.phone);
+      formData.append("is_active", true);
       const decoded = JSON.parse(localStorage.getItem("decoded"));
       axios
         .put(this.$store.state.api_url + `users/${decoded.user_id}/`, formData)
@@ -136,17 +266,6 @@ export default {
         .catch((errors) => {
           console.log(errors);
         });
-    },
-    exitSystem() {
-      // Очистка localStorage
-      localStorage.clear();
-      // Очистка store
-      this.$store.commit("setUser", null);
-      this.$store.commit("setDecoded", null);
-      this.$store.commit("setTokenAccess", null);
-      this.$store.commit("setTokenRefresh", null);
-      // Push in home page
-      this.$router.push("/");
     },
     getUserData() {
       const decoded = JSON.parse(localStorage.getItem("decoded"));
@@ -159,6 +278,9 @@ export default {
 
           this.user = response.data;
           this.user_copied = response.data;
+
+          // Сохранение отзыва пользователя
+          this.haveReviews = response.data.review;
         })
         .catch((errors) => {
           console.log(errors);
@@ -219,6 +341,10 @@ export default {
   }
 }
 
+.child-card {
+  box-shadow: var(--shadow-2xl) !important;
+}
+
 .userdata {
   gap: 24px;
 
@@ -271,6 +397,21 @@ export default {
   }
 }
 
+@media screen and (max-width: 860px) {
+  .prompts {
+    margin-bottom: 24px !important;
+
+    & > *:last-child {
+      width: 100%;
+
+      & > *:last-child {
+        width: max-content;
+        margin-left: auto;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 1086px) {
   .header {
     padding-top: 106px;
@@ -283,6 +424,10 @@ export default {
   }
   .avatar {
     margin-right: 45%;
+  }
+
+  .button {
+    font-size: 12px !important;
   }
 }
 </style>

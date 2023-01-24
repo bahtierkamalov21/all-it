@@ -1,6 +1,6 @@
 FROM python:latest
 
-WORKDIR /projects/all-it
+WORKDIR /usr/src/all-it
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1

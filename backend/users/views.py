@@ -2,8 +2,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .models import CustomUser, RequestUser, RequestUserImage, UserReview, PopularReview
-from .serializers import CustomUserSerializer, RequestUserSerializer, RequestUserImageSerializer, UserReviewSerializer, PopularReviewSerializer
+from .models import CustomUser, UserReview, PopularReview, Note, CategoryNote
+from .serializers import CustomUserSerializer, UserReviewSerializer, PopularReviewSerializer, NoteSerializer, CategoryNoteSerializer
 from .permissions import IsAdminUserOrReadOnly
 from django.conf import settings
 import jwt
@@ -17,29 +17,29 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.AllowAny]
 
-class RequestUserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = RequestUser.objects.all()
-    serializer_class = RequestUserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-class RequestUserImageViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = RequestUserImage.objects.all()
-    serializer_class = RequestUserImageSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
 class UserReviewViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = UserReview.objects.all()
     serializer_class = UserReviewSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
+
+class NoteViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+    permission_classes = [permissions.AllowAny]
+
+class CategoryNoteViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = CategoryNote.objects.all()
+    serializer_class = CategoryNoteSerializer
+    permission_classes = [permissions.AllowAny]
 
 class PopularReviewViewSet(viewsets.ModelViewSet):
     """

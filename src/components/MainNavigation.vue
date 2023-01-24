@@ -6,7 +6,7 @@ div
       v-col
         v-row(class="nav-row align-center")
           div(class="title")
-            router-link(class="text-decoration-none" to="/") All IT.agency
+            router-link(class="text-decoration-none" to="/") BMM LITER.org
               div(class="lang-prefix") {{ $i18n.locale }}
               div(class="tm") TM
           div(class="bar")
@@ -18,13 +18,22 @@ div
           logo-item
           ul
             li(v-for="item in links" :key="item.id" :class="item.list ? 'category-links' : null")
-              a(v-if="$route.path === '/'" class="text-decoration-none" :href="item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              a(
+                v-if="$route.path === '/'" 
+                class="text-decoration-none" 
+                :href="item.href" :class="item.list ? 'category-link pr-2' : null"
+              ) {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
-              router-link(v-else class="text-decoration-none" :to="'/' + item.href" :class="item.list ? 'category-link pr-2' : null") {{ $t(item.name) }}
+              router-link(
+                v-else 
+                class="text-decoration-none" 
+                :to="'/' + item.href" 
+                :class="item.list ? 'category-link pr-2' : null"
+              ) {{ $t(item.name) }}
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-down
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
-              div(v-if="item.list" class="link-list")
+              div(v-if="item.list" class="link-list" :class="item.list ? 'mr-2' : null")
                 div
                   div(class="px-4" style="cursor: pointer;" v-for="list in item.list" @click="pushCategory(list.href)" :key="list.id")
                     | {{ list.name }}
@@ -39,6 +48,7 @@ import SwitchLanguage from "@/components/SwitchLanguage.vue";
 import LogoItem from "@/components/LogoItem.vue";
 import TopSheetMenu from "@/components/TopSheetMenu";
 import SwitchTheme from "@/components/SwitchTheme";
+import axios from "axios";
 
 export default {
   name: "MainNavigation",
@@ -49,41 +59,12 @@ export default {
       links: [
         {
           name: "support",
-          href: "#",
+          href: "#support",
         },
         {
           name: "projects-md",
           href: "#projects",
-          list: [
-            {
-              name: "Сайты",
-              href: "sites",
-            },
-            {
-              name: "Telegram Боты",
-              href: "telegram-bots",
-            },
-            {
-              name: "PWA",
-              href: "pwa",
-            },
-            {
-              name: "Моб приложения",
-              href: "mobile-apps",
-            },
-            {
-              name: "Автоматизации",
-              href: "automation",
-            },
-            {
-              name: "DevOps",
-              href: "devops",
-            },
-            {
-              name: "Серверное администрирование",
-              href: "server-administration",
-            },
-          ],
+          list: [],
         },
         {
           name: "about-company",
@@ -98,14 +79,31 @@ export default {
   },
   watch: {
     sheetOpen() {
-      if (this.sheetOpen) {
-        document.getElementsByTagName("html")[0].style.overflow = "hidden";
-      } else {
-        document.getElementsByTagName("html")[0].style.overflow = "auto";
-      }
+      this.sheetOpen
+        ? (document.getElementsByTagName("html")[0].style.overflow = "hidden")
+        : (document.getElementsByTagName("html")[0].style.overflow = "auto");
     },
   },
+  created() {
+    this.getCategoriesAndSetList();
+  },
   methods: {
+    getCategoriesAndSetList() {
+      axios
+        .get(this.$store.state.api_url + "categories/")
+        .then((response) => {
+          response.data.forEach((item) => {
+            const object = {
+              name: item.title,
+              href: item.prefix,
+            };
+            this.links[1].list.push(object);
+          });
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+    },
     openSheet() {
       this.sheetOpen = !this.sheetOpen;
     },
@@ -113,7 +111,12 @@ export default {
       this.sheetOpen = callback;
     },
     pushCategory(href) {
-      this.$router.push({ name: "projectsCategory", params: { slug: href } });
+      this.$route.params.slug === href
+        ? null
+        : this.$router.push({
+            name: "projectsCategory",
+            params: { slug: href },
+          });
     },
   },
 };
@@ -268,6 +271,7 @@ li {
       display: block;
       padding: 6px 0;
       margin-bottom: 8px;
+      border: solid 2px transparent;
       transition: all 0.2s ease-in;
       box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
 
@@ -279,7 +283,7 @@ li {
         transition: all 0.2s ease-in;
         color: #666 !important;
         box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
-        border: solid 1px #999;
+        border-color: #999;
       }
     }
   }
@@ -311,7 +315,7 @@ li {
   }
 }
 
-@media screen and (max-width: 1086px) {
+@media screen and (max-width: 1142px) {
   .nav-row {
     height: 62px;
     justify-content: space-between;

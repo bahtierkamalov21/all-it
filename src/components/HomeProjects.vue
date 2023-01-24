@@ -33,7 +33,7 @@ div
               v-icon mdi-arrow-right
         div(class="swiper-projects rounded-xl")
           div(class="swiper-wrapper")
-            div(class="swiper-slide mr-2" v-for="project in projects" :key="project.url")
+            div(class="swiper-slide" v-for="project in projects" :key="project.url")
               home-projects-card(:project="project")
 </template>
 
@@ -52,44 +52,41 @@ export default {
       swiperProjects: null,
     };
   },
-  mounted() {
-    this.swiperProjects = new Swiper(".swiper-projects", {
-      slidesPerView: 3,
-      spaceBetween: 10,
-      breakpoints: {
-        320: {
-          slidesPerView: 1,
-        },
-        640: {
-          slidesPerView: 2,
-        },
-        1086: {
-          slidesPerView: 3,
-        },
-      },
-    });
-  },
   computed: {
     disabledPrevSlide() {
-      if (this.swiperProjects) {
-        return this.swiperProjects.activeIndex === 0;
-      } else return null;
+      return this.swiperProjects ? this.swiperProjects.activeIndex === 0 : null;
     },
     disabledNextSlide() {
       if (this.swiperProjects) {
-        if (
-          this.swiperProjects.activeIndex ===
+        return this.swiperProjects.activeIndex ===
           this.swiperProjects.slides.length - 1
-        ) {
-          return true;
-        } else return false;
+          ? true
+          : false;
       } else return null;
     },
   },
   methods: {
     getProjects(data) {
+      // Очиащем swiper
+      this.swiperProjects = null;
       // Только завершенные проекты
       this.projects = data.filter((item) => item.complete);
+      // Инициализируем новый swiper
+      this.swiperProjects = new Swiper(".swiper-projects", {
+        slidesPerView: 3,
+        spaceBetween: 10,
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          1086: {
+            slidesPerView: 3,
+          },
+        },
+      });
     },
   },
 };
@@ -144,6 +141,7 @@ h2 {
 .container {
   position: absolute;
   padding: 32px;
+  width: 95%;
   backdrop-filter: blur(16px);
   box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset;
 

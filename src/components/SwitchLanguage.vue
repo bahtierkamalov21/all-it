@@ -98,6 +98,7 @@ ul {
     padding: 6px 0;
     margin-bottom: 8px;
     border-radius: 8px;
+    border: solid 2px transparent;
 
     &:last-child {
       margin: 0;
@@ -107,7 +108,7 @@ ul {
       transition: all 0.2s ease-in;
       color: #666 !important;
       box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2);
-      border: solid 1px #999;
+      border-color: #999;
     }
   }
 }
