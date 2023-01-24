@@ -62,7 +62,7 @@ div
               | Войти
               span(class="text-lowercase mx-1") по
               span(class="text-lowercase mr-1") номеру
-              span(class="text-lowercase ml-1") телефона
+              span(class="text-lowercase") телефона
             v-btn(
               class="text-capitalize white--text"
               rounded 
@@ -74,7 +74,7 @@ div
               | Войти
               span(class="text-lowercase mx-1") по
               span(class="text-lowercase mr-1") имени
-              span(class="text-lowercase ml-1") пользователя
+              span(class="text-lowercase") пользователя
           v-btn(@click="signin" class="white--text text-capitalize mt-2" elevation="0" :disabled="!valid" rounded color="costumBlue") Войти
 </template>
 
