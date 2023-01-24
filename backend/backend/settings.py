@@ -157,7 +157,12 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:8080', 'http://localhost', 'https://localhost']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080', 
+    'http://localhost', 
+    'https://localhost', 
+    '213.189.216.118',
+]
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
