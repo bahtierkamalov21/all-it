@@ -20,7 +20,7 @@ services:
       - database
   frontend:
     build: .
-    container_name: client
+    container_name: frontend
     restart: always
     command: npm run serve
     volumes:
