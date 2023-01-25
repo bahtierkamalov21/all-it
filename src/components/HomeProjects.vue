@@ -73,19 +73,8 @@ export default {
       this.projects = data.filter((item) => item.complete);
       // Инициализируем новый swiper
       this.swiperProjects = new Swiper(".swiper-projects", {
-        slidesPerView: 3,
+        slidesPerView: 1,
         spaceBetween: 10,
-        breakpoints: {
-          320: {
-            slidesPerView: 1,
-          },
-          640: {
-            slidesPerView: 2,
-          },
-          1086: {
-            slidesPerView: 3,
-          },
-        },
       });
     },
   },
@@ -157,24 +146,16 @@ h2 {
   }
 }
 
-.swiper-slide {
-  width: 33%;
-}
-
 @media screen and (max-width: 1086px) {
   .container {
     width: 92.2%;
-  }
-
-  .swiper-slide {
-    width: 50%;
   }
 }
 
 @media screen and (max-width: 878px) {
   .projects {
     &-wrapper {
-      height: 640px;
+      height: 790px;
 
       & > *:first-child {
         height: 50%;
@@ -191,10 +172,6 @@ h2 {
     &-title {
       display: none;
     }
-  }
-
-  .swiper-slide {
-    width: 100%;
   }
 
   .container {

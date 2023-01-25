@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div(v-if="projects.length")
   v-card(class="card rounded-xl ma-auto pb-4" max-width="960" elevation="0")
     profile-projects-navigation(@sendProjects="getProjects")
     div(class="pl-4 d-flex flex-wrap justify-space-between align-center")

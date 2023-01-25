@@ -12,8 +12,8 @@ div(class="main")
           div(class="pa-4")
             home-projects-navigation(@sendProjects="getProjects" @sendPage="getPage" checkUrl)
           div(class="ma-auto pa-6")
-            div(class="d-flex flex-wrap" :class="addCenteredClass")
-              home-projects-card(style="max-width: 336px; min-width: 336px;" v-for="project in forProjects" :key="project.url" :project="project")
+            div(class="d-flex flex-column flex-wrap")
+              home-projects-card(v-for="project in forProjects" :key="project.url" :project="project")
           v-pagination(:length="lengthPages" v-model="page")
 </template>
 
@@ -33,7 +33,7 @@ export default {
       page: 1,
       page_copy: 1,
       sliceStart: 0,
-      sliceEnd: 9,
+      sliceEnd: 6,
       difference: null,
       projectsOnThisPage: null,
     };
@@ -60,15 +60,8 @@ export default {
   },
   computed: {
     lengthPages() {
-      if (this.projects.length / 9 < 1 || this.projects.length / 9 > 1) {
-        return Math.floor(this.projects.length / 9) + 1;
-      } else return null;
-    },
-    addCenteredClass() {
-      if (this.projectsOnThisPage > 1 && this.projectsOnThisPage % 3 != 0) {
-        return "centered";
-      } else if (this.projectsOnThisPage % 3 === 0) {
-        return null;
+      if (this.projects.length / 6 < 1 || this.projects.length / 6 > 1) {
+        return Math.floor(this.projects.length / 6) + 1;
       } else return null;
     },
     forProjects() {
@@ -101,10 +94,6 @@ export default {
 
 .header {
   padding-top: 126px;
-}
-
-.centered {
-  justify-content: center;
 }
 
 .main-card {

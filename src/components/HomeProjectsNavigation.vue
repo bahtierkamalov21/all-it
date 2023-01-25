@@ -88,6 +88,7 @@ export default {
         .then((response) => {
           response.data.forEach((project) => {
             const stacks = [];
+            const images = [];
 
             project.stacks.forEach((stack) => {
               axios.get(stack).then((response) => {
@@ -95,6 +96,13 @@ export default {
               });
             });
 
+            project.images.forEach((image) => {
+              axios.get(image).then((response) => {
+                images.push(response.data);
+              });
+            });
+
+            project.images = images;
             project.stacks = stacks;
           });
 
@@ -114,6 +122,8 @@ export default {
             let projectsArray = [];
             item.projects.forEach((project) => {
               const stacks = [];
+              const images = [];
+
               axios
                 .get(project)
                 .then((response) => {
@@ -123,6 +133,13 @@ export default {
                     });
                   });
 
+                  project.images.forEach((image) => {
+                    axios.get(image).then((response) => {
+                      images.push(response.data);
+                    });
+                  });
+
+                  response.data.images = images;
                   response.data.stacks = stacks;
                   projectsArray.push(response.data);
                 })
