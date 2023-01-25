@@ -8,7 +8,7 @@ export default new Vuex.Store({
     user: null,
     token_access: null,
     token_refresh: null,
-    api_url: "http://localhost:8200/api/v1/",
+    api_url: "http://localhost:8000/api/v1/",
     // api_url: "https://localhost:8200/api/v1/",
     // api_url: "http://213.189.216.118:8200/api/v1/",
     // api_url: "http://213.189.216.118/api/v1/",

@@ -1,16 +1,14 @@
 <template lang="pug">
 div
-  v-card(link elevation="0" @click="$router.push({ name: 'project', params: { slug: project.link_path } })" class="card pa-6" min-height="200")
-    h3(class="white--text font-weight-bold mb-0") {{ project.title }}
-    v-chip(class="white--text font-weight-bold px-4 pr-6" color="costumBlue")
-      v-icon(class="mr-2") mdi-checkbook
-      | {{ project.name }}
-    div(class="category")
-    div(class="white--text font-weight-bold")
-      | Технологии:
-      br
-      div(class="last pa-2 px-4 mt-2 d-flex flex-wrap d-inline-block" style="gap: 6px;")
-        span(v-for="stack in project.stacks" :key="stack.url") {{ stack.stack }}
+  v-card(link elevation="0" @click="$router.push({ name: 'project', params: { slug: project.link_path } })" class="card flex-wrap pa-6" min-height="200")
+    div(class="left")
+      div(class="ma-auto" style="width: fit-content;")
+        h3(class="text-capitalize mb-2 font-weight-bold") {{ project.title }}
+        div(class="description mb-6 font-weight-bold") {{ project.description }}
+        v-chip(color="costumBlue" class="white--text stack mb-2 font-weight-bold")
+          div(class="mx-2" v-for="stack in project.stacks" :key="stack.url") {{ stack.stack }}
+    div(class="right d-flex align-center justify-center")
+      v-img(:src="imageSrc" class="image rounded-xl" max-width="300" height="160")
 </template>
 
 <script>
@@ -18,6 +16,11 @@ export default {
   name: "HomeProjectsCard",
   props: {
     project: Object,
+  },
+  computed: {
+    imageSrc() {
+      return this.project.images[0] ? this.project.images[0].image : null;
+    },
   },
 };
 </script>
@@ -28,14 +31,16 @@ export default {
   background-repeat: no-repeat;
   background-image: url("../assets/images/card-two-background.jpg");
   transition: 0.2s all ease-in-out;
-  border-radius: 22px !important;
+  border-radius: 24px !important;
+  background-color: #0f182e;
   display: flex;
   overflow: hidden;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   box-shadow: var(--shadow-2xl), 0 0 24px 0 rgba(255, 255, 255, 0.2) inset !important;
   transition: all 0.2s ease-in-out;
   gap: 12px;
+  color: #fff;
 
   &:hover {
     transition: 0.2s all ease-in-out;
@@ -47,21 +52,30 @@ export default {
   }
 }
 
-h3 {
-  max-height: 56px;
-  overflow: hidden;
-  border-radius: 0 !important;
+.left {
+  flex: 1 1 0%;
 }
 
-.last {
-  background-color: var(--custom-blue) !important;
-  color: #fff;
-  border-radius: 5px !important;
+.right {
+  flex: 1 1 0%;
+}
+
+.stack {
+  display: flex;
+  gap: 12px;
+  width: fit-content;
+}
+
+.description {
+  max-width: 335px;
+  height: 70px;
+  overflow: hidden;
+  color: var(--grey) !important;
 }
 
 @media screen and (max-width: 600px) {
-  .card {
-    padding: 16px !important;
+  .image {
+    max-width: 270px !important;
   }
 }
 </style>

@@ -8,12 +8,11 @@ services:
     command: >
       bash -c "python3 manage.py makemigrations
       && python3 manage.py migrate
-      && python3 manage.py runserver 0.0.0.0:8200"
+      && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/usr/src/all-it
     networks:
-      devnetwork:
-        ipv4_address: 172.30.0.10
+      - network:
     ports:
       - 8200:8200
     depends_on:
@@ -26,8 +25,7 @@ services:
     volumes:
       - ./:/usr/src/all-it
     networks:
-      devnetwork:
-        ipv4_address: 172.30.0.11
+      - network:
     ports:
       - 8080:8080
     depends_on:
@@ -42,8 +40,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
-      devnetwork:
-        ipv4_address: 172.30.0.12
+      - network:
     ports:
       - 5432:5432
   pgadmin:
@@ -66,8 +63,7 @@ services:
       - ./serts/certificate.crt:/usr/share/nginx/serts/certificate.crt
       - ./serts/privateKey.key:/usr/share/nginx/serts/certificate.key
     networks:
-      devnetwork:
-        ipv4_address: 172.30.0.14
+      - network:
     ports:
       - 80:80
       - 443:443
@@ -76,7 +72,3 @@ volumes:
 networks:
   network:
     driver: bridge
-  devnetwork:
-    ipam:
-      config:
-        - subnet: 172.30.0.0/24
