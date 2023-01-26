@@ -97,7 +97,7 @@ export default {
           this.password_regex.test(v) ||
           "Пароль должен состоять из 6 цифр и латинских букв",
       ],
-      telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
+      telegram_username_regex: /^@[A-Za-z\d_]{2,32}$/,
       telegramUsernameRules: [
         (v) => {
           if (!v) return true;

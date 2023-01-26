@@ -141,6 +141,7 @@ import DialogReviews from "@/components/dialogs/DialogReviews";
 import ViewingEditingReviews from "@/components/dialogs/ViewingEditingReviews";
 // import ProfileProjects from "@/components/ProfileProjects";
 import exitSystem from "@/mixins/exitSystem";
+import updateTitle from "@/mixins/updateTitle";
 
 export default {
   name: "ProfileView",
@@ -159,7 +160,7 @@ export default {
       phoneRules: [
         (v) => this.phone_regex.test(v) || "Неверно введен номер телефона",
       ],
-      telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
+      telegram_username_regex: /^@[A-Za-z\d_]{2,32}$/,
       telegramUsernameRules: [
         (v) =>
           this.telegram_username_regex.test(v) ||
@@ -175,7 +176,7 @@ export default {
       this.getUserData();
     },
   },
-  mixins: [exitSystem],
+  mixins: [exitSystem, updateTitle],
   components: {
     LoadingItem,
     DialogReviews,
@@ -185,6 +186,7 @@ export default {
   },
   created() {
     this.determineWhetherUserAuthorized();
+    this.updateTitle("Profile");
     // this.getProjectsUser();
   },
   methods: {
@@ -296,7 +298,8 @@ export default {
           }
         }
         // Отправка сообщения в телеграмм
-        this.message = `<b>Telegram username отправителя: ${this.user_copied.username}</b>\n`;
+        this.message = `<b>Уведомление</b>\n`;
+        this.message += `<b>Telegram username отправителя: ${this.user_copied.username}</b>\n`;
         this.message += `<b>API id пользователя: ${this.user.id}</b>\n`;
         this.message += `<b>Требует смену данных профиля на: </b>\n`;
         this.message += `<b>${JSON.stringify(listData)}</b>`;
