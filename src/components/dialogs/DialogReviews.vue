@@ -10,15 +10,16 @@ div
               label="Текст" 
               :rules="[v => !!v || 'Поле должно быть заполнено']" 
               v-model="message" 
-              outlined 
               class="input" 
               solo 
               hide-details
             )
           div(class="d-flex flex-wrap justify-space-between")
-            div(class="rating")
-              v-icon(v-for="item in ratings" ref="rating" :key="item" @click="setRating(item)") mdi-star
-            v-btn(@click="postReview" elevation="0" color="costumBlue" class="white--text text-capitalize") Добавить
+            div(class="d-flex align-center")
+              v-chip(color="costumBlue" class="white--text font-weight-bold mr-2") Рейтинг
+              div(class="rating")
+                v-icon(v-for="item in ratings" ref="rating" :key="item" @click="setRating(item)") mdi-star
+            v-btn(@click="postReview" elevation="0" color="costumBlue" class="white--text font-weight-bold text-capitalize") Добавить
         v-chip(v-if="error") {{ error }}
 </template>
 
@@ -175,11 +176,11 @@ export default {
   justify-content: flex-start;
 
   & > * {
-    font-size: 32px !important;
+    font-size: 24px !important;
 
     &:hover,
     &:hover ~ button {
-      color: var(--custom-blue) !important;
+      color: yellow !important;
     }
   }
 }

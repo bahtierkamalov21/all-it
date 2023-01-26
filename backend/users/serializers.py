@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, UserReview, PopularReview, Note, CategoryNote
+from .models import CustomUser, UserReview, PopularReview
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.hashers import make_password
 
@@ -46,16 +46,6 @@ class UserReviewSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = UserReview
-        fields = '__all__'
-
-class NoteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Note
-        fields = ("name", "category")
-
-class CategoryNoteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CategoryNote
         fields = '__all__'
         
 class PopularReviewSerializer(serializers.HyperlinkedModelSerializer):

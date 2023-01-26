@@ -7,7 +7,7 @@ div
         v-chip(color="costumBlue" style="width: fit-content;" class="ma-auto font-weight-bold white--text rounded-xl") 404
         div(class="text mb-6 pa-6 pr-16 rounded-tr-xl rounded-br-xl white--text")
           div
-            h2 {{ $t("404-h2") }}
+            h2(class="mb-2") {{ $t("404-h2") }}
             div {{ $t("404-title") }}
             div {{ $t("404-subtitle") }}
         v-chip(color="costumBlue" class="not-found font-weight-bold white--text rounded-xl") 404
@@ -53,6 +53,16 @@ export default {
   transform: rotate(90deg);
   font-size: calc(var(--index) * 2);
   padding: 2.2% 2%;
+}
+
+h1 {
+  font-size: 38px;
+  line-height: initial;
+}
+
+h2 {
+  font-size: 28px;
+  line-height: initial;
 }
 
 .text {

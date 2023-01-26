@@ -56,7 +56,14 @@ div
             :rules="phoneRules"
             @input="changeInput"
           )
-          v-btn(@click="registration" class="white--text text-capitalize mt-2" elevation="0" :disabled="!valid" rounded color="costumBlue") Зарегистрироваться
+          v-btn(
+            @click="registration" 
+            class="white--text font-weight-bold text-capitalize mt-2" 
+            elevation="0" 
+            :disabled="!valid" 
+            rounded 
+            color="costumBlue"
+          ) Зарегистрироваться
 </template>
 
 <script>
@@ -190,6 +197,11 @@ export default {
     right: -20px;
     top: 20px;
   }
+}
+
+h1 {
+  font-size: 38px;
+  line-height: initial;
 }
 
 @media screen and (max-width: 1086px) {

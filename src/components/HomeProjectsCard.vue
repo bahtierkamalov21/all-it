@@ -5,8 +5,9 @@ div
       div(class="ma-auto" style="width: fit-content;")
         h3(class="text-capitalize mb-2 font-weight-bold") {{ project.title }}
         div(class="description mb-6 font-weight-bold") {{ project.description }}
-        v-chip(color="costumBlue" class="white--text stack mb-2 font-weight-bold")
-          div(class="mx-2" v-for="stack in project.stacks" :key="stack.url") {{ stack.stack }}
+        v-chip(color="costumBlue" class="white--text stack px-4 pr-6 rounded-xl mb-2 font-weight-bold")
+          div(class="mx-2" v-for="stack in project.stacks.slice(0, 2)" :key="stack.url") {{ stack.stack }}
+          span(class="ml-2") ...
     div(class="right d-flex align-center justify-center")
       v-img(:src="imageSrc" class="image rounded-xl" max-width="300" height="160")
 </template>
@@ -62,7 +63,6 @@ export default {
 
 .stack {
   display: flex;
-  gap: 12px;
   width: fit-content;
 }
 
@@ -75,7 +75,14 @@ export default {
 
 @media screen and (max-width: 600px) {
   .image {
-    max-width: 270px !important;
+    max-width: 236px !important;
+  }
+
+  .left {
+    & > *:first-child {
+      text-align: start;
+      margin-left: initial !important;
+    }
   }
 }
 </style>

@@ -7,8 +7,6 @@ router = routers.DefaultRouter()
 router.register(r'users', views.CustomUserViewSet)
 router.register(r'users_reviews', views.UserReviewViewSet)
 router.register(r'populars_reviews', views.PopularReviewViewSet)
-router.register(r'category_notes', views.CategoryNoteViewSet)
-router.register(r'notes', views.NoteViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

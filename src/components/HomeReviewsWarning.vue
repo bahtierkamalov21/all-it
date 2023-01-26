@@ -9,7 +9,7 @@ div(v-if="!this.$store.state.user")
       v-btn(
         @click="$router.push('/profile')"
         color="costumBlue"
-        class="warning-bottom text-capitalize white--text pa-2"
+        class="warning-bottom font-weight-bold text-capitalize white--text pa-2"
       )
         | Войти
 </template>

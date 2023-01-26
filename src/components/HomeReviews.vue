@@ -135,10 +135,6 @@ export default {
   }
 }
 
-h2 {
-  font-size: var(--section-title);
-}
-
 .left {
   flex-grow: 1;
 }

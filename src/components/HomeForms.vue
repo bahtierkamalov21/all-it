@@ -65,10 +65,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h2 {
-  font-size: var(--section-title);
-}
-
 .card {
   & > *:last-child {
     border-top-left-radius: 0 !important;
