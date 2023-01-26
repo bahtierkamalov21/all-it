@@ -39,6 +39,26 @@ export default {
   --grey: #adb9c7;
 }
 
+h1 {
+  font-size: 62px;
+  line-height: 70px;
+}
+
+h2 {
+  font-size: 42px;
+  line-height: 42px;
+}
+
+.v-timeline-item__body {
+  & > *:first-child {
+    box-shadow: (--shadow-2xl) !important;
+
+    & > * {
+      font-weight: 700 !important;
+    }
+  }
+}
+
 .v-dialog__content.v-dialog__content--active {
   position: fixed;
   display: flex;
@@ -139,6 +159,23 @@ html {
 
   to {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1086px) {
+  h1 {
+    font-size: 52px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 32px;
   }
 }
 </style>

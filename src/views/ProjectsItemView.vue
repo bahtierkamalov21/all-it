@@ -14,8 +14,14 @@ div
               class="name white--text font-weight-bold"
               style="box-shadow: var(--shadow-lg)"
             ) {{ project.name }}
-          v-card(elevation="0" class="card-title rounded-lg pa-3") 
-            h1 {{ project.title }}
+          v-card(elevation="0" class="card-title rounded-lg pa-4 mb-6") 
+            h2(class="text-capitalize") {{ project.title }}
+          v-card(class="card-title d-inline-block pa-4 font-weight-bold py-2 rounded-lg mb-4" elevation="0") Дата завершения: 
+          v-card(class="card-title pa-4 font-weight-bold rounded-lg py-2 d-inline-block ml-2") {{ project.data_complete }}
+          div
+            v-card-title(class="pa-0 pl-4 font-weight-bold") Описание
+            v-card(elevation="0" class="card-title description rounded-lg pa-4") 
+              div(class="font-weight-medium") {{ project.description }}
         div(class="right")
           div(class="swiper-project-images rounded-xl")
             div(class="swiper-wrapper")
@@ -38,6 +44,11 @@ div
             v-card(elevation="0" :color="item.color")
               v-card-title(class="white--text card-title") {{ item.stack }}
               v-card-text(class="white card-text pt-2") {{ item.description }}
+      div(class="stack-card py-10 pb-0 px-4")
+        v-card(class="mx-auto stack-card-card rounded-lg mb-10" elevation="0" v-for="item in project.stacks" :key="item.id")
+          div(:style="{background: item.color}")
+            v-card-title(class="white--text font-weight-bold card-title" :color="item.color") {{ item.stack }}
+          v-card-text(class="white card-text font-weight-bold  pt-2") {{ item.description }}
 </template>
 
 <script>
@@ -111,7 +122,8 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
-    height: 490px;
+    height: 530px;
+    max-width: 1160px;
 
     & > *:first-child {
       width: 50%;
@@ -125,6 +137,15 @@ export default {
       position: relative;
     }
   }
+}
+
+h2 {
+  font-size: 28px;
+}
+
+.description {
+  overflow: auto;
+  max-height: 140px;
 }
 
 .main {
@@ -230,6 +251,14 @@ h1 {
   }
 }
 
+.stack-card {
+  display: none;
+
+  &-card {
+    box-shadow: var(--shadow-lg) !important;
+  }
+}
+
 .card-title {
   box-shadow: var(--shadow-lg) !important;
   width: fit-content !important;
@@ -256,6 +285,52 @@ h1 {
 @media screen and (max-width: 1086px) {
   .header {
     padding-top: 106px;
+  }
+
+  .header-wrapper {
+    height: 600px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .stack {
+    display: none;
+
+    &-card {
+      display: block;
+    }
+  }
+
+  .header-wrapper {
+    height: 990px;
+  }
+
+  .header-container {
+    padding: 0 24px !important;
+    backdrop-filter: none;
+
+    & > *:first-child {
+      display: block !important;
+    }
+  }
+
+  .left {
+    width: 100%;
+    margin-bottom: 28px;
+  }
+
+  .right {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header-wrapper {
+    height: 780px;
+  }
+
+  .header-container {
+    padding: 0 20px !important;
   }
 }
 </style>

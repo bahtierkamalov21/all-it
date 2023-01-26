@@ -7,8 +7,6 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    # stacks = serializers.PrimaryKeyRelatedField(many=True, queryset=Project.objects.all())
-
     def validate(self, validated_data):
         if self.context['request'].method == 'POST':
             if Project.objects.filter(fk_user=validated_data["fk_user"], complete=False).exists():

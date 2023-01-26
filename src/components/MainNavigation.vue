@@ -68,7 +68,7 @@ export default {
         },
         {
           name: "about-company",
-          href: "#",
+          href: "#services",
         },
         {
           name: "reviews",

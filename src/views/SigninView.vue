@@ -53,7 +53,7 @@ div
           div(class="text-left mb-4")
             v-btn(
               style="font-size: 12px !important;"
-              class="text-capitalize white--text"
+              class="text-capitalize font-weight-bold white--text"
               rounded 
               @click="loginToPhone = true"
               color="costumBlue"
@@ -66,7 +66,7 @@ div
               span(class="text-lowercase") телефона
             v-btn(
               style="font-size: 12px !important;"
-              class="text-capitalize white--text"
+              class="text-capitalize font-weight-bold white--text"
               rounded 
               @click="loginToPhone = false"
               color="costumBlue"
@@ -77,7 +77,14 @@ div
               span(class="text-lowercase mx-1") по
               span(class="text-lowercase mr-1") имени
               span(class="text-lowercase") пользователя
-          v-btn(@click="signin" class="white--text text-capitalize mt-2" elevation="0" :disabled="!valid" rounded color="costumBlue") Войти
+          v-btn(
+            @click="signin" 
+            class="white--text font-weight-bold text-capitalize mt-2" 
+            elevation="0" 
+            :disabled="!valid" 
+            rounded 
+            color="costumBlue"
+          ) Войти
 </template>
 
 <script>
@@ -213,6 +220,11 @@ export default {
     right: -90px;
     top: 20px;
   }
+}
+
+h1 {
+  font-size: 38px;
+  line-height: initial;
 }
 
 @media screen and (max-width: 1086px) {

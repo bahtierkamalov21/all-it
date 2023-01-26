@@ -2,8 +2,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .models import CustomUser, UserReview, PopularReview, Note, CategoryNote
-from .serializers import CustomUserSerializer, UserReviewSerializer, PopularReviewSerializer, NoteSerializer, CategoryNoteSerializer
+from .models import CustomUser, UserReview, PopularReview
+from .serializers import CustomUserSerializer, UserReviewSerializer, PopularReviewSerializer
 from .permissions import IsAdminUserOrReadOnly
 from django.conf import settings
 import jwt
@@ -23,22 +23,6 @@ class UserReviewViewSet(viewsets.ModelViewSet):
     """
     queryset = UserReview.objects.all()
     serializer_class = UserReviewSerializer
-    permission_classes = [permissions.AllowAny]
-
-class NoteViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Note.objects.all()
-    serializer_class = NoteSerializer
-    permission_classes = [permissions.AllowAny]
-
-class CategoryNoteViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = CategoryNote.objects.all()
-    serializer_class = CategoryNoteSerializer
     permission_classes = [permissions.AllowAny]
 
 class PopularReviewViewSet(viewsets.ModelViewSet):

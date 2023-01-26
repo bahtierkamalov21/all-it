@@ -5,10 +5,10 @@ div
     @getDialogReviews="getDialogReviews" 
     @getHaveReviews="getHaveReviews"
   )
-  dialog-projects(
-    :dialogProjects="dialogProjects" 
-    @getDialogProjects="getDialogProjects"
-  )
+  //- dialog-projects(
+  //-   :dialogProjects="dialogProjects" 
+  //-   @getDialogProjects="getDialogProjects"
+  //- )
   viewing-editing-reviews(
     v-if="haveReviews && user"
     @getHaveReviews="getHaveReviews"
@@ -34,7 +34,7 @@ div
           div(class="ml-auto")
             v-img(src="@/assets/icons/settings-profile.svg")
         v-card(class="d-flex align-start ma-auto px-4" style="margin-top: 86px !important;" elevation="0" max-width="820")
-          v-chip(class="white--text pr-6" color="costumBlue")
+          v-chip(class="white--text font-weight-bold pr-6" color="costumBlue")
             v-icon mdi-information-variant
             | Изменения данных вступят в силу после рассмотрения администрацией
         v-card(class="userdata d-flex align-start ma-auto px-6 mt-6" elevation="0" max-width="720")
@@ -81,7 +81,7 @@ div
             @click="sendMessageInTelegramAbouUpdateUserData" 
             color="costumBlue" 
             rounded 
-            class="white--text text-capitalize" 
+            class="white--text font-weight-bold text-capitalize" 
             elevation="0"
           )
             | Отправить
@@ -96,7 +96,7 @@ div
             @click="dialogReviews = !dialogReviews"
             color="costumBlue" 
             rounded 
-            class="white--text button text-capitalize" 
+            class="white--text button font-weight-bold text-capitalize" 
             elevation="0"
           )
             v-icon(left) mdi-typewriter
@@ -107,39 +107,39 @@ div
             color="costumBlue" 
             @click="dialogViewingEditingReviews = !dialogViewingEditingReviews"
             rounded 
-            class="white--text button text-capitalize" 
+            class="white--text button font-weight-bold text-capitalize" 
             elevation="0"
           )
             v-icon(left) mdi-typewriter
             | Отредактировать
             span(class="text-lowercase ml-1") | посмотреть отзыв
-          v-chip(class="d-block mt-2 pr-6" :class="!addProject ? 'ml-0 mr-auto' : null")
+          v-chip(class="d-block font-weight-bold mt-2 pr-6" :class="!addProject ? 'ml-0 mr-auto' : null")
             v-icon mdi-information-variant
             | Можно оставить только один отзыв
-        div(class="text-right" v-if="addProject")  
-          v-btn( 
-            @click="dialogProjects = !dialogProjects"
-            color="costumBlue" 
-            rounded 
-            class="white--text button text-capitalize" 
-            elevation="0"
-          )
-            v-icon(left) mdi-file-document-edit
-            | Заполнить
-            span(class="text-lowercase ml-1") анкету своего проекта
-          v-chip(class="d-block mt-2 pr-6")
-            v-icon mdi-information-variant
-            | Можно заполнить после завершения текущего проекта
-      profile-projects
+        //- div(class="text-right" v-if="addProject")  
+        //-   v-btn( 
+        //-     @click="dialogProjects = !dialogProjects"
+        //-     color="costumBlue" 
+        //-     rounded 
+        //-     class="white--text button text-capitalize" 
+        //-     elevation="0"
+        //-   )
+        //-     v-icon(left) mdi-file-document-edit
+        //-     | Заполнить
+        //-     span(class="text-lowercase ml-1") анкету своего проекта
+        //-   v-chip(class="d-block mt-2 pr-6")
+        //-     v-icon mdi-information-variant
+        //-     | Можно заполнить после завершения текущего проекта
+      //- profile-projects
 </template>
 
 <script>
 import axios from "axios";
 import LoadingItem from "@/components/LoadingItem";
 import DialogReviews from "@/components/dialogs/DialogReviews";
-import DialogProjects from "@/components/dialogs/DialogProjects";
+// import DialogProjects from "@/components/dialogs/DialogProjects";
 import ViewingEditingReviews from "@/components/dialogs/ViewingEditingReviews";
-import ProfileProjects from "@/components/ProfileProjects";
+// import ProfileProjects from "@/components/ProfileProjects";
 import exitSystem from "@/mixins/exitSystem";
 
 export default {
@@ -179,51 +179,51 @@ export default {
   components: {
     LoadingItem,
     DialogReviews,
-    DialogProjects,
+    // DialogProjects,
     ViewingEditingReviews,
-    ProfileProjects,
+    // ProfileProjects,
   },
   created() {
     this.determineWhetherUserAuthorized();
-    this.getProjectsUser();
+    // this.getProjectsUser();
   },
   methods: {
-    getProjectsUser() {
-      if (localStorage.getItem("user")) {
-        const user_id = JSON.parse(localStorage.getItem("user")).id;
+    // getProjectsUser() {
+    //   if (localStorage.getItem("user")) {
+    //     const user_id = JSON.parse(localStorage.getItem("user")).id;
 
-        axios
-          .get(this.$store.state.api_url + "user_projects/", {
-            params: {
-              user_id: user_id,
-            },
-          })
-          .then((response) => {
-            response.data.forEach((project) => {
-              const stacks = [];
+    //     axios
+    //       .get(this.$store.state.api_url + "user_projects/", {
+    //         params: {
+    //           user_id: user_id,
+    //         },
+    //       })
+    //       .then((response) => {
+    //         response.data.forEach((project) => {
+    //           const stacks = [];
 
-              project.stacks.forEach((stack) => {
-                axios.get(stack).then((response) => {
-                  stacks.push(response.data);
-                });
-              });
+    //           project.stacks.forEach((stack) => {
+    //             axios.get(stack).then((response) => {
+    //               stacks.push(response.data);
+    //             });
+    //           });
 
-              project.stacks = stacks;
-            });
+    //           project.stacks = stacks;
+    //         });
 
-            this.projects = response.data;
+    //         this.projects = response.data;
 
-            // Проверяем на статус complete
-            if (!this.projects.length) {
-              this.addProject = true;
-            } else {
-              this.projects[this.projects.length - 1].complete
-                ? (this.addProject = true)
-                : (this.addProject = false);
-            }
-          });
-      }
-    },
+    //         // Проверяем на статус complete
+    //         if (!this.projects.length) {
+    //           this.addProject = true;
+    //         } else {
+    //           this.projects[this.projects.length - 1].complete
+    //             ? (this.addProject = true)
+    //             : (this.addProject = false);
+    //         }
+    //       });
+    //   }
+    // },
     getDialogViewingEditingReviews(value) {
       this.dialogViewingEditingReviews = value;
     },
@@ -233,9 +233,9 @@ export default {
     getDialogReviews(value) {
       this.dialogReviews = value;
     },
-    getDialogProjects(value) {
-      this.dialogProjects = value;
-    },
+    // getDialogProjects(value) {
+    //   this.dialogProjects = value;
+    // },
     // Determine whether the user is authorized
     determineWhetherUserAuthorized() {
       !localStorage.getItem("user")

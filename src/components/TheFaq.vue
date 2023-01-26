@@ -122,11 +122,6 @@ export default {
   height: 100%;
 }
 
-h2 {
-  font-size: var(--section-title);
-  color: #000000;
-}
-
 ul {
   display: flex;
   flex-direction: column;
@@ -164,7 +159,11 @@ ul {
   }
 }
 
-@media screen and (max-width: 1086px) {
+@media screen and (max-width: 1142px) {
+  .footer-bottom {
+    margin-bottom: 58px;
+  }
+
   .right {
     &-title {
       font-size: 1.5rem;
@@ -173,10 +172,6 @@ ul {
 
   .left {
     width: 100% !important;
-  }
-
-  .faq {
-    padding-bottom: 36px;
   }
 }
 

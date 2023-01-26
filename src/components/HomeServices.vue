@@ -5,11 +5,10 @@ div
       v-container(class="py-16 px-6")
         v-col 
           v-row(class="justify-space-between align-center")
-            h2(class="font-weight-bold")
+            h2(class="font-weight-bold white--text")
               | На чем мы
               br
               | специализируемся?
-            font-awesome-icon(icon="fa-solid fa-circle-check" class="subtitle")
         home-services-swiper(class="my-8")
     home-services-view
 </template>
@@ -27,17 +26,6 @@ export default {
 <style scoped lang="scss">
 .wrapper {
   position: relative;
-}
-
-h2 {
-  color: #ffffff;
-  line-height: var(--section-title);
-  font-size: var(--section-title);
-}
-
-.subtitle {
-  color: #ffffff;
-  font-size: calc(var(--index) * 3.2);
 }
 
 .services {
@@ -64,10 +52,6 @@ h2 {
     & > div {
       padding-bottom: 104px !important;
     }
-  }
-
-  .subtitle {
-    font-size: calc(var(--index) * 4.8);
   }
 }
 </style>

@@ -10,15 +10,15 @@ div
         v-col 
           v-row(class="align-center") 
             div(class="left d-flex flex-column")
-              v-chip(color="primary" class="pr-4" style="width: fit-content;")
+              v-chip(color="primary" class="pr-4 mb-4 font-weight-bold" style="width: fit-content;")
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
-              h1(class="the-title") {{ $t("header__h1") }}
+              h1 {{ $t("header__h1") }}
               h2(class="pa-0")
                 | {{ $t("modern") }}
                 br
                 | {{ $t("projects") }}
-                v-chip(color="costumBlue" class="ml-2 rounded-xl")
+                v-chip(color="costumBlue" class="ml-2 white--text rounded-xl")
                   | WCAG 3.0
               v-btn(
                 class="button-consultation text-capitalize font-weight-bold white--text mt-8"
@@ -55,9 +55,10 @@ export default {
 
   &-wrapper {
     width: 100%;
+    max-width: 1160px;
     display: flex;
     align-items: center;
-    height: 620px;
+    height: 600px;
 
     & > *:first-child {
       width: 50%;
@@ -86,50 +87,23 @@ export default {
   }
 }
 
-.the-title {
-  font-size: var(--size-title);
-}
-
 .bottom {
   padding-top: auto;
 }
 
 h2 {
-  font-size: calc(var(--index) * 2.8);
   padding: 10px;
   padding-right: 20px;
-  line-height: calc(var(--index) * 2.8);
   display: inline-block;
 
   & > *:last-child {
-    font-size: calc(var(--index) * 1.2);
-    padding: calc(var(--index) * 1.2);
-    color: #ffffff;
-  }
-}
-
-@media screen and (min-width: 1420px) {
-  .header {
-    padding-bottom: 22px;
-  }
-}
-
-@media screen and (min-width: 1620px) {
-  .header {
-    padding-bottom: 42px;
-  }
-}
-
-@media screen and (min-width: 1760px) {
-  .header {
-    padding-bottom: 72px;
   }
 }
 
 @media screen and (max-width: 1086px) {
   .header {
     &-wrapper {
-      height: 560px;
+      height: 590px;
     }
 
     &-container {
@@ -141,7 +115,7 @@ h2 {
 @media screen and (max-width: 600px) {
   .header {
     &-wrapper {
-      height: 500px;
+      height: 540px;
 
       & > *:first-child {
         width: 0;

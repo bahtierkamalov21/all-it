@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  v-card(class="rounded-xl" elevation="0")
+  v-card(class="rounded-xl" elevation="0" :style="shadow ? 'box-shadow: var(--shadow-lg) !important' : null")
     ul(class="d-flex align-center px-2 pb-2")
       li(class="mt-2")
         v-chip(@click="setActiveCategory(126, allProjects)" class="mr-2" :class="{'active' : activeIndexCategory === 126}") Все проекты
@@ -24,6 +24,7 @@ export default {
   },
   props: {
     checkUrl: Boolean,
+    shadow: Boolean,
   },
   created() {
     this.getCategoriesWithProjectsArray();

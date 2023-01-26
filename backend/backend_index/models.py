@@ -8,7 +8,6 @@ def projectImagePath(instance, filename):
 # Create your models here.
 
 # Категории
-
 class Category(models.Model):
     title = models.CharField(max_length=56, verbose_name="Категория")
     projects = models.ManyToManyField(
@@ -24,10 +23,10 @@ class Category(models.Model):
 
 # Проекты которые были созданы!!!
 # По возможности можно добавить пользователя, заявка которого была принята - проект создан.
-
 class Project(models.Model):
     fk_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=True)
     title = models.CharField(max_length=256, verbose_name="Заголовок проекта")
+    data_complete = models.CharField(max_length=28, verbose_name="Дата завершения проекта")
     name = models.CharField(max_length=56, verbose_name="Имя проекта")
     link_path = models.SlugField(max_length=32, verbose_name="Api проекта")
     stacks = models.ManyToManyField("Stack", blank=True, null=True)
@@ -46,7 +45,6 @@ class Project(models.Model):
         verbose_name_plural = "Проекты"
 
 # Технологии
-
 class Stack(models.Model):
     stack = models.CharField(max_length=32, verbose_name="Технология")
     color = models.CharField(max_length=12, verbose_name="Цвет")
@@ -60,7 +58,6 @@ class Stack(models.Model):
         verbose_name_plural = "Технологии"
         
 # Изображения проектов
-
 class ProjectImage(models.Model):
     title = models.CharField(max_length=256, verbose_name="Название")
     fk_project = models.ForeignKey(Project, on_delete=models.CASCADE)

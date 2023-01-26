@@ -7,6 +7,7 @@ div
     home-services
     home-reviews
     home-projects
+    home-cost-sites
     home-forms
 </template>
 
@@ -18,6 +19,7 @@ import HomeServices from "@/components/HomeServices";
 import HomeReviews from "@/components/HomeReviews";
 import HomeProjects from "@/components/HomeProjects";
 import HomeForms from "@/components/HomeForms";
+import HomeCostSites from "@/components/HomeCostSites";
 
 export default {
   name: "HomeView",
@@ -31,6 +33,7 @@ export default {
     HomeServices,
     HomeReviews,
     HomeForms,
+    HomeCostSites,
   },
   mixins: [updateTitle],
   created() {

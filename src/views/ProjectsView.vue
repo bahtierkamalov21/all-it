@@ -9,12 +9,12 @@ div(class="main")
           | /
           span(class="ml-1" style="font-size: 14px;") Выполнено проектов более 100+
         v-card(class="main-card rounded-xl ma-auto pb-6" max-width="1160")
-          div(class="pa-4")
-            home-projects-navigation(@sendProjects="getProjects" @sendPage="getPage" checkUrl)
+          div(class="pa-4 navbar")
+            home-projects-navigation(:shadow="true" @sendProjects="getProjects" @sendPage="getPage" checkUrl)
           div(class="ma-auto pa-6")
             div(class="d-flex flex-column flex-wrap")
               home-projects-card(v-for="project in forProjects" :key="project.url" :project="project")
-          v-pagination(:length="lengthPages" v-model="page")
+          v-pagination(circle :length="lengthPages" v-model="page")
 </template>
 
 <script>
@@ -46,11 +46,11 @@ export default {
     page() {
       if (this.page_copy < this.page) {
         this.sliceEnd = this.sliceEnd * this.page;
-        this.sliceStart = this.sliceStart + 9;
+        this.sliceStart = this.sliceStart + 6;
         this.page_copy = this.page;
       } else {
         this.sliceEnd = this.sliceEnd / this.page_copy;
-        this.sliceStart = this.sliceStart - 9;
+        this.sliceStart = this.sliceStart - 6;
         this.page_copy = this.page;
       }
     },
@@ -112,6 +112,11 @@ export default {
   }
 }
 
+h1 {
+  font-size: 38px;
+  line-height: initial;
+}
+
 @media screen and (max-width: 1086px) {
   .header {
     padding-top: 106px;
@@ -129,8 +134,6 @@ export default {
 @media screen and (max-width: 600px) {
   .main-card {
     & > *:nth-child(2) {
-      padding: 8px !important;
-
       & > *:first-child {
         justify-content: center;
       }

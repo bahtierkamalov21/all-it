@@ -12,7 +12,7 @@ div
             p(class="mb-6 white--text")
               | Наша команда с 2017 года профессионально занимается разработкой
               | IT-решений
-            router-link(to="/about-us" class="text-decoration-none font-weight-medium white--text") Узнать больше
+            router-link(to="/about-us" class="text-decoration-none font-weight-bold white--text") Узнать больше
           v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-cloud" class="fa-3x white--text mb-4")
             h3(class="mb-4 white--text") Digital-решения
@@ -20,7 +20,7 @@ div
               | Создаем и поддерживаем IT-решения различного уровня сложности,
               | включая Highload проекты. Поддерживаем проекты по формату Time &
               | Material.
-            router-link(to="/about-us" class="text-decoration-none font-weight-medium white--text") Узнать больше
+            router-link(to="/about-us" class="text-decoration-none font-weight-bold white--text") Узнать больше
           v-card(class="about-card text-center rounded-lg")
             font-awesome-icon(icon="fa-solid fa-globe" class="fa-3x mb-4")
             h3(class="mb-4 font-weight-bold") IT-консалтинг
@@ -28,7 +28,7 @@ div
               | Оказываем комплексный IT-консалтинг для наших клиентов (от стадии
               | прототипирования до полноценного выпуска продукта на рынок).
               | Поддерживаем проект после его сдачи.
-            router-link(to="/about-us" class="text-decoration-none font-weight-medium") Узнать больше
+            router-link(to="/about-us" class="text-decoration-none font-weight-bold") Узнать больше
 </template>
 
 <script>
@@ -111,6 +111,10 @@ export default {
       text-decoration: none;
     }
   }
+}
+
+p {
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1086px) {

@@ -123,10 +123,6 @@ export default {
   overflow: hidden;
 }
 
-h2 {
-  font-size: var(--section-title);
-}
-
 .container {
   position: absolute;
   padding: 32px;
