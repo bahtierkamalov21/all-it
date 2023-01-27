@@ -14,7 +14,7 @@ div
               solo 
               hide-details
             )
-          div(class="d-flex flex-wrap justify-space-between")
+          div(class="d-flex flex-wrap justify-space-between" style="gap: 16px;")
             div(class="d-flex align-center")
               v-chip(color="costumBlue" class="white--text font-weight-bold mr-2") Рейтинг
               div(class="rating")

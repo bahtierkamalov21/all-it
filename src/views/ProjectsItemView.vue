@@ -43,12 +43,12 @@ div
           v-timeline-item(v-for="item in project.stacks" :key="item.id")
             v-card(elevation="0" :color="item.color")
               v-card-title(class="white--text card-title") {{ item.stack }}
-              v-card-text(class="white card-text pt-2") {{ item.description }}
+              v-card-text(class="white black--text card-text pt-2") {{ item.description }}
       div(class="stack-card py-10 pb-0 px-4")
         v-card(class="mx-auto stack-card-card rounded-lg mb-10" elevation="0" v-for="item in project.stacks" :key="item.id")
           div(:style="{background: item.color}")
             v-card-title(class="white--text font-weight-bold card-title" :color="item.color") {{ item.stack }}
-          v-card-text(class="white card-text font-weight-bold  pt-2") {{ item.description }}
+          v-card-text(class="white black--text card-text font-weight-bold  pt-2") {{ item.description }}
 </template>
 
 <script>
