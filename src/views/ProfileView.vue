@@ -141,6 +141,7 @@ import DialogReviews from "@/components/dialogs/DialogReviews";
 import ViewingEditingReviews from "@/components/dialogs/ViewingEditingReviews";
 // import ProfileProjects from "@/components/ProfileProjects";
 import exitSystem from "@/mixins/exitSystem";
+import updateTitle from "@/mixins/updateTitle";
 
 export default {
   name: "ProfileView",
@@ -159,7 +160,7 @@ export default {
       phoneRules: [
         (v) => this.phone_regex.test(v) || "Неверно введен номер телефона",
       ],
-      telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
+      telegram_username_regex: /^@[A-Za-z\d_]{2,32}$/,
       telegramUsernameRules: [
         (v) =>
           this.telegram_username_regex.test(v) ||
@@ -175,7 +176,7 @@ export default {
       this.getUserData();
     },
   },
-  mixins: [exitSystem],
+  mixins: [exitSystem, updateTitle],
   components: {
     LoadingItem,
     DialogReviews,
@@ -185,6 +186,7 @@ export default {
   },
   created() {
     this.determineWhetherUserAuthorized();
+    this.updateTitle("Profile");
     // this.getProjectsUser();
   },
   methods: {
@@ -251,12 +253,15 @@ export default {
     changeAvatar() {
       const file = this.$refs.inputAvatar.files[0];
       const formData = new FormData();
+
+      // FormData
       formData.append("avatar", file);
       formData.append("username", this.user.username);
       formData.append("password", this.user.password);
       formData.append("telegram_username", this.user.telegram_username);
       formData.append("phone", this.user.phone);
       formData.append("is_active", true);
+
       const decoded = JSON.parse(localStorage.getItem("decoded"));
       axios
         .put(this.$store.state.api_url + `users/${decoded.user_id}/`, formData)
@@ -277,7 +282,7 @@ export default {
           this.$store.commit("setUser", JSON.stringify(response.data));
 
           this.user = response.data;
-          this.user_copied = response.data;
+          this.user_copied = { ...this.user };
 
           // Сохранение отзыва пользователя
           this.haveReviews = response.data.review;
@@ -286,31 +291,72 @@ export default {
           console.log(errors);
         });
     },
+    sendTelegramMessage(listData) {
+      // Отправка сообщения в телеграмм
+      this.message = `<b>Уведомление</b>\n`;
+      this.message += `<b>Telegram username отправителя: ${this.user_copied.username}</b>\n`;
+      this.message += `<b>API id пользователя: ${this.user.id}</b>\n`;
+      this.message += `<b>Требует смену данных профиля на: </b>\n`;
+      this.message += `<b>${JSON.stringify(listData)}</b>`;
+      const api_url = `https://api.telegram.org/bot${this.$store.state.token}/sendMessage`;
+      axios
+        .post(api_url, {
+          chat_id: this.$store.state.chat_id,
+          parse_mode: "html",
+          text: this.message,
+        })
+        .then(() => {})
+        .catch((errors) => {
+          console.log(errors);
+        });
+    },
     sendMessageInTelegramAbouUpdateUserData() {
       if (this.$refs.form.validate()) {
         let listData = {};
-        // Проверка входных данных
+
+        // Если пользователь изменил поля first_name и last_name
+        // Тогда обновляем данные пользователя без отправки запроса на изменение в telegram
+        if (
+          this.user["first_name"] !== this.user_copied["first_name"] ||
+          this.user["last_name"] !== this.user_copied["last_name"]
+        ) {
+          const formData = new FormData();
+
+          // FormData
+          formData.append("first_name", this.user.first_name);
+          formData.append("last_name", this.user.last_name);
+          formData.append("username", this.user.username);
+          formData.append("password", this.user.password);
+          formData.append("telegram_username", this.user.telegram_username);
+          formData.append("phone", this.user.phone);
+          formData.append("is_active", true);
+
+          const decoded = JSON.parse(localStorage.getItem("decoded"));
+          axios
+            .put(
+              this.$store.state.api_url + `users/${decoded.user_id}/`,
+              formData
+            )
+            .then(() => {
+              this.user_copied.first_name = this.user.first_name;
+              this.user_copied.last_name = this.user.last_name;
+            })
+            .catch((errors) => {
+              console.log(errors);
+            });
+        }
+
+        // Иначе проверка входных данных
         for (const key in this.user) {
-          if (this.user[key] !== this.user_copied[key]) {
-            listData[key] = this.user[key];
+          if (key !== "first_name" && key !== "last_name") {
+            if (this.user[key] !== this.user_copied[key]) {
+              listData[key] = this.user[key];
+
+              // Отправка сообщения в telegram
+              this.sendTelegramMessage(listData);
+            }
           }
         }
-        // Отправка сообщения в телеграмм
-        this.message = `<b>Telegram username отправителя: ${this.user_copied.username}</b>\n`;
-        this.message += `<b>API id пользователя: ${this.user.id}</b>\n`;
-        this.message += `<b>Требует смену данных профиля на: </b>\n`;
-        this.message += `<b>${JSON.stringify(listData)}</b>`;
-        const api_url = `https://api.telegram.org/bot${this.$store.state.token}/sendMessage`;
-        axios
-          .post(api_url, {
-            chat_id: this.$store.state.chat_id,
-            parse_mode: "html",
-            text: this.message,
-          })
-          .then(() => {})
-          .catch((errors) => {
-            console.log(errors);
-          });
       } else this.update = false;
     },
   },

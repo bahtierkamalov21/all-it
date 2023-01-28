@@ -3,7 +3,7 @@ div
   div(class="faq" id="support")
     v-container(class="pt-16 pb-12 px-6 container")
       div(class="mb-2 header")
-        h2 {{ escaped }}
+        h2(class="black--text") {{ escaped }}
       v-col
         v-row(class="align-start justify-space-between")
           div(class="left mb-2")

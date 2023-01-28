@@ -47,6 +47,15 @@ div
             @input="changeInput"
           )
           v-text-field(
+            v-model="email" 
+            label="Email" 
+            solo
+            class="input"
+            :error-messages="errorEmail"
+            :rules="emailRules"
+            @input="changeInput"
+          )
+          v-text-field(
             v-model="phone" 
             label="Телефон"
             required
@@ -82,7 +91,13 @@ export default {
       username: null,
       password: null,
       telegramUsername: null,
+      errorEmail: null,
       phone: null,
+      email: null,
+      emailRules: [
+        (v) => !!v || "Email обязателен",
+        (v) => /.+@.+\..+/.test(v) || "Не корректный email",
+      ],
       error: null,
       errorPhone: null,
       errorTelegram: null,
@@ -97,7 +112,7 @@ export default {
           this.password_regex.test(v) ||
           "Пароль должен состоять из 6 цифр и латинских букв",
       ],
-      telegram_username_regex: /^@[A-Za-z\d_]{5,32}$/,
+      telegram_username_regex: /^@[A-Za-z\d_]{2,32}$/,
       telegramUsernameRules: [
         (v) => {
           if (!v) return true;
@@ -132,6 +147,7 @@ export default {
             username: this.username,
             password: this.password,
             telegram_username: this.telegramUsername,
+            email: this.email,
             phone: this.phone,
             is_active: true,
           })
@@ -172,6 +188,8 @@ export default {
               this.errorPhone = errors.response.data.phone;
             } else if (errors.response.data.telegram_username) {
               this.errorTelegram = errors.response.data.telegram_username;
+            } else if (errors.response.data.email) {
+              this.errorEmail = errors.response.data.email;
             }
           });
       }

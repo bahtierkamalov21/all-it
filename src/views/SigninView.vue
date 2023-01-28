@@ -2,89 +2,100 @@
 div
   header(class="header pb-12")
     v-container
-      v-card(class="card text-center mx-auto pa-6 rounded-xl" max-width="420")
-        v-chip(color="costumBlue")
-          router-link(to="signup" class="text-decoration-none font-weight-bold white--text") Зарегистрироваться?
-        h1 Login
-        sign-complete(v-if="complete")
-        v-form(v-else ref="form" class="mt-6" v-model="valid" lazy-validation @submit.prevent="signin")
-          div(v-if="loginToPhone")
-            v-text-field(
-              v-model="phone" 
-              label="Номер телефона"
-              solo
-              @input="changeInput"
-              :rules="phoneRules"
-              class="input"
-              :error-messages="error"
-              autocomplete="phone"
-            )
-            v-text-field(
-              v-model="password" 
-              label="Пароль"
-              :rules="passwordRules"
-              solo
-              @input="changeInput"
-              class="input"
-              :error-messages="error"
-              autocomplete="current-password"
-            )
-          div(v-else)
-            v-text-field(
-              v-model="username" 
-              label="Имя пользователя"
-              :rules="[(v) => !!v || 'Имя пользователя обязательно']"
-              solo
-              @input="changeInput"
-              class="input"
-              :error-messages="error"
-              autocomplete="username"
-            )
-            v-text-field(
-              v-model="password" 
-              label="Пароль"
-              :rules="passwordRules"
-              solo
-              @input="changeInput"
-              class="input"
-              :error-messages="error"
-              autocomplete="current-password"
-            )
-          div(class="text-left mb-4")
+      div(style="max-width: 420px; margin: auto;")
+        v-card(class="card text-center mx-auto pa-6 rounded-xl")
+          v-chip(color="costumBlue")
+            router-link(to="signup" class="text-decoration-none font-weight-bold white--text") Зарегистрироваться?
+          h1 Login
+          sign-complete(v-if="complete")
+          v-form(v-else ref="form" class="mt-6" v-model="valid" lazy-validation @submit.prevent="signin")
+            div(v-if="loginToPhone")
+              v-text-field(
+                v-model="phone" 
+                label="Номер телефона"
+                solo
+                @input="changeInput"
+                :rules="phoneRules"
+                class="input"
+                :error-messages="error"
+                autocomplete="phone"
+              )
+              v-text-field(
+                v-model="password" 
+                label="Пароль"
+                :rules="passwordRules"
+                solo
+                @input="changeInput"
+                class="input"
+                :error-messages="error"
+                autocomplete="current-password"
+              )
+            div(v-else)
+              v-text-field(
+                v-model="username" 
+                label="Имя пользователя"
+                :rules="[(v) => !!v || 'Имя пользователя обязательно']"
+                solo
+                @input="changeInput"
+                class="input"
+                :error-messages="error"
+                autocomplete="username"
+              )
+              v-text-field(
+                v-model="password" 
+                label="Пароль"
+                :rules="passwordRules"
+                solo
+                @input="changeInput"
+                class="input"
+                :error-messages="error"
+                autocomplete="current-password"
+              )
+            div(class="text-left mb-4")
+              v-btn(
+                style="font-size: 12px !important;"
+                class="text-capitalize font-weight-bold white--text"
+                rounded 
+                @click="loginToPhone = true"
+                color="costumBlue"
+                elevation="0"
+                v-if="!loginToPhone"
+              )
+                | Войти
+                span(class="text-lowercase mx-1") по
+                span(class="text-lowercase mr-1") номеру
+                span(class="text-lowercase") телефона
+              v-btn(
+                style="font-size: 12px !important;"
+                class="text-capitalize font-weight-bold white--text"
+                rounded 
+                @click="loginToPhone = false"
+                color="costumBlue"
+                elevation="0"
+                v-else
+              )
+                | Войти
+                span(class="text-lowercase mx-1") по
+                span(class="text-lowercase mr-1") имени
+                span(class="text-lowercase") пользователя
             v-btn(
-              style="font-size: 12px !important;"
-              class="text-capitalize font-weight-bold white--text"
+              @click="signin" 
+              class="white--text font-weight-bold text-capitalize mt-2" 
+              elevation="0" 
+              :disabled="!valid" 
               rounded 
-              @click="loginToPhone = true"
               color="costumBlue"
-              elevation="0"
-              v-if="!loginToPhone"
-            )
-              | Войти
-              span(class="text-lowercase mx-1") по
-              span(class="text-lowercase mr-1") номеру
-              span(class="text-lowercase") телефона
-            v-btn(
-              style="font-size: 12px !important;"
-              class="text-capitalize font-weight-bold white--text"
-              rounded 
-              @click="loginToPhone = false"
-              color="costumBlue"
-              elevation="0"
-              v-else
-            )
-              | Войти
-              span(class="text-lowercase mx-1") по
-              span(class="text-lowercase mr-1") имени
-              span(class="text-lowercase") пользователя
-          v-btn(
-            @click="signin" 
-            class="white--text font-weight-bold text-capitalize mt-2" 
-            elevation="0" 
-            :disabled="!valid" 
-            rounded 
-            color="costumBlue"
-          ) Войти
+            ) Войти
+        v-btn(
+          v-if="false"
+          style="font-size: 12px !important;"
+          class="text-capitalize font-weight-bold white--text mt-2 ml-6"
+          rounded 
+          elevation="0"
+          color="costumBlue"
+          @click="$router.push('/restore')"
+        ) Забыли
+          span(class="ml-1 text-lowercase") пароль?
 </template>
 
 <script>

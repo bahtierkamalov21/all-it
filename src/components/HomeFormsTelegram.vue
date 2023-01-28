@@ -2,7 +2,14 @@
 div
   v-col 
     v-row(class="container ma-0")
-      div(class="left rounded-xl pa-12")
+      div(class="left left-complete text-center rounded-xl pa-12" v-if="send")
+        div(class="font-weight-bold text-center text-uppercase mb-6")
+          | Спасибо за заявку
+        v-icon(color="green") mdi-check-decagram
+        v-card-text Ожидайте
+          br
+          | скоро оператор свяжется с вами 
+      div(class="left rounded-xl pa-12" v-if="!send")
         div(class="font-weight-bold text-center text-uppercase mb-6")
           | Отправте заявку в Telegram
           br
@@ -10,7 +17,7 @@ div
         v-form(class="text-center" ref="form" v-model="valid" lazy-validation @submit.prevent="submitForm")
           v-text-field(
             v-model="username"
-            :rules="[v => !!v || '']"
+            :rules="telegramUsernameRules"
             required
             hide-details
             solo
@@ -48,6 +55,7 @@ export default {
   name: "HomeFormsTelegram",
   data() {
     return {
+      send: false,
       radios: null,
       agree: false,
       message: null,
@@ -59,14 +67,25 @@ export default {
         (v) => !!v || "Номер телефона обязателен",
         (v) => this.regex.test(v) || "Неверно введен номер телефона",
       ],
+      telegram_username_regex: /^@[A-Za-z\d_]{2,32}$/,
+      telegramUsernameRules: [
+        (v) => {
+          if (!v) return true;
+          return (
+            this.telegram_username_regex.test(v) ||
+            "Неверно введен telegram username"
+          );
+        },
+      ],
     };
   },
   methods: {
     submitForm() {
       if (this.$refs.form.validate()) {
-        this.message = `<b>Telegram username отправителя: ${this.username}</b>\n`;
-        this.message += `<b>Номер телефона отправителя: ${this.phone}</b>\n`;
-        this.message += `<b>Заказчик: ${this.radios}</b>\n`;
+        this.message = `<b>Заявка с сайта BMM LITER!!!</b>\n\n`;
+        this.message += `<b>Telegram username: </b><i>${this.username}</i>\n`;
+        this.message += `<b>Номер телефона отправителя: </b><i>${this.phone}</i>\n`;
+        this.message += `<b>Заказчик: </b><i>${this.radios}</i>\n`;
         const api_url = `https://api.telegram.org/bot${this.$store.state.token}/sendMessage`;
         axios
           .post(api_url, {
@@ -79,6 +98,7 @@ export default {
             this.phone = null;
             this.username = null;
             this.radios = null;
+            this.send = true;
           })
           .catch((errors) => {
             console.log(errors);
@@ -110,6 +130,14 @@ export default {
 
   & > *:first-child {
     color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.left-complete {
+  & > *:nth-child(2) {
+    margin-top: 70px;
+    margin-bottom: 76px;
+    font-size: 82px !important;
   }
 }
 

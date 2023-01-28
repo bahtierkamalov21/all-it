@@ -32,6 +32,15 @@ class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
         # Сохранение изменений
         return CustomUser.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        # Хеширование пароля
+        password = validated_data.pop("password", None)
+        if password:
+            hashed_password = make_password(password)
+            validated_data["password"] = hashed_password
+        # Сохранение изменений
+        return super().update(instance, validated_data)
+
     class Meta:
         model = CustomUser
         fields = ("url", "id", "is_active", "is_staff", "is_superuser", "first_name", "last_name", "username", "telegram_username", "password", "email", "avatar", "phone", "review")

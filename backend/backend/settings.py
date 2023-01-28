@@ -206,11 +206,9 @@ PASSWORD_HASHERS = [
 ]
 
 # Email settings
-DEFAULT_FROM_EMAIL = 'bahtierkamalov21@gmail.com'
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bahtierkamalov21@gmail.com'
-EMAIL_HOST_PASSWORD = 'ba819063'
 EMAIL_PORT = 587
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'bahtierkamalov21@gmail.com'
+EMAIL_HOST_PASSWORD = 'oawupetjhutzabuc'
