@@ -314,6 +314,8 @@ export default {
       if (this.$refs.form.validate()) {
         let listData = {};
 
+        // Если пользователь изменил поля first_name и last_name
+        // Тогда обновляем данные пользователя без отправки запроса на изменение в telegram
         if (
           this.user["first_name"] !== this.user_copied["first_name"] ||
           this.user["last_name"] !== this.user_copied["last_name"]
@@ -344,11 +346,13 @@ export default {
             });
         }
 
-        // Проверка входных данных
+        // Иначе проверка входных данных
         for (const key in this.user) {
           if (key !== "first_name" && key !== "last_name") {
             if (this.user[key] !== this.user_copied[key]) {
               listData[key] = this.user[key];
+
+              // Отправка сообщения в telegram
               this.sendTelegramMessage(listData);
             }
           }

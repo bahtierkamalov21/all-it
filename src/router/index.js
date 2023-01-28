@@ -7,6 +7,7 @@ import ProfileView from "../views/ProfileView.vue";
 import SigninView from "../views/SigninView.vue";
 import SignupView from "../views/SignupView.vue";
 import PageNotFound from "../views/PageNotFound.vue";
+import RestorePassword from "../views/RestorePassword.vue";
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,11 @@ const routes = [
     path: "/projects/:slug",
     name: "project",
     component: ProjectsItemView,
+  },
+  {
+    path: "/restore",
+    name: "restore",
+    component: RestorePassword,
   },
 ];
 
