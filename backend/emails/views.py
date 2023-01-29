@@ -37,14 +37,18 @@ def reset_password_and_email_send_code(request):
             html_message = template.render({'code': code})
 
             # Экземпляр письма
-            send_mail(
-                subject="Код подтверждения",
-                message="Код подтверждения",
-                html_message=html_message,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[userEmail],
-                fail_silently=False
-            )
+            try:
+                mail_result = send_mail(
+                    subject="Код подтверждения",
+                    message="Код подтверждения",
+                    html_message=html_message,
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[userEmail],
+                    fail_silently=False
+                )
+                print(mail_result)
+            except:
+                print("Код не отправлен на почту")
 
             # Отправляем код на фронт для валидации
             return Response(code, status=200)
