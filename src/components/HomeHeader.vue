@@ -10,7 +10,7 @@ div
         v-col 
           v-row(class="align-center") 
             div(class="left d-flex flex-column")
-              v-chip(color="primary" class="pr-4 mb-4 font-weight-bold" style="width: fit-content;")
+              v-chip(color="primary" class="pr-4 mb-4 chip font-weight-bold" style="width: fit-content;")
                 v-icon(class="status mr-2") mdi-star-check
                 | Frontend Backend | Web Developers
               h1 {{ $t("header__h1") }}
@@ -130,6 +130,10 @@ h2 {
       padding: 18px;
       backdrop-filter: none;
     }
+  }
+
+  .chip {
+    font-size: 12px !important;
   }
 
   h2 {
