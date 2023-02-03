@@ -93,7 +93,8 @@ export default {
   right: -62px;
   bottom: -32px;
   opacity: 0;
-  width: 50vw;
+  width: 560px;
+  height: 560px;
   transition: all 0.5s ease-in-out;
 }
 

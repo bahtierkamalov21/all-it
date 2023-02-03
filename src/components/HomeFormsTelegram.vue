@@ -146,6 +146,12 @@ input {
   height: 48px;
 }
 
+@media screen and (min-width: 1142px) {
+  .right-icon {
+    font-size: 10rem;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .container {
     flex-direction: column-reverse;
