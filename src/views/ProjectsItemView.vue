@@ -20,8 +20,8 @@ div
           v-card(class="card-title pa-4 font-weight-bold rounded-lg py-2 d-inline-block ml-2") {{ project.data_complete }}
           div
             v-card-title(class="pa-0 pl-4 font-weight-bold") Описание
-            v-card(elevation="0" class="card-title description rounded-lg pa-4") 
-              div(class="font-weight-medium") {{ project.description }}
+            v-card(elevation="0" class="card-title rounded-lg pa-4 pr-0") 
+              div(class="font-weight-medium description pr-4") {{ project.description }}
         div(class="right")
           div(class="swiper-project-images rounded-xl")
             div(class="swiper-wrapper")
@@ -325,6 +325,10 @@ h1 {
 }
 
 @media screen and (max-width: 600px) {
+  .description {
+    max-height: 100px;
+  }
+
   .header-wrapper {
     height: 780px;
   }
