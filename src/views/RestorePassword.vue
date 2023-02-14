@@ -24,55 +24,55 @@ div
               div(class="left-complete pa-12 pb-0" v-if="complete")
                 v-icon(color="green") mdi-check-decagram
                 v-card-text Ура, через 2 секунды станица будет перезагружена
-              div(v-if="stage === 1")
-                div(class="font-weight-bold pl-4 text-left") Введите Email вашего аккаунта
-                v-text-field(
-                  solo 
-                  label="Email"
-                  @input="changeInput"
-                  class="input"
-                  v-model="email"
-                  :rules="emailRules"
-                  :error-messages="errorEmail"
-                )
-              div(v-if="stage === 2")
-                div(class="font-weight-bold pl-4 text-left") Код отправлен вам на почту
-                div(class="ma-auto" style="max-width: 300px; position: relative;")
-                  v-otp-input(
-                    v-model="code"
-                    :disabled="loading"
-                    dark 
+              v-window(v-model="stage")
+                v-window-item(:value="1")
+                  div(class="font-weight-bold pl-4 text-left") Введите Email вашего аккаунта
+                  v-text-field(
+                    solo 
+                    label="Email"
                     @input="changeInput"
-                    length="4"
-                    @finish="valid = true"
+                    class="input"
+                    v-model="email"
+                    :rules="emailRules"
+                    :error-messages="errorEmail"
                   )
-                    v-overlay(absolute :value="loading")
-                      v-progress-circular(indeterminate color="primary")
-                  div(class="text-left font-weight-bold red--text mb-4") {{ errorOtp }}
-                  v-btn(@click="repeatCode" text class="text-capitalize mb-4" style="font-size: 12px;" v-if="errorOtp && !disabled")
-                    | Запросить
-                    span(class="mx-1 text-lowercase") код
-                    span(class="text-lowercase") повторно
-                  div(v-if="disabled" class="font-weight-bold text-center mb-6") Запросить код можно будет через 20 секунд
-              div(v-if="stage === 3 && !complete")
-                div(class="font-weight-bold pl-4 text-left") Новый пароль
-                v-text-field(
-                  solo 
-                  label="Пароль"
-                  @input="changeInput"
-                  class="input"
-                  v-model="password"
-                  :rules="passwordRules" 
-                )
-              v-btn(
-                :disabled="!valid" 
-                class="text-capitalize white--text font-weight-bold" 
-                rounded 
-                v-if="!complete"
-                @click="nextStep(stage)"
-                color="costumBlue"
-              ) Далее
-
+                v-window-item(:value="2")
+                  div(class="font-weight-bold pl-4 text-left") Код отправлен вам на почту
+                  div(class="ma-auto" style="max-width: 300px; position: relative;")
+                    v-otp-input(
+                      v-model="code"
+                      :disabled="loading"
+                      dark 
+                      @input="changeInput"
+                      length="4"
+                      @finish="valid = true"
+                    )
+                      v-overlay(absolute :value="loading")
+                        v-progress-circular(indeterminate color="primary")
+                    div(class="text-left font-weight-bold red--text mb-4") {{ errorOtp }}
+                    v-btn(@click="repeatCode" text class="text-capitalize mb-4" style="font-size: 12px;" v-if="errorOtp && !disabled")
+                      | Запросить
+                      span(class="mx-1 text-lowercase") код
+                      span(class="text-lowercase") повторно
+                    div(v-if="disabled" class="font-weight-bold text-center mb-6") Запросить код можно будет через 20 секунд
+                v-window-item(:value="3 && !complete")
+                  div(class="font-weight-bold pl-4 text-left") Новый пароль
+                  v-text-field(
+                    solo 
+                    label="Пароль"
+                    @input="changeInput"
+                    class="input"
+                    v-model="password"
+                    :rules="passwordRules" 
+                  )
+                v-btn(
+                  :disabled="!valid" 
+                  class="text-capitalize white--text font-weight-bold" 
+                  rounded 
+                  v-if="!complete"
+                  @click="nextStep(stage)"
+                  color="costumBlue"
+                ) Далее
 </template>
 
 <script>
