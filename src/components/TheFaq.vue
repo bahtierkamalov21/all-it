@@ -5,7 +5,7 @@ div
       div(class="mb-2 header")
         h2(class="black--text") {{ escaped }}
       v-col
-        v-row(class="align-start justify-space-between")
+        v-row(class="align-start faq-content justify-space-between")
           div(class="left mb-2")
             v-list
               v-list-group(
@@ -128,10 +128,6 @@ ul {
   gap: 12px;
 }
 
-.left {
-  width: 60%;
-}
-
 .footer-bottom {
   background-color: #212121;
   box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.2);
@@ -148,30 +144,24 @@ ul {
   line-height: 20px;
 }
 
+.faq-content {
+  & > * {
+    &:first-child {
+      flex: 1 1 !important;
+    }
+
+    flex: 0 0;
+  }
+}
+
 .right {
   &-title {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     color: #000000;
   }
 
   &-icon {
     font-size: 20px !important;
-  }
-}
-
-@media screen and (max-width: 1142px) {
-  .footer-bottom {
-    margin-bottom: 58px;
-  }
-
-  .right {
-    &-title {
-      font-size: 1.5rem;
-    }
-  }
-
-  .left {
-    width: 100% !important;
   }
 }
 
