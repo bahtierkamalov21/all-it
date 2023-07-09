@@ -142,7 +142,7 @@ export default {
       if (this.$refs.form.validate()) {
         axios
           .post(this.$store.state.api_url + "users/", {
-            firts_name: this.first_name,
+            first_name: this.first_name,
             last_name: this.last_name,
             username: this.username,
             password: this.password,

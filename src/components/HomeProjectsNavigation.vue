@@ -3,9 +3,9 @@ div
   v-card(class="rounded-xl" elevation="0" :style="shadow ? 'box-shadow: var(--shadow-lg) !important' : null")
     ul(class="d-flex align-center px-2 pb-2")
       li(class="mt-2")
-        v-chip(@click="setActiveCategory(126, allProjects)" class="mr-2" :class="{'active' : activeIndexCategory === 126}") Все проекты
-      li(class="mt-2" v-for="link, index in links" :key="link.prefix")
-        v-chip(@click="setActiveCategory(index, link.projects)" class="mr-2" :class="{'active' : activeIndexCategory === index}") {{ link.title }}
+        v-chip(@click="setActiveCategory(126, allProjects)" class="link mr-2" :class="{'active' : activeIndexCategory === 126}") Все проекты
+      li(class="mt-2" v-for="(link, index) in links" :key="link.prefix")
+        v-chip(@click="setActiveCategory(index, link.projects)" class="link mr-2" :class="{'active' : activeIndexCategory === index}") {{ link.title }}
 </template>
 
 <script>
@@ -51,7 +51,6 @@ export default {
       });
     },
     setActiveCategory(index, array) {
-      // Конечно жесть))
       this.sendPage();
       const showAndSetProjects = () => {
         this.activeIndexCategory = index;
@@ -81,31 +80,31 @@ export default {
           showAndSetProjects();
         }
       }
-      // Жестко))
     },
     getAllProjects() {
       axios
         .get(this.$store.state.api_url + "projects/")
         .then((response) => {
-          response.data.forEach((project) => {
+          for (let i = 0; i < response.data.length; i++) {
+            const project = response.data[i];
             const stacks = [];
             const images = [];
 
-            project.stacks.forEach((stack) => {
-              axios.get(stack).then((response) => {
+            for (let j = 0; j < project.stacks.length; j++) {
+              axios.get(project.stacks[j]).then((response) => {
                 stacks.push(response.data);
               });
-            });
+            }
 
-            project.images.forEach((image) => {
-              axios.get(image).then((response) => {
+            for (let j = 0; j < project.images.length; j++) {
+              axios.get(project.images[j]).then((response) => {
                 images.push(response.data);
               });
-            });
+            }
 
             project.images = images;
             project.stacks = stacks;
-          });
+          }
 
           this.allProjects = response.data;
           this.projectsWithActiveIndexCategory = this.allProjects;
@@ -119,26 +118,33 @@ export default {
       axios
         .get(this.$store.state.api_url + "categories/")
         .then((response) => {
-          response.data.forEach((item) => {
+          for (let i = 0; i < response.data.length; i++) {
+            const item = response.data[i];
             let projectsArray = [];
-            item.projects.forEach((project) => {
+
+            for (let j = 0; j < item.projects.length; j++) {
+              const project = item.projects[j];
               const stacks = [];
               const images = [];
 
               axios
                 .get(project)
                 .then((response) => {
-                  response.data.stacks.forEach((stack) => {
-                    axios.get(stack).then((response) => {
-                      stacks.push(response.data);
-                    });
-                  });
+                  if (Array.isArray(response.data.stacks)) {
+                    for (let k = 0; k < response.data.stacks.length; k++) {
+                      axios.get(response.data.stacks[k]).then((response) => {
+                        stacks.push(response.data);
+                      });
+                    }
+                  }
 
-                  project.images.forEach((image) => {
-                    axios.get(image).then((response) => {
-                      images.push(response.data);
-                    });
-                  });
+                  if (Array.isArray(project.images)) {
+                    for (let k = 0; k < project.images.length; k++) {
+                      axios.get(project.images[k]).then((response) => {
+                        images.push(response.data);
+                      });
+                    }
+                  }
 
                   response.data.images = images;
                   response.data.stacks = stacks;
@@ -147,10 +153,11 @@ export default {
                 .catch((errors) => {
                   console.log(errors);
                 });
-            });
+            }
+
             item.projects = projectsArray;
             this.links.push(item);
-          });
+          }
         })
         .catch((errors) => {
           console.log(errors);
@@ -172,6 +179,10 @@ ul::-webkit-scrollbar {
 
 li {
   list-style: none;
+}
+
+.link {
+  cursor: pointer;
 }
 
 .active {

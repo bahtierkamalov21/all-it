@@ -107,6 +107,7 @@ export default {
 <style scoped lang="scss">
 .header {
   padding-top: 126px;
+  padding-bottom: 4vh !important;
   display: flex;
   justify-content: center;
   align-items: center;

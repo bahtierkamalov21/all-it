@@ -1,6 +1,7 @@
 from .models import Category, Project, ProjectImage, Stack
 from rest_framework import serializers
 
+
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
