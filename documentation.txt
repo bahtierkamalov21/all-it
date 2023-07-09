@@ -1,0 +1,11 @@
+###
+Development server
+----
+To start the development server, you need to follow five steps:
+----
+1. install and configure ngrok
+2. ngrok http 8080 --host-header="localhost:8080"
+3. npm install
+4. npm run lint --fix
+5. npm run serve
+###
