@@ -13,12 +13,14 @@ div
             label="Имя"
             solo
             class="input"
+            type="text"
           )
           v-text-field(
             v-model="last_name" 
             solo
             class="input" 
             label="Фамилия"
+            type="text"
           )
           v-text-field(
             v-model="username" 
@@ -29,6 +31,7 @@ div
             solo
             class="input"
             @input="changeInput"
+            type="text"
           )
           v-text-field(
             v-model="password" 
@@ -36,6 +39,7 @@ div
             label="Пароль"
             solo
             class="input"
+            type="password"
           )
           v-text-field(
             v-model="telegramUsername" 
@@ -45,6 +49,7 @@ div
             :error-messages="errorTelegram"
             :rules="telegramUsernameRules"
             @input="changeInput"
+            type="text"
           )
           v-text-field(
             v-model="email" 
@@ -54,6 +59,7 @@ div
             :error-messages="errorEmail"
             :rules="emailRules"
             @input="changeInput"
+            type="email"
           )
           v-text-field(
             v-model="phone" 
@@ -64,6 +70,7 @@ div
             :error-messages="errorPhone"
             :rules="phoneRules"
             @input="changeInput"
+            type="tel"
           )
           v-btn(
             @click="registration" 

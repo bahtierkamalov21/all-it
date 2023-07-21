@@ -25,6 +25,7 @@ div
             label="Telegram username" 
             class="input"
             prepend-inner-icon="mdi-account"
+            type="text"
           )
           v-text-field(
             :rules="phoneRules"
@@ -35,6 +36,7 @@ div
             class="input"
             prepend-inner-icon="mdi-phone"
             hide-details
+            type="tel"
           )
           v-radio-group(v-model="radios" hide-details required :rules="[v => !!v || '']") 
             v-radio(label="Физическое лицо" value="Физическое лицо")

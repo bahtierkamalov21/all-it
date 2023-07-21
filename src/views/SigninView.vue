@@ -19,6 +19,7 @@ div
                 class="input"
                 :error-messages="error"
                 autocomplete="phone"
+                type="tel"
               )
               v-text-field(
                 v-model="password" 
@@ -29,6 +30,7 @@ div
                 class="input"
                 :error-messages="error"
                 autocomplete="current-password"
+                type="password"
               )
             div(v-else)
               v-text-field(
@@ -40,6 +42,7 @@ div
                 class="input"
                 :error-messages="error"
                 autocomplete="username"
+                type="text"
               )
               v-text-field(
                 v-model="password" 
@@ -50,6 +53,7 @@ div
                 class="input"
                 :error-messages="error"
                 autocomplete="current-password"
+                type="password"
               )
             div(class="text-left mb-4")
               v-btn(

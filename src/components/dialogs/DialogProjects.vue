@@ -13,6 +13,7 @@ div
               :rules="[v => !!v || 'Поле должно быть заполнено']"
               solo 
               label="Заголовок проекта"
+              type="text"
             )
             v-text-field(
               class="input"
@@ -21,6 +22,7 @@ div
               :rules="[v => !!v || 'Поле должно быть заполнено']"
               solo 
               label="Название проекта"
+              type="text"
             )
           div
             v-select(

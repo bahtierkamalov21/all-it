@@ -35,6 +35,7 @@ div
                     v-model="email"
                     :rules="emailRules"
                     :error-messages="errorEmail"
+                    type="email"
                   )
                 v-window-item(:value="2")
                   div(class="font-weight-bold pl-4 text-left") Код отправлен вам на почту
@@ -64,6 +65,7 @@ div
                     class="input"
                     v-model="password"
                     :rules="passwordRules" 
+                    type="password"
                   )
                 v-btn(
                   :disabled="!valid" 
