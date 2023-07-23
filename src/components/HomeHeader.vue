@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  div(class="header")
+  header(class="header")
     div(class="header-wrapper")
       div
       div
