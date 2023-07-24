@@ -67,10 +67,12 @@ export default {
   },
   methods: {
     getProjects(data) {
-      // Очиащем swiper
+      // Очищаем swiper
       this.swiperProjects = null;
+
       // Только завершенные проекты
       this.projects = data.filter((item) => item.complete);
+
       // Инициализируем новый swiper
       this.swiperProjects = new Swiper(".swiper-projects", {
         slidesPerView: 1,
