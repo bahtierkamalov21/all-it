@@ -57,9 +57,9 @@ export default {
   },
   computed: {
     lengthPages() {
-      return this.responded.length % 6 !== 0
-        ? Math.floor(this.responded.length / 6) + 1
-        : Math.floor(this.responded.length / 6);
+      return this.project.length % 6 !== 0
+        ? Math.floor(this.project.length / 6) + 1
+        : Math.floor(this.project.length / 6);
     },
     forProjects() {
       return this.projects.slice(this.sliceStart, this.sliceEnd);
