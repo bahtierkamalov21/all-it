@@ -31,7 +31,6 @@ export default {
       projects: [],
       childrenActive: false,
       page: 1,
-      page_copy: 1,
       sliceStart: 0,
       sliceEnd: 6,
       difference: null,
@@ -44,14 +43,12 @@ export default {
   },
   watch: {
     page() {
-      if (this.page_copy < this.page) {
-        this.sliceEnd = this.sliceEnd * this.page;
-        this.sliceStart = this.sliceStart + 6;
-        this.page_copy = this.page;
+      if (oldValue < newValue) {
+        this.sliceEnd = this.sliceEnd * newValue;
+        this.sliceStart += 6;
       } else {
-        this.sliceEnd = this.sliceEnd / this.page_copy;
-        this.sliceStart = this.sliceStart - 6;
-        this.page_copy = this.page;
+        this.sliceEnd = this.sliceEnd / oldValue;
+        this.sliceStart -= 6;
       }
     },
   },
@@ -60,9 +57,9 @@ export default {
   },
   computed: {
     lengthPages() {
-      if (this.projects.length / 6 < 1 || this.projects.length / 6 > 1) {
-        return Math.floor(this.projects.length / 6) + 1;
-      } else return null;
+      return this.responded.length % 6 !== 0
+        ? Math.floor(this.responded.length / 6) + 1
+        : Math.floor(this.responded.length / 6);
     },
     forProjects() {
       return this.projects.slice(this.sliceStart, this.sliceEnd);
