@@ -1,8 +1,7 @@
 <template lang="pug">
 div(class="main")
   header(class="header pb-12")
-    loading-item(v-if="!projects")
-    div(v-else)
+    div
       v-container
         h1(class="pl-6 mb-2" style="color: #121133;") {{ $t("all") }}
           span(class="text-lowercase mx-2") {{ $t("projects-md") }}
@@ -10,14 +9,17 @@ div(class="main")
           span(class="ml-1" style="font-size: 14px;") Выполнено проектов более 100+
         v-card(class="main-card rounded-xl ma-auto pb-6" max-width="1160")
           div(class="pa-4 navbar")
-            home-projects-navigation(:shadow="true" @sendProjects="getProjects" @sendPage="getPage" checkUrl)
+            home-projects-navigation(:shadow="true" @sendProjects="getProjects" checkUrl)
           div(class="ma-auto pa-6")
-            div(class="d-flex flex-column flex-wrap")
-              home-projects-card(v-for="project in forProjects" :key="project.url" :project="project")
-          v-pagination(circle :length="lengthPages" v-model="page")
+            loading-item(v-if="!projects.length")
+            div(class="d-flex flex-column flex-wrap" v-else)
+              home-projects-card(v-for="project in projects.slice(0, index_slice)" :key="project.url" :project="project")
+          div(class="text-center")
+            v-btn(@click="showMore()" :disabled="disabled" class="text-none" color="primary" rounded elevation="0") Показать ещё
 </template>
 
 <script>
+// Components
 import updateTitle from "@/mixins/updateTitle";
 import HomeProjectsCard from "@/components/HomeProjectsCard";
 import LoadingItem from "@/components/LoadingItem";
@@ -29,10 +31,8 @@ export default {
   data() {
     return {
       projects: [],
+      index_slice: 6,
       childrenActive: false,
-      page: 1,
-      sliceStart: 0,
-      sliceEnd: 6,
       difference: null,
       projectsOnThisPage: null,
     };
@@ -41,42 +41,23 @@ export default {
   mounted() {
     window.scrollTo(0, 0);
   },
-  watch: {
-    page(newValue, oldValue) {
-      if (oldValue < newValue) {
-        this.sliceEnd = this.sliceEnd * newValue;
-        this.sliceStart += 6;
-      } else {
-        this.sliceEnd = this.sliceEnd / oldValue;
-        this.sliceStart -= 6;
-      }
-    },
-  },
   created() {
     this.updateTitle(this.$t("projects-md"));
   },
   computed: {
-    lengthPages() {
-      return this.project.length % 6 !== 0
-        ? Math.floor(this.project.length / 6) + 1
-        : Math.floor(this.project.length / 6);
-    },
-    forProjects() {
-      return this.projects.slice(this.sliceStart, this.sliceEnd);
+    disabled() {
+      if (this.projects) {
+        return this.projects.length < this.index_slice;
+      } else return true;
     },
   },
   methods: {
-    findingProjectsOnThisPage() {
-      this.difference = (this.sliceEnd - this.projects.length) * 1;
-      this.difference < 0 ? (this.difference = -this.difference) : null;
-      this.projectsOnThisPage = this.projects.length - this.difference;
+    showMore() {
+      this.index_slice += 6;
     },
     getProjects(data) {
       // Только завершенные проекты
       data ? (this.projects = data.filter((item) => item.complete)) : null;
-    },
-    getPage(data) {
-      this.page = data;
     },
   },
 };

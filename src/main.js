@@ -43,6 +43,7 @@ library.add(
 );
 
 import exitSystem from "./mixins/exitSystem";
+import "./registerServiceWorker";
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

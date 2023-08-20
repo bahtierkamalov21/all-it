@@ -35,8 +35,14 @@ div
                 v-icon(v-if="item.list" class="icon-list") mdi-chevron-up
               div(v-if="item.list" class="link-list" :class="item.list ? 'mr-2' : null")
                 div
-                  div(class="px-4" style="cursor: pointer;" v-for="list in item.list" @click="pushCategory(list.href)" :key="list.id")
-                    | {{ list.name }}
+                  div(
+                    class="px-4"
+                    style="cursor: pointer;" 
+                    v-for="list in item.list" 
+                    @click="pushCategory(list.href)" 
+                    :key="list.id"
+                  )
+                    | {{ list.href === "projects" ? $t(list.name) : list.name }}
           v-btn(v-if="!$store.state.user" class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
             router-link(class="white--text text-decoration-none" to="/signup") {{ $t("login") }} / {{ $t("signup") }}
           v-btn(v-else class="text-capitalize font-weight-bold ml-4" elevation="0" rounded color="costumBlue")
@@ -64,7 +70,12 @@ export default {
         {
           name: "projects-md",
           href: "#projects",
-          list: [],
+          list: [
+            {
+              name: "all_projects",
+              href: "projects",
+            },
+          ],
         },
         {
           name: "about-company",
@@ -111,12 +122,16 @@ export default {
       this.sheetOpen = callback;
     },
     pushCategory(href) {
-      this.$route.params.slug === href
-        ? null
-        : this.$router.push({
-            name: "projectsCategory",
-            params: { slug: href },
-          });
+      if (href === "projects") {
+        this.$router.push("/projects");
+      } else {
+        this.$route.params.slug === href
+          ? null
+          : this.$router.push({
+              name: "projectsCategory",
+              params: { slug: href },
+            });
+      }
     },
   },
 };

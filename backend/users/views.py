@@ -1,5 +1,5 @@
-from rest_framework import viewsets, permissions
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from .models import CustomUser, UserReview, PopularReview
@@ -15,7 +15,7 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     """
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [AllowAny]
 
 class UserReviewViewSet(viewsets.ModelViewSet):
     """
@@ -23,7 +23,7 @@ class UserReviewViewSet(viewsets.ModelViewSet):
     """
     queryset = UserReview.objects.all()
     serializer_class = UserReviewSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class PopularReviewViewSet(viewsets.ModelViewSet):
     """
