@@ -53,6 +53,8 @@ function getUserData() {
   if (localStorage.getItem("user")) {
     const decoded = JSON.parse(localStorage.getItem("decoded"));
 
+    !decoded ? exitSystem.methods.exitSystem({ reload: true }) : null;
+
     axios
       .get(store.state.api_url + `users/${decoded.user_id}/`)
       .then((response) => {

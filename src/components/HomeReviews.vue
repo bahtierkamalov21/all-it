@@ -70,22 +70,31 @@ export default {
   components: { HomeReviewsWarning },
   computed: {
     disabledPrevSlide() {
-      return this.swiperReviews ? this.swiperReviews.activeIndex === 0 : null;
+      if (this.swiperReviews) {
+        if (this.swiperReviews.slides.length) {
+          return this.swiperReviews.activeIndex === 0 ? true : false;
+        } else return true;
+      } else return true;
     },
     disabledNextSlide() {
       if (this.swiperReviews) {
-        return this.swiperReviews.activeIndex ===
-          this.swiperReviews.slides.length - 1
-          ? true
-          : false;
-      } else return null;
+        if (this.swiperReviews.slides.length) {
+          return this.swiperReviews.activeIndex ===
+            this.swiperReviews.slides.length - 1
+            ? true
+            : false;
+        } else return true;
+      } else return true;
     },
   },
   created() {
     this.getReviews();
   },
   mounted() {
-    this.swiperReviews = new Swiper(".swiper-reviews");
+    setTimeout(() => {
+      this.swiperReviews = new Swiper(".swiper-reviews");
+      console.log(this.swiperReviews);
+    }, 20);
   },
   methods: {
     async getReviews() {

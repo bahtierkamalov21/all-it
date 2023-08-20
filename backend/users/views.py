@@ -23,7 +23,7 @@ class UserReviewViewSet(viewsets.ModelViewSet):
     """
     queryset = UserReview.objects.all()
     serializer_class = UserReviewSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class PopularReviewViewSet(viewsets.ModelViewSet):
     """

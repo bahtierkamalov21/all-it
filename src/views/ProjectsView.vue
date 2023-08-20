@@ -42,7 +42,7 @@ export default {
     window.scrollTo(0, 0);
   },
   watch: {
-    page() {
+    page(newValue, oldValue) {
       if (oldValue < newValue) {
         this.sliceEnd = this.sliceEnd * newValue;
         this.sliceStart += 6;

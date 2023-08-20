@@ -1,6 +1,6 @@
 from .models import Category, Project, ProjectImage, Stack
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import CategorySerializer, ProjectSerializer, ProjectImageSerializer, StackSerializer
@@ -12,7 +12,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class ProjectViewSet(viewsets.ModelViewSet):
     """
@@ -20,7 +20,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class StackViewSet(viewsets.ModelViewSet):
     """
@@ -28,7 +28,7 @@ class StackViewSet(viewsets.ModelViewSet):
     """
     queryset = Stack.objects.all()
     serializer_class = StackSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class ProjectImageViewSet(viewsets.ModelViewSet):
     """
@@ -36,10 +36,10 @@ class ProjectImageViewSet(viewsets.ModelViewSet):
     """
     queryset = ProjectImage.objects.all()
     serializer_class = ProjectImageSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 @api_view(["GET"])
-@permission_classes((AllowAny, ))
+@permission_classes((IsAuthenticatedOrReadOnly, ))
 def getProjectsUser(request):
     user_id = request.GET.get("user_id")
     projects = Project.objects.filter(fk_user=user_id)
@@ -47,7 +47,7 @@ def getProjectsUser(request):
     return Response(serializer.data, status=200)
 
 @api_view(["GET"])
-@permission_classes((AllowAny, ))
+@permission_classes((IsAuthenticatedOrReadOnly, ))
 def getProjectSlug(request):
     link_path = request.GET.get("link_path")
     project = Project.objects.get(link_path=link_path)
